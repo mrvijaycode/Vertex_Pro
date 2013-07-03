@@ -33,6 +33,8 @@ $(document).ready(function () {
 		listName : "SourcingPlan",
 		CAMLQuery : sQuery,
 		completefunc : function (xData, Status) {
+
+			debugger
 			$(xData.responseXML).SPFilterNode("z:row").each(function () {
 				var PlanId = $(this).attr('ows_ID');
 				var SrcPlan = $(this).attr('ows_SourcingPlan');
@@ -40,16 +42,23 @@ $(document).ready(function () {
 				if (planStatus == null || planStatus == undefined)
 					planStatus = '';
 
-				var date = $(this).attr('ows_S_SiteBuyer1_UpManager_ClusterLe0');
+				var estimatedCost = $(this).attr('ows_Total_Estimated_Cost');
 
-				
+				var date = "";
+				if (estimatedCost < 5000000) {
+					date = $(this).attr('ows_S_SiteBuyer1_UpManager_ClusterLe0');
+				} else if (estimatedCost >= 5000000 && estimatedCost < 10000000) {
+					date = $(this).attr('ows_S_CapitalPurchasesPGM_Date');
+				} else {
+					date = $(this).attr('ows_S_CapitalPurchasesAD_Date');
+				}
+
 				if (date == null || date == undefined) {
 					date = '';
 				} else {
 					date = reformDate(date);
 				}
-				
-				
+
 				strContents += '<tr><td class="ms-vb2" vAlign="top"><input type="radio" name="dynradio" id="btnRadio" onclick="javascript:getSpendingItem(&quot;' + PlanId + '&quot;)"; /></td><td class="ms-vb2">' + SrcPlan + '</td><td class="ms-vb2">' + planStatus + '</td><td class="ms-vb2">' + date + '</td>';
 				strContents += '<td class="ms-vb2" vAlign="top"><a href="http://teamspace.pg.com/sites/sourcingplanmanager/capitalsrc/Lists/SourcingPlan/EditSourcingPlan.aspx?ID=' + PlanId + '&Source=http://teamspace.pg.com/sites/sourcingplanmanager/capitalsrc/Site%20Pages/MyPlan.aspx">Edit</a></td>';
 				strContents += '<td class="ms-vb2" vAlign="top"><a href="http://teamspace.pg.com/sites/sourcingplanmanager/capitalsrc/WPPages/MyPlanItems.aspx?SId=' + PlanId + '&Source=http://teamspace.pg.com/sites/sourcingplanmanager/capitalsrc/Site%20Pages/MyPlan.aspx">View</a></td>';
@@ -82,14 +91,14 @@ function reformDate(date) {
 // Function to get spending items
 var xml = '';
 var rowlength = '';
-var sourceId="";
+var sourceId = "";
 function getSpendingItem(PoolId) {
 	sourceId = PoolId;
 	$('#tblSpendingItem').html("");
 	var strTable = '<table id="myTasks" width="100%" class="tablesorter"  border="0" cellSpacing="0" cellPadding="5" ><THEAD>';
 	strTable += '<tr id="trSpend" vAlign="top"><th width="15%">Spending Pool</th><th width="10%">Material Code</th><th width="10%">Sourcing Timing</th><th width="10%">Buyer / Spend Pool Owner</th><th width="10%" align="center">Status</th><th width="10%"></th></tr></THEAD>';
 
-//	var spendItemID = PoolId;
+	//	var spendItemID = PoolId;
 	var spedQuery = '<Query><Where><Eq><FieldRef Name="Title" /><Value Type="Text">' + PoolId + '</Value></Eq></Where></Query>';
 	$().SPServices({
 		operation : "GetListItems",
