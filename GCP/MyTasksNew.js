@@ -18,9 +18,7 @@ var loginUser = $().SPServices.SPGetCurrentUser({
 $(document).ready(function () {
 
 	$('#tdWelcome').text('Welcome ' + loginUser);
-	//debugger
-	//$('#Image7').append("<IMG src='http://teamspace.pg.com/sites/sourcingplanmanager/capitalsrc/images/MasterPage Images/my_tasks_hover_btn.jpg'>");
-
+	
 	var query = "<Query><Where><Eq><FieldRef Name='Buyer_SpendPoolOwner'/><Value Type='User'>" + loginUser + "</Value></Eq></Where></Query>";
 	$().SPServices({
 		operation : "GetListItems",
@@ -62,13 +60,31 @@ function appendSourcingPlans(resXML) {
 			if (strSourcePlan.indexOf(sourcePlan) == -1) {
 				//var status = $(this).attr("ows_Status");
 				var status = $(this).attr("ows_Title");
+				var planStatus = status//$(this).attr('ows_LinkTitle');
 				if (status == null || status == undefined)
 					status = '';
-				var date = $(this).attr('ows_S_SiteBuyer1_UpManager_ClusterLe0');
-				if (date == null || date == undefined)
+				
+				var estimatedCost = $(this).attr('ows_Total_Estimated_Cost');
+
+				var date = "";
+				if (estimatedCost < 5000000) {
+					date = $(this).attr('ows_S_SiteBuyer1_UpManager_ClusterLe0');
+				} else if (estimatedCost >= 5000000 && estimatedCost < 10000000) {
+					date = $(this).attr('ows_S_CapitalPurchasesPGM_Date');
+				} else {
+					date = $(this).attr('ows_S_CapitalPurchasesAD_Date');
+				}
+
+				if (date == null || date == undefined) {
 					date = '';
-				else
+				} else {
 					date = reformDate(date);
+				}
+
+				if (planStatus == "Pending" || planStatus == "") {
+					date = "";
+				}
+								
 				strSourcePlan += sourcePlan + "~";
 				sourceTable += '<tr><td vAlign="top"><input type="radio" name="dynradio" id="btnRadio" onclick="javascript:getPools(&quot;' + splID + '&quot;)"; /></td><td>' + sourcePlan + '</td><td>' + status + '</td><td>' + date + '</td>';
 				sourceTable += '</tr>';
@@ -156,12 +172,11 @@ function getData(title) {
 					poolTable += '<td class="ms-vb2">' + buildPurpose(purchasingProcess, i) + '<label id="lblPurProcess' + i + '">' + purchasingProcess + '</label></td>';
 					poolTable += '<td class="ms-vb2"><input type="text" id="txtSpecAvaDate' + i + '" value="' + specAvailableDate + '" style="display:none"><label id="lblSpecAvaDate' + i + '">' + specAvailableDate + '</label></td>';
 					poolTable += '<td class="ms-vb2"><textarea  rows=3 cols=10 id="txtComments' + i + '"  style="display:none">' + comments + '</textarea><label id="lblComments' + i + '">' + comments + '</label></td>';
-					
-					
+
 					poolTable += '<td valign="top"><img alt="Edit" id="editID' + i + '" src="/_layouts/images/edititem.gif" border="0" onclick="goEdit(' + i + ');" alt="" /></td>';
-					
+
 					poolTable += '<td valign="top"><img style="display:none;width:25px;" alt="Update" src="http://teamspace.pg.com/sites/sourcingplanmanager/capitalsrc/images/system-software-update.png" border="0"  id="btnUpdate' + i + '"   onclick="updateItem(&quot;' + curID + '&quot;,' + i + ')" value="Update"><img style="display:none;width:24px;" alt="Cancel" src="http://teamspace.pg.com/sites/sourcingplanmanager/capitalsrc/images/Cancel-icon.png" border="0"  id="btnCancel' + i + '" onclick="goEdit(' + i + ');" value="Cancel"></td>';
-					
+
 					poolTable += '<td class="ms-vb2" valign="top"><a href="http://teamspace.pg.com/sites/sourcingplanmanager/capitalsrc/Lists/SourcingPlanItems/EditSourcingPlanItems.aspx?ID=' + curID + '&Source=http://teamspace.pg.com/sites/sourcingplanmanager/capitalsrc/Site%20Pages/MyTasks.aspx">Edit</a></td></tr>'; // Added 6/18/13 by chinna
 				});
 			}
@@ -283,28 +298,27 @@ function afterUpdate(idOfItem, num) {
 						var purProcess = $(this).attr("ows_PurchasingProcess");
 					else
 						var purProcess = "";
-
 					if ($(this).attr("ows_SpecificationAvailableDate") != null) {
 						var SpecAvaDate = $(this).attr("ows_SpecificationAvailableDate");
 						SpecAvaDate = reformDate(SpecAvaDate);
-					}
-					var SpecAvaDate = "";
+					} else
+						var SpecAvaDate = "";
 
 					if ($(this).attr("ows_Notes") != null)
 						var comments = $(this).attr("ows_Notes");
 					else
 						var comments = "";
 
-				updatelbls("selStatus","lblStatus",SPstatus,num);
-				updatelbls("txtSupplier","lblSupplier",supplier,num);
-				updatelbls("selPurProcess","lblPurProcess",purProcess,num);
-				updatelbls("txtSpecAvaDate","lblSpecAvaDate",SpecAvaDate,num);
-				updatelbls("txtComments","lblComments",comments,num);
-				
-				$('#editID' + num + '').show();
-				$('#btnUpdate' + num + '').hide();
-				$('#btnCancel' + num + '').hide();
-				
+					updatelbls("selStatus", "lblStatus", SPstatus, num);
+					updatelbls("txtSupplier", "lblSupplier", supplier, num);
+					updatelbls("selPurProcess", "lblPurProcess", purProcess, num);
+					updatelbls("txtSpecAvaDate", "lblSpecAvaDate", SpecAvaDate, num);
+					updatelbls("txtComments", "lblComments", comments, num);
+
+					$('#editID' + num + '').show();
+					$('#btnUpdate' + num + '').hide();
+					$('#btnCancel' + num + '').hide();
+
 				});
 			} else {
 				alert(xData.status);
@@ -313,8 +327,7 @@ function afterUpdate(idOfItem, num) {
 	});
 }
 
-
-function updatelbls(id1, id2,val,num) {
+function updatelbls(id1, id2, val, num) {
 	$("#" + id1 + num + "").hide(function () {
 		$("#" + id2 + num + "").show(function () {
 			$(this).text(val);
