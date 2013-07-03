@@ -230,6 +230,7 @@ function buildPurpose(strVal, num) {
 
 /// updating selected item
 function updateItem(idOfItem, num) {
+	debugger
 	var status = $("#selStatus" + num + "").val(); //.val();
 	var supplier = $("#txtSupplier" + num + "").val();
 	var purProcess = $("#selPurProcess" + num + "").val();
@@ -244,9 +245,90 @@ function updateItem(idOfItem, num) {
 		valuepairs : [["Notes", comments], ["Status", status], ["Supplier", supplier], ["PurchasingProcess", purProcess], ["SpecificationAvailableDate", SpecAvaDate]],
 		completefunc : function (xData, Status) {
 			if (Status)
-				getPools(clickID);
+				//getPools(clickID);
+				afterUpdate(idOfItem, num);
 		}
 	});
+}
+
+function afterUpdate(idOfItem, num) {
+	$().SPServices({
+		operation : "GetListItems", //Method name
+		async : false,
+		//webURL : webUrl,//pass webUrl dynamically
+		listName : spendPoolListName, // List Name
+		//CAMLQueryOptions : "<QueryOptions><IncludeAttachmentUrls>TRUE</IncludeAttachmentUrls></QueryOptions>",
+		//CAMLViewFields : "<ViewFields><FieldRef Name='Title' /></ViewFields>",
+		CAMLQuery : '<Query><Where><Eq><FieldRef Name="ID" /><Value Type="Counter">' + idOfItem + '</Value></Eq></Where></Query>',
+		//CAMLRowLimit : 1,
+		completefunc : function (xData, Status) {
+
+			alert(xData.responseText);
+
+			if (xData.status == 200) {
+				$(xData.responseXML).SPFilterNode("z:row").each(function () {
+
+					if ($(this).attr("ows_Status") != null)
+						var SPstatus = $(this).attr("ows_Status");
+					else
+						var SPstatus = "";
+
+					if ($(this).attr("ows_Supplier") != null)
+						var supplier = $(this).attr("ows_Supplier");
+					else
+						var supplier = "";
+
+					if ($(this).attr("ows_PurchasingProcess") != null)
+						var purProcess = $(this).attr("ows_PurchasingProcess");
+					else
+						var purProcess = "";
+
+					if ($(this).attr("ows_SpecificationAvailableDate") != null) {
+						var SpecAvaDate = $(this).attr("ows_SpecificationAvailableDate");
+						SpecAvaDate = reformDate(SpecAvaDate);
+					}
+					var SpecAvaDate = "";
+
+					if ($(this).attr("ows_Notes") != null)
+						var comments = $(this).attr("ows_Notes");
+					else
+						var comments = "";
+/*
+					$("#selStatus" + num + "").hide(function () {
+						$("#lblStatus" + num + "").show(function () {
+							$(this).text(status);
+						});
+					});
+
+					$("#txtSupplier" + num + "").hide(function () {
+						$("#lblStatus" + num + "").show(function () {
+							$(this).text(status);
+						});
+					});
+*/
+				updatelbls("selStatus","lblStatus",SPstatus,num);
+				updatelbls("txtSupplier","lblSupplier",supplier,num);
+				updatelbls("selPurProcess","lblPurProcess",purProcess,num);
+				updatelbls("txtSpecAvaDate","lblSpecAvaDate",SpecAvaDate,num);
+				updatelbls("txtComments","lblComments",comments,num);
+				
+				
+				});
+			} else {
+				alert(xData.status);
+			}
+		}
+	});
+}
+
+
+function updatelbls(id1, id2,val,num) {
+	$("#" + id1 + num + "").hide(function () {
+		$("#" + id2 + num + "").show(function () {
+			$(this).text(val);
+		});
+	});
+
 }
 
 function goEdit(num) {
