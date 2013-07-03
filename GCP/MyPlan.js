@@ -34,7 +34,7 @@ $(document).ready(function () {
 		CAMLQuery : sQuery,
 		completefunc : function (xData, Status) {
 
-			debugger
+			//debugger
 			$(xData.responseXML).SPFilterNode("z:row").each(function () {
 				var PlanId = $(this).attr('ows_ID');
 				var SrcPlan = $(this).attr('ows_SourcingPlan');
@@ -57,6 +57,10 @@ $(document).ready(function () {
 					date = '';
 				} else {
 					date = reformDate(date);
+				}
+
+				if (planStatus == "Pending" || planStatus == "") {
+					date = "";
 				}
 
 				strContents += '<tr><td class="ms-vb2" vAlign="top"><input type="radio" name="dynradio" id="btnRadio" onclick="javascript:getSpendingItem(&quot;' + PlanId + '&quot;)"; /></td><td class="ms-vb2">' + SrcPlan + '</td><td class="ms-vb2">' + planStatus + '</td><td class="ms-vb2">' + date + '</td>';
