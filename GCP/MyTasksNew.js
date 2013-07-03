@@ -156,11 +156,12 @@ function getData(title) {
 					poolTable += '<td class="ms-vb2">' + buildPurpose(purchasingProcess, i) + '<label id="lblPurProcess' + i + '">' + purchasingProcess + '</label></td>';
 					poolTable += '<td class="ms-vb2"><input type="text" id="txtSpecAvaDate' + i + '" value="' + specAvailableDate + '" style="display:none"><label id="lblSpecAvaDate' + i + '">' + specAvailableDate + '</label></td>';
 					poolTable += '<td class="ms-vb2"><textarea  rows=3 cols=10 id="txtComments' + i + '"  style="display:none">' + comments + '</textarea><label id="lblComments' + i + '">' + comments + '</label></td>';
-					//poolTable += '<td><img src="http://teamspace.pg.com/sites/sourcingplanmanager/capitalsrc/Site Pages/updatebtn.jpg" onclick="goEdit(' + i + ');" alt="" /></td>';
+					
+					
 					poolTable += '<td valign="top"><img alt="Edit" id="editID' + i + '" src="/_layouts/images/edititem.gif" border="0" onclick="goEdit(' + i + ');" alt="" /></td>';
-					//poolTable += '<td ><input type="button"  id="btnUpdate' + i + '" disabled="disabled" onclick="updateItem(&quot;' + curID + '&quot;,' + i + ')" value="Update"></td>';
-					poolTable += '<td valign="top"><img style="display:none" alt="Update" src="http://teamspace.pg.com/sites/sourcingplanmanager/capitalsrc/Site Pages/updatebtn.jpg" border="0"  id="btnUpdate' + i + '"   onclick="updateItem(&quot;' + curID + '&quot;,' + i + ')" value="Update"><img style="display:none" alt="Cancel" src="/_layouts/images/delitem.gif" border="0"  id="btnCancel' + i + '" onclick="goEdit(' + i + ');" value="Cancel"></td>';
-					//poolTable += '<td><img style="display:none" alt="Cancel" src="/_layouts/images/delitem.gif" border="0"  id="btnCancel' + i + '"   onclick="updateItem(&quot;' + curID + '&quot;,' + i + ')" value="Update"></td>';
+					
+					poolTable += '<td valign="top"><img style="display:none;width:25px;" alt="Update" src="http://teamspace.pg.com/sites/sourcingplanmanager/capitalsrc/images/system-software-update.png" border="0"  id="btnUpdate' + i + '"   onclick="updateItem(&quot;' + curID + '&quot;,' + i + ')" value="Update"><img style="display:none;width:24px;" alt="Cancel" src="http://teamspace.pg.com/sites/sourcingplanmanager/capitalsrc/images/Cancel-icon.png" border="0"  id="btnCancel' + i + '" onclick="goEdit(' + i + ');" value="Cancel"></td>';
+					
 					poolTable += '<td class="ms-vb2" valign="top"><a href="http://teamspace.pg.com/sites/sourcingplanmanager/capitalsrc/Lists/SourcingPlanItems/EditSourcingPlanItems.aspx?ID=' + curID + '&Source=http://teamspace.pg.com/sites/sourcingplanmanager/capitalsrc/Site%20Pages/MyTasks.aspx">Edit</a></td></tr>'; // Added 6/18/13 by chinna
 				});
 			}
@@ -230,7 +231,7 @@ function buildPurpose(strVal, num) {
 
 /// updating selected item
 function updateItem(idOfItem, num) {
-	debugger
+	//debugger
 	var status = $("#selStatus" + num + "").val(); //.val();
 	var supplier = $("#txtSupplier" + num + "").val();
 	var purProcess = $("#selPurProcess" + num + "").val();
@@ -263,7 +264,7 @@ function afterUpdate(idOfItem, num) {
 		//CAMLRowLimit : 1,
 		completefunc : function (xData, Status) {
 
-			alert(xData.responseText);
+			//alert(xData.responseText);
 
 			if (xData.status == 200) {
 				$(xData.responseXML).SPFilterNode("z:row").each(function () {
@@ -293,25 +294,16 @@ function afterUpdate(idOfItem, num) {
 						var comments = $(this).attr("ows_Notes");
 					else
 						var comments = "";
-/*
-					$("#selStatus" + num + "").hide(function () {
-						$("#lblStatus" + num + "").show(function () {
-							$(this).text(status);
-						});
-					});
 
-					$("#txtSupplier" + num + "").hide(function () {
-						$("#lblStatus" + num + "").show(function () {
-							$(this).text(status);
-						});
-					});
-*/
 				updatelbls("selStatus","lblStatus",SPstatus,num);
 				updatelbls("txtSupplier","lblSupplier",supplier,num);
 				updatelbls("selPurProcess","lblPurProcess",purProcess,num);
 				updatelbls("txtSpecAvaDate","lblSpecAvaDate",SpecAvaDate,num);
 				updatelbls("txtComments","lblComments",comments,num);
 				
+				$('#editID' + num + '').show();
+				$('#btnUpdate' + num + '').hide();
+				$('#btnCancel' + num + '').hide();
 				
 				});
 			} else {
