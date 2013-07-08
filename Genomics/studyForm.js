@@ -1104,7 +1104,6 @@ function contentLoad(itmid) {
 									divToggle(DIV_MILESTONES, SHOW);
 									
 									if ($(this).attr("ows_M1_Anticipated_Samples") != null) {
-										//if ($(this).attr("ows_Author").split(";#")[0] == getuserId(curUser)) {
 										if ($(this).attr("ows_GC_x0020_Analyst").split(";#")[0] == getuserId(curUser)) {
 											divToggle(DIV_BU, SHOW);
 											divToggle(DIV_BUGC_BUTTONS, SHOW);
@@ -1113,7 +1112,6 @@ function contentLoad(itmid) {
 									}
 								}
 								// Changed based on UAT request
-								//		if ($(this).attr("ows_Author").split(";#")[0] == getuserId(curUser)) {
 								if ($(this).attr("ows_GC_x0020_Analyst").split(";#")[0] == getuserId(curUser)) {
 									divToggle(DIV_REQUEST_STUDY, SHOW);
 									
@@ -1206,7 +1204,7 @@ function contentLoad(itmid) {
 									divToggle(DIV_GC, SHOW);
 									divToggle(DIV_BUGC_BUTTONS, SHOW);
 									
-									var idsArray = ["selRNA", "txtM2aDate", "M2cDate", "M2dDate", "txtCommentsM2a", "selM2Reason", "selM2cReason", "selM2dReason"];
+									var idsArray = ["selRNA", "txtM2aDate", "M2cDate", "M2dDate", "selM2Reason", "selM2cReason", "selM2dReason"];
 									//alert(idsArray.length)
 									for (var i = 0; i < idsArray.length; i++) {
 										$("#" + idsArray[i]).attr("disabled", true);
@@ -1250,7 +1248,7 @@ function contentLoad(itmid) {
 									divToggle(DIV_GC, SHOW);
 									divToggle(DIV_BUGC_BUTTONS, SHOW);
 									
-									var idsArray = ["selRNA", "txtM2aDate", "M2bDate", "M2dDate", "txtCommentsM2a", "selM2Reason", "selM2bReason", "selM2dReason"];
+									var idsArray = ["selRNA", "txtM2aDate", "M2bDate", "M2dDate", "selM2Reason", "selM2bReason", "selM2dReason"];
 									//alert(idsArray.length)
 									for (var i = 0; i < idsArray.length; i++) {
 										$("#" + idsArray[i]).attr("disabled", true);
@@ -2178,6 +2176,7 @@ function submitstudyDetails() {
 		}
 		
 		strBatch += "<Field Name='Comments_m2d'>" + CorrectStringAsSPData(txtCommentsM2d) + "</Field>";
+		strBatch += "<Field Name='Comments_M2a'>" + CorrectStringAsSPData(txtCommentsM2a) + "</Field>";
 		
 		if (needReason && selM2bReason == 0) {
 			alert('Please select reason');
@@ -2215,6 +2214,7 @@ function submitstudyDetails() {
 		}
 		
 		strBatch += "<Field Name='Comments_m2d'>" + CorrectStringAsSPData(txtCommentsM2d) + "</Field>";
+		strBatch += "<Field Name='Comments_M2a'>" + CorrectStringAsSPData(txtCommentsM2a) + "</Field>";
 		
 		if (needReason && selM2cReason == 0) {
 			alert('Please select reason');
@@ -2252,6 +2252,7 @@ function submitstudyDetails() {
 		}
 		
 		strBatch += "<Field Name='Comments_m2d'>" + CorrectStringAsSPData(txtCommentsM2d) + "</Field>";
+		strBatch += "<Field Name='Comments_M2a'>" + CorrectStringAsSPData(txtCommentsM2a) + "</Field>";
 		
 		if (needReason && selM2dReason == 0) {
 			alert('Please select reason');
