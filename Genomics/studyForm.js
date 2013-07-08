@@ -1291,7 +1291,7 @@ function contentLoad(itmid) {
 									divToggle(DIV_GC, SHOW);
 									divToggle(DIV_BUGC_BUTTONS, SHOW);
 									
-									var idsArray = ["selRNA", "txtM2aDate", "M2bDate", "M2cDate", "txtCommentsM2a", "selM2Reason", "selM2bReason", "selM2cReason"];
+									var idsArray = ["selRNA", "txtM2aDate", "M2bDate", "M2cDate", "selM2Reason", "selM2bReason", "selM2cReason"];
 									//alert(idsArray.length)
 									for (var i = 0; i < idsArray.length; i++) {
 										$("#" + idsArray[i]).attr("disabled", true);
@@ -1338,6 +1338,9 @@ function contentLoad(itmid) {
 									divToggle(DIV_REQUEST_STUDY, SHOW);
 									divToggle(DIV_STUDY_INFORMATION, SHOW);
 									divToggle(DIV_MILESTONES, SHOW);
+									$('#txtCommentsM2a').attr("disabled", false)
+									$('#txtCommentsM2d').attr("disabled", false)
+									$('#btnBuGc').show();
 								}
 								
 								if ($(this).attr("ows_Statistics_x0020_Owner").split(";#")[0] == getuserId(curUser)) {
