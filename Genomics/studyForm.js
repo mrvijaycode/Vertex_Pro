@@ -1366,12 +1366,12 @@ function contentLoad(itmid) {
 									GeneralDiv(3);
 								reloadValidations();
 								break;
-								
+
 							case STEPM3A:
 								hideAll();
-																
+
 								GenomicUserId = $(this).attr("ows_GC_x0020_Analyst").split(";#")[0];
-							
+
 								if ($(this).attr("ows_GC_x0020_Analyst").split(";#")[0] == getuserId(curUser)) {
 
 									divToggle(DIV_REQUEST_STUDY, SHOW);
@@ -1431,10 +1431,18 @@ function contentLoad(itmid) {
 									$(this).hide();
 								})
 
+								GenomicUserId = $(this).attr("ows_GC_x0020_Analyst").split(";#")[0];
 								if ($(this).attr("ows_GC_x0020_Analyst").split(";#")[0] == getuserId(curUser)) {
 									divToggle(DIV_REQUEST_STUDY, SHOW);
 									divToggle(DIV_STUDY_INFORMATION, SHOW);
 									divToggle(DIV_MILESTONES, SHOW);
+
+									$('#txtCommentsM2a').attr("disabled", false);
+									$('#txtCommentsM2d').attr("disabled", false);
+									$('#btnBuGc').parent().parent().show();
+									$('#btnBuGc').show();
+									$('#txtComments3b').attr("disabled", false);
+									$('#btnStatistics').show();
 								}
 
 								if ($(this).attr("ows_Bio_x0020_Informatics_x0020_Owne").split(";#")[0] == getuserId(curUser)) {
@@ -2308,8 +2316,6 @@ function submitStatistics() {
 		"<Method ID='1' Cmd='Update'>";
 
 	var txtComments3b = CorrectStringAsSPData($('#txtComments3b').val());
-
-	debugger
 	if (GenomicUserId != getuserId(curUser)) {
 
 		if ($('#M3aDate').val() != "")
