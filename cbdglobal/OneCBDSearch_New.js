@@ -425,7 +425,7 @@ if(Position!='Next')
  
  //json
  var spfiles = [
-{ "firstName" : "John" , "lastName" : "Doe" }, 
+{ "itmid" : "---" , "itmTitle" : "---", "itmLinkTitle" : "---", "itmColleges" : "---", "itmFormat1" : "---","itmObjective" : "---", "itmLinkForTraining" : "---", "itmTraining" : "---", "itmCategories" : "---", "itmRole" : "---", }, 
 { "firstName" : "Anna" , "lastName" : "Smith" }, 
 { "firstName" : "Peter" , "lastName" : "Jones" } ];
  
@@ -440,9 +440,20 @@ if(Position!='Next')
 			if (xData.status == 200) {
 				totalItems = $(xData.responseXML).SPFilterNode("rs:data").attr('ItemCount');
 				
-				$(xData.responseXML).SPFilterNode("z:row").each(function () {
+				$(xData.responseXML).SPFilterNode("z:row").each(function (i) {
 
 					//var keyMeasure = $(this).attr("ows_Key_x0020_Measure");
+					
+					spfiles[i].itmid="";
+					spfiles[i].itmTitle="";
+					spfiles[i].itmLinkTitle="";
+					spfiles[i].itmColleges="";
+					spfiles[i].itmFormat1="";
+					spfiles[i].itmObjective="";
+					spfiles[i].itmLinkForTraining="";
+					spfiles[i].itmTraining="";
+					spfiles[i].itmCategories="";
+					spfiles[i].itmRole="";
 
 				});
 				
