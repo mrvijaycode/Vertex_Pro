@@ -11,24 +11,24 @@
 //---Configuration Variables ---
 
 
-var trainigID=0;
-var siteurl="http://teamspace.pg.com/sites/cbdglobal";
+var trainigID = 0;
+var siteurl = "http://teamspace.pg.com/sites/cbdglobal";
 var oLists = new SPAPI_Lists(siteurl);
-var oRolesList="CBD Learning Resources Roles";
-var oCategoriesList="CBD Learning Resources Power";
-var oTrainingTypesList="CBD Learning Resources Categories";//CBD Learning Resources Categories
-var oTrainingsList="CBD Learning Resources";
+var oRolesList = "CBD Learning Resources Roles";
+var oCategoriesList = "CBD Learning Resources Power";
+var oTrainingTypesList = "CBD Learning Resources Categories";//CBD Learning Resources Categories
+var oTrainingsList = "CBD Learning Resources";
 
 //--Global Variable---
 var varRole;
-var viewRole; 
+var viewRole;
 var varRoleRows;
-var strRole="";
+var strRole = "";
 var valueRole;
 var valueRole1;
 
 var varTrainingType;
-var viewTrainingType; 
+var viewTrainingType;
 var varTrainingTypeRows;
 var strTrainingType="";
 var valueTrainingType;
@@ -52,7 +52,7 @@ var MaxID=0;
 var leastID=0;
 var actualCount=0;
 var searchQuery='';
-var TrainingTitle="All Learning Resources"
+var TrainingTitle="All Learning Resources";
 
 $(document).ready(function(){
 
@@ -61,9 +61,8 @@ $(document).ready(function(){
      drpCBDSubject();
      //drpTrainingType();
     drpCategories();
-	 searchResults('Next',trainigID,'');
-	 GetMaxId();
-	 
+	searchResults('Next',trainigID,'');
+	GetMaxId();
 	 $('#btnSearch').click(function(){
 TrainingTitle="All Learning Resources";
 		 $('#selRole').get(0).selectedIndex=0;
@@ -270,6 +269,7 @@ var qry1 = "<Query><OrderBy><FieldRef Name='ID' Ascending='True' /></OrderBy><Wh
  //---Summary---
  function GenerateQuery(Position,currID)
  {
+	 debugger
  	var QueryBeginPart="";
   //  var QueryMiddlePart="";
     var QueryEndPart="";
@@ -325,10 +325,10 @@ var qry1 = "<Query><OrderBy><FieldRef Name='ID' Ascending='True' /></OrderBy><Wh
 	else
 	{
 	 	if(Position=='Previous')
-	var Query="<Query><OrderBy><FieldRef Name='ID' Ascending='False'  /></OrderBy><Where><Lt><FieldRef Name='ID' /><Value Type='Counter'>"+currID+"</Value></Lt></Where></Query>";
+	var Query="<Query><OrderBy><FieldRef Name='LinkForTraining'/></OrderBy><Where><Lt><FieldRef Name='ID' /><Value Type='Counter'>"+currID+"</Value></Lt></Where></Query>";
 	
 	 	else if(Position=='Next')
-	 		var Query="<Query><Where><Gt><FieldRef Name='ID' /><Value Type='Counter'>"+currID+"</Value></Gt></Where></Query>";
+	 		var Query="<Query><OrderBy><FieldRef Name='LinkForTraining'/></OrderBy><Where><Gt><FieldRef Name='ID' /><Value Type='Counter'>"+currID+"</Value></Gt></Where></Query>";
 	}
 
 
@@ -384,37 +384,28 @@ var listNextPos;
 var strtID;
 var endID;
 var Fullcount=0;
+
+
  function searchResults(Position,currID,SeldrpID)
  {
-
-
-	
     if(SeldrpID == 'Power')
 		{
-		    //$('#selCategories').get(0).selectedIndex=0;
-			 //$('#selRole').get(0).selectedIndex=0;
 		     $('#selSubRole').get(0).selectedIndex=0;
 		     $('#selRRole').get(0).selectedIndex=0;
 			 $('#selSubject').get(0).selectedIndex=0;
-
 		}
 		else if (SeldrpID == 'Subject')
 		{
 			$('#selCategories').get(0).selectedIndex=0;
 			$('#selRole').get(0).selectedIndex=0;
-		    //$('#selSubRole').get(0).selectedIndex=0;
 		    $('#selRRole').get(0).selectedIndex=0;
-			//$('#selSubject').get(0).selectedIndex=0;
-
 		}
 		else if (SeldrpID == 'RRole')
 		{
 			$('#selCategories').get(0).selectedIndex=0;
 			$('#selRole').get(0).selectedIndex=0;
 		    $('#selSubRole').get(0).selectedIndex=0;
-		    // $('#selRRole').get(0).selectedIndex=0;
 			$('#selSubject').get(0).selectedIndex=0;
-
 		}
 
 if(Position!='Next')
@@ -425,7 +416,43 @@ if(Position!='Next')
 	var listNext=0;
     
  searchQuery=GenerateQuery(Position,currID);
-     $().SPServices({
+ 
+ debugger;
+ 
+ //"<Query><OrderBy><FieldRef Name='LinkForTraining'/></OrderBy><Where><Gt><FieldRef Name='ID' /><Value Type='Counter'>0</Value></Gt></Where></Query>"
+ 
+ var totalItems = 0;
+ 
+ //json
+ var spfiles = [
+{ "firstName" : "John" , "lastName" : "Doe" }, 
+{ "firstName" : "Anna" , "lastName" : "Smith" }, 
+{ "firstName" : "Peter" , "lastName" : "Jones" } ];
+ 
+ $().SPServices({
+		operation : "GetListItems", //Method name
+		async : false,
+		listName : oTrainingsList, // List Name
+		CAMLViewFields: "<ViewFields><FieldRef Name='ID' /><FieldRef Name='Title' /><FieldRef Name='LinkTitle' /><FieldRef Name='Colleges' /><FieldRef Name='Format1' /><FieldRef Name='Objective' /><FieldRef Name='LinkForTraining' /><FieldRef Name='Training_x0020_Type' /><FieldRef Name='Categories' /><FieldRef Name='Role' /> </ViewFields>",
+		CAMLQuery : searchQuery,
+		completefunc : function (xData, Status) {
+			//alert(xData.responseText);
+			if (xData.status == 200) {
+				totalItems = $(xData.responseXML).SPFilterNode("rs:data").attr('ItemCount');
+				
+				$(xData.responseXML).SPFilterNode("z:row").each(function () {
+
+					//var keyMeasure = $(this).attr("ows_Key_x0020_Measure");
+
+				});
+				
+			} else {
+				alert(xData.status);
+			}
+		}
+	});
+  
+   $().SPServices({
     operation: "GetListItems",
     async: false,
     listName: oTrainingsList,
@@ -452,11 +479,6 @@ if(Position!='Next')
 	
 	table ="<table width='100%' bgcolor='#e2e2e2' cellspacing='2px' cellpadding='2px'><tr><td bgcolor=white><table>";
 	
-//	if(	Position=='Next')
-	//table +="<tr><td class='itemTitle' style='14px;color:#70655e' > Results : "+(actualCount+1)+" - "+(actualCount+Fullcount)+"</td></tr>"
-
-
-	
 
 	
 	 $.each(responseArray,function(i) {
@@ -466,8 +488,6 @@ if(Position!='Next')
  	
  	if(i==Fullcount-1)
  	endID=$(this).attr("ows_ID");
- 	
- 	
  	
 	if(i%2!=0)
 	bgColor="#e5e5e5";
@@ -562,18 +582,18 @@ if(Position!='Next')
 	var pagetable ="";
 	
 	if((actualCount==0 && listNext!=0)||(actualCount==0 && endID<MaxID) )
-	pagetable +="<table width='100%' border='0' cellSpacing='0' align='center' cellPadding='0'><tr><td class='itemTitle' style='14px;color:#70655e'> Results : "+(actualCount+1)+" - "+(actualCount+Fullcount)+"</td><td align=right class='norTxt' style='padding: 5px;'><a href='javascript:void(0)' onclick='QueryStatus=true;searchResults(&quot;Next&quot;,&quot;"+endID+"&quot;);QueryStatus=false;'>Next</a></td></tr><tr><td height=3px></td></tr></table>";
+	pagetable +="<table width='100%' border='0' cellSpacing='0' align='center' cellPadding='0'><tr><td class='itemTitle' style='14px;color:#70655e'> Results : "+(actualCount+1)+" - "+(actualCount+Fullcount)+" of "+totalItems+"</td><td align=right class='norTxt' style='padding: 5px;'><a href='javascript:void(0)' onclick='QueryStatus=true;searchResults(&quot;Next&quot;,&quot;"+endID+"&quot;);QueryStatus=false;'>Next</a></td></tr><tr><td height=3px></td></tr></table>";
 	else if(actualCount!=0 && listNext==0 )
-	pagetable +="<table width='100%' border='0' cellSpacing='0' align='center' cellPadding='0'><tr><td class='itemTitle' style='14px;color:#70655e'> Results : "+(actualCount+1)+" - "+(actualCount+Fullcount)+"</td><td align=right class='norTxt' style='padding: 5px;'><a href='javascript:void(0)' onclick='QueryStatus=true;searchResults(&quot;Previous&quot;,&quot;"+strtID+"&quot;);QueryStatus=false;'>Previous</a></td></tr><tr><td height=3px></td></tr></table>";
+	pagetable +="<table width='100%' border='0' cellSpacing='0' align='center' cellPadding='0'><tr><td class='itemTitle' style='14px;color:#70655e'> Results : "+(actualCount+1)+" - "+(actualCount+Fullcount)+" of "+totalItems+"</td><td align=right class='norTxt' style='padding: 5px;'><a href='javascript:void(0)' onclick='QueryStatus=true;searchResults(&quot;Previous&quot;,&quot;"+strtID+"&quot;);QueryStatus=false;'>Previous</a></td></tr><tr><td height=3px></td></tr></table>";
 	else if(actualCount!=0 && listNext!=0 && endID!=MaxID)
-	pagetable +="<table width='100%' border='0' cellSpacing='0' align='center' cellPadding='0'><tr><td class='itemTitle' style='14px;color:#70655e'> Results : "+(actualCount+1)+" - "+(actualCount+Fullcount)+"</td><td align=right class='norTxt' style='padding: 5px;'><a href='javascript:void(0)' onclick='QueryStatus=true;searchResults(&quot;Previous&quot;,&quot;"+strtID+"&quot;);QueryStatus=false;'>Previous</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='javascript:void(0)' onclick='QueryStatus=true;searchResults(&quot;Next&quot;,&quot;"+endID+"&quot;);QueryStatus=false;'>Next</a></td></tr><tr><td height=3px></td></tr></table>";
+	pagetable +="<table width='100%' border='0' cellSpacing='0' align='center' cellPadding='0'><tr><td class='itemTitle' style='14px;color:#70655e'> Results : "+(actualCount+1)+" - "+(actualCount+Fullcount)+" of "+totalItems+"</td><td align=right class='norTxt' style='padding: 5px;'><a href='javascript:void(0)' onclick='QueryStatus=true;searchResults(&quot;Previous&quot;,&quot;"+strtID+"&quot;);QueryStatus=false;'>Previous</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='javascript:void(0)' onclick='QueryStatus=true;searchResults(&quot;Next&quot;,&quot;"+endID+"&quot;);QueryStatus=false;'>Next</a></td></tr><tr><td height=3px></td></tr></table>";
 
 
 
 	if(trainigID==0)
 	trainigID=strtID;
 	if(pagetable=="" && Fullcount!=0)
-	pagetable +="<table width='100%' border='0' cellSpacing='0' align='center' cellPadding='0'><tr><td class='itemTitle' style='14px;color:#70655e'> Results : 1 - "+Fullcount+"</td></tr><tr><td>&nbsp;</td></tr></table>";
+	pagetable +="<table width='100%' border='0' cellSpacing='0' align='center' cellPadding='0'><tr><td class='itemTitle' style='14px;color:#70655e'> Results : 1 - "+Fullcount+" of "+totalItems+"</td></tr><tr><td>&nbsp;</td></tr></table>";
 	
 	table=pagetable +table+pagetable ;
 
