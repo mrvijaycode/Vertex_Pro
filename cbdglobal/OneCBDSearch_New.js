@@ -384,28 +384,34 @@ var listNextPos;
 var strtID;
 var endID;
 var Fullcount=0;
-
-
  function searchResults(Position,currID,SeldrpID)
  {
     if(SeldrpID == 'Power')
 		{
+		    //$('#selCategories').get(0).selectedIndex=0;
+			 //$('#selRole').get(0).selectedIndex=0;
 		     $('#selSubRole').get(0).selectedIndex=0;
 		     $('#selRRole').get(0).selectedIndex=0;
 			 $('#selSubject').get(0).selectedIndex=0;
+
 		}
 		else if (SeldrpID == 'Subject')
 		{
 			$('#selCategories').get(0).selectedIndex=0;
 			$('#selRole').get(0).selectedIndex=0;
+		    //$('#selSubRole').get(0).selectedIndex=0;
 		    $('#selRRole').get(0).selectedIndex=0;
+			//$('#selSubject').get(0).selectedIndex=0;
+
 		}
 		else if (SeldrpID == 'RRole')
 		{
 			$('#selCategories').get(0).selectedIndex=0;
 			$('#selRole').get(0).selectedIndex=0;
 		    $('#selSubRole').get(0).selectedIndex=0;
+		    // $('#selRRole').get(0).selectedIndex=0;
 			$('#selSubject').get(0).selectedIndex=0;
+
 		}
 
 if(Position!='Next')
@@ -421,49 +427,53 @@ if(Position!='Next')
  
  //"<Query><OrderBy><FieldRef Name='LinkForTraining'/></OrderBy><Where><Gt><FieldRef Name='ID' /><Value Type='Counter'>0</Value></Gt></Where></Query>"
  
- var totalItems = 0;
  
- //json
- var spfiles = [
+ 
+// var myObject = new Object();
+var spfiles = [];
+ /* var spfiles = [
 { "itmid" : "---" , "itmTitle" : "---", "itmLinkTitle" : "---", "itmColleges" : "---", "itmFormat1" : "---","itmObjective" : "---", "itmLinkForTraining" : "---", "itmTraining" : "---", "itmCategories" : "---", "itmRole" : "---", }, 
 { "firstName" : "Anna" , "lastName" : "Smith" }, 
 { "firstName" : "Peter" , "lastName" : "Jones" } ];
+*/
  
+ var totalItems = 0;
  $().SPServices({
 		operation : "GetListItems", //Method name
 		async : false,
 		listName : oTrainingsList, // List Name
-		CAMLViewFields: "<ViewFields><FieldRef Name='ID' /><FieldRef Name='Title' /><FieldRef Name='LinkTitle' /><FieldRef Name='Colleges' /><FieldRef Name='Format1' /><FieldRef Name='Objective' /><FieldRef Name='LinkForTraining' /><FieldRef Name='Training_x0020_Type' /><FieldRef Name='Categories' /><FieldRef Name='Role' /> </ViewFields>",
 		CAMLQuery : searchQuery,
 		completefunc : function (xData, Status) {
-			//alert(xData.responseText);
+			alert(xData.responseText);
 			if (xData.status == 200) {
 				totalItems = $(xData.responseXML).SPFilterNode("rs:data").attr('ItemCount');
 				
 				$(xData.responseXML).SPFilterNode("z:row").each(function (i) {
-
-					//var keyMeasure = $(this).attr("ows_Key_x0020_Measure");
 					
-					spfiles[i].itmid="";
-					spfiles[i].itmTitle="";
-					spfiles[i].itmLinkTitle="";
-					spfiles[i].itmColleges="";
-					spfiles[i].itmFormat1="";
-					spfiles[i].itmObjective="";
-					spfiles[i].itmLinkForTraining="";
-					spfiles[i].itmTraining="";
-					spfiles[i].itmCategories="";
-					spfiles[i].itmRole="";
-
+					//var new_obj = {'itmid':"vij"};
+					
+					var itmid = $(this).attr("ows_ID");
+					var itmLinkTitle = $(this).attr("ows_LinkTitle");
+					var itmColleges = $(this).attr("ows_Colleges");
+					var itmFormat1 = $(this).attr("ows_Format1");
+					var itmObjective = $(this).attr("ows_Objective");
+					var itmLinkForTraining = $(this).attr("ows_LinkForTraining");
+					var itmTraining = $(this).attr("ows_Training_x0020_Type");
+					var itmCategories = $(this).attr("ows_Categories");
+					var itmRole = $(this).attr("ows_Role");
+					
+					var new_obj = { "itmid" : itmid , "itmTitle" : "---", "itmLinkTitle" : itmLinkTitle, "itmColleges" : itmColleges, "itmFormat1" : itmFormat1, "itmObjective" : itmObjective, "itmLinkForTraining" : itmLinkForTraining, "itmTraining" : itmTraining, "itmCategories" : itmCategories, "itmRole" : itmRole};
+					
+					spfiles.push(new_obj);
 				});
-				
+	
 			} else {
 				alert(xData.status);
 			}
 		}
 	});
   
-   $().SPServices({
+     $().SPServices({
     operation: "GetListItems",
     async: false,
     listName: oTrainingsList,
@@ -499,6 +509,8 @@ if(Position!='Next')
  	
  	if(i==Fullcount-1)
  	endID=$(this).attr("ows_ID");
+ 	
+ 	
  	
 	if(i%2!=0)
 	bgColor="#e5e5e5";
@@ -635,17 +647,11 @@ if(Position!='Next')
 			}
 			}
 			}
-		});
-
-
-	
+		});	
  }
- 
- 
  
  function sortArray(trainingArray)
  {
-
  var count=trainingArray.length;
  var x=count-1;
  var sortedArray=new Array(count);
@@ -655,7 +661,6 @@ if(Position!='Next')
  x--; 
  })
  return sortedArray;
- 
  }
  
  function GetMaxId()
@@ -665,21 +670,15 @@ if(Position!='Next')
     		async: false,
    			listName: oTrainingsList,
     		CAMLQuery:MaxValueQuery,
-    		
     		completefunc: function(xData,Status){
     						var count=$(xData.responseXML).SPFilterNode("z:row").length;
     		 $(xData.responseXML).SPFilterNode("z:row").each(function(i) {
-
 			if(i==0)
     		 MaxID=$(this).attr('ows_ID');
     		 if(i==count-1)
     		 leastID=$(this).attr('ows_ID');
     		 
     		 });
-    		
     		}
-    		
     		});
-
-
  }
