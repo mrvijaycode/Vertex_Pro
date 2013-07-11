@@ -630,13 +630,9 @@ var totalItems = 0;
 	
 	else
 	table +="<table width='100%' bgColor='#c4c5c6' border='0' cellSpacing='0' align='center' cellPadding='0'><tr><td align=center class='norTxt' style='padding-left: 5px;' bgColor='#ffffff'>No Learning Resources Found...</td></tr>";
-	
-
-	
+		
 	table += "</table></td></tr></table>";
 	
-	
-
 	var pagetable ="";
 	
 	if((actualCount==0 && listNext!=0)||(actualCount==0 && endID<MaxID) )
@@ -645,8 +641,6 @@ var totalItems = 0;
 	pagetable +="<table width='100%' border='0' cellSpacing='0' align='center' cellPadding='0'><tr><td class='itemTitle' style='14px;color:#70655e'> Results : "+(actualCount+1)+" - "+(actualCount+Fullcount)+" of "+totalItems+"</td><td align=right class='norTxt' style='padding: 5px;'><a href='javascript:void(0)' onclick='QueryStatus=true;searchResults(&quot;Previous&quot;,&quot;"+strtID+"&quot;);QueryStatus=false;'>Previous</a></td></tr><tr><td height=3px></td></tr></table>";
 	else if(actualCount!=0 && listNext!=0 && endID!=MaxID)
 	pagetable +="<table width='100%' border='0' cellSpacing='0' align='center' cellPadding='0'><tr><td class='itemTitle' style='14px;color:#70655e'> Results : "+(actualCount+1)+" - "+(actualCount+Fullcount)+" of "+totalItems+"</td><td align=right class='norTxt' style='padding: 5px;'><a href='javascript:void(0)' onclick='QueryStatus=true;searchResults(&quot;Previous&quot;,&quot;"+strtID+"&quot;);QueryStatus=false;'>Previous</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='javascript:void(0)' onclick='QueryStatus=true;searchResults(&quot;Next&quot;,&quot;"+endID+"&quot;);QueryStatus=false;'>Next</a></td></tr><tr><td height=3px></td></tr></table>";
-
-
 
 	if(trainigID==0)
 	trainigID=strtID;
@@ -662,7 +656,7 @@ var totalItems = 0;
 	}
 	});
 
-	//end of the old style Navigation
+	
 
 	actualCount+=Fullcount;
 	
@@ -681,41 +675,38 @@ var totalItems = 0;
 					}
 				}
 	});
-	
 	*/
+	//end of the old style Navigation
+	
  }
 
- function sortArray(trainingArray)
- {
- var count=trainingArray.length;
- var x=count-1;
- var sortedArray=new Array(count);
- $.each(trainingArray,function(i)
- {
- sortedArray[x]=$(this);
- x--; 
- })
- return sortedArray;
+ function sortArray(trainingArray) {
+ 	var count = trainingArray.length;
+ 	var x = count - 1;
+ 	var sortedArray = new Array(count);
+ 	$.each(trainingArray, function (i) {
+ 		sortedArray[x] = $(this);
+ 		x--;
+ 	})
+ 	return sortedArray;
  }
  
- function GetMaxId()
- {
- 	 $().SPServices({
-  		  operation: "GetListItems",
-    		async: false,
-   			listName: oTrainingsList,
-    		CAMLQuery:MaxValueQuery,
-    		completefunc: function(xData,Status){
-    						var count=$(xData.responseXML).SPFilterNode("z:row").length;
-    		 $(xData.responseXML).SPFilterNode("z:row").each(function(i) {
-			if(i==0)
-    		 MaxID=$(this).attr('ows_ID');
-    		 if(i==count-1)
-    		 leastID=$(this).attr('ows_ID');
-    		 
-    		 });
-    		}
-    		});
+ function GetMaxId() {
+ 	$().SPServices({
+ 		operation : "GetListItems",
+ 		async : false,
+ 		listName : oTrainingsList,
+ 		CAMLQuery : MaxValueQuery,
+ 		completefunc : function (xData, Status) {
+ 			var count = $(xData.responseXML).SPFilterNode("z:row").length;
+ 			$(xData.responseXML).SPFilterNode("z:row").each(function (i) {
+ 				if (i == 0)
+ 					MaxID = $(this).attr('ows_ID');
+ 				if (i == count - 1)
+ 					leastID = $(this).attr('ows_ID');
+ 			});
+ 		}
+ 	});
  }
  
 
@@ -726,12 +717,16 @@ var totalItems = 0;
  var PageNo = 0;
 
  function mainload() {
+	 builtContents(PageNo);
+ }
+ 
+ function builtContents(pageN){
  debugger
  	t = spfiles.length - 1;
- 	var start = PageNo * 5;
+ 	var start = pageN * 5;
  	var end = start + 5;
  	var str = "";
-	var tbl="<table>"; 
+	var tbl="<table width='100%' cellSpacing='0' cellPadding='0'>"; 
  	for (var j = start; j < end; j++) {
  		if (j <= t) {
 			tbl+="<tr><td>";
@@ -739,10 +734,39 @@ var totalItems = 0;
  			tbl+="<tr><td class='itemTitle'><a href='#' target='_blank'>"+spfiles[j].itmColleges+"</a></td></tr>";
 			tbl+="</table>";
 			tbl+="</td></tr>";
+			tbl+="<tr><td height=5></td></tr>";
+			tbl+="<tr><td bgcolor=#e2e2e2 height=1></td></tr>";
  		}
  	}
 	tbl+="</table>";
-	var mainTable="<table><tr><td bgcolor=white>"+tbl+"</td></tr></table>";
+	var maintble="<table width='100%' bgColor='#e2e2e2' cellSpacing='2' cellPadding='2'><tr><td bgColor='white'>"+tbl+"</td></tr></table>";
+	var headers="<table width='100%' align='center' border='0' cellSpacing='0' cellPadding='0'><tr><td></tr></table>";
 		
-	$("#tdResult").html(mainTable);
+	$("#tdResult").html(maintble);
  }
+ 
+ 
+ function next() {
+	var totCount = t / 5;
+	if (PageNo < totCount - 1) {
+		$('#btnPrev').show();
+		$('#btnNext').show();
+		PageNo = PageNo + 1;
+		builtContents(PageNo);
+	} else {
+		$('#btnNext').hide();
+		$('#btnPrev').show();
+	}
+}
+
+function prev() {
+	if (PageNo > 0) {
+		$('#btnPrev').show();
+		$('#btnNext').show();
+		PageNo = PageNo - 1;
+		builtContents(PageNo);
+	} else {
+		$('#btnPrev').hide();
+		$('#btnNext').show();
+	}
+}
