@@ -7,7 +7,7 @@
 //---Modified By - RajeshN ---
 //---Reviewed By -- VenkatCH---
 //****************************************************************************************
-
+//http://teamspace.pg.com/sites/cbdglobal/Pages/OneCBD/FindYourLearningResources.aspx
 //---Configuration Variables ---
 
 
@@ -426,7 +426,7 @@ if(Position!='Next')
  
 debugger;
 
-var spfiles = [];
+
  
  var totalItems = 0;
  $().SPServices({
@@ -516,6 +516,9 @@ var spfiles = [];
 			}
 		}
 	});
+	
+	
+		// old style program
   
      $().SPServices({
     operation: "GetListItems",
@@ -660,6 +663,7 @@ var spfiles = [];
 	}
 	});
 
+	//end of the old style Navigation
 
 	actualCount+=Fullcount;
 	
@@ -711,4 +715,31 @@ var spfiles = [];
     		 });
     		}
     		});
+ }
+ 
+
+ var spfiles = [];
+ var i = -1;
+ var t = "";
+ var k = 0;
+ var PageNo = 0;
+
+ function mainload() {
+ 	t = spfiles.length - 1;
+ 	var start = PageNo * 5;
+ 	var end = start + 5;
+ 	var str = "";
+ 	for (var j = start; j < end; j++) {
+ 		if (j <= t) {
+ 			str += employees[j].firstName + ";";
+ 		}
+ 	}
+	
+	var mainTable="<table><tr><td></td></tr></table>";
+	/*
+	var itemsTable="<table width=\"100%\" cellspacing="0" cellpadding="0"><tbody><tr><td class=\"itemTitle\"><p>Advance TS&amp;JBP Webinar</p></td></tr><tr><td class=\"itemTitle\" style=\"color: black; line-height: 120%; padding-top: 5px; font-weight: normal;" '=""><div class="ExternalClass65E448EFA1934132880B806C997F98DE">In this webinar, you will learn how to leverage the TS &amp; JBP process to drive strategic global partnership by applying relationship management tools and the concept of value as measured by the customer. Best for teams who have an established TS &amp; JBP process with their customer with a sustained green assessment rating, in search of different ways to create more value for their customers. This webinar features Alberto Moriana, former CBD VP for Global Carrefour. Contact your local CBD Capability Manager.</div></td></tr><tr><td line-height:200%\'="\"><span class="info2">Power:</span>&nbsp;&nbsp;<span class="info3">Power of Selling;</span>&nbsp;&nbsp;<span class="info2">Format:</span>&nbsp;&nbsp;<span class="info3">Self Study</span></td><tr><td line-height:200%\'=""><span class="info2"> Role:</span>&nbsp;&nbsp;<span class="info3"><a onclick=\'getSelRole("5")' href="javascript:void(0)">Leading Self</a>, <a onclick='getSelRole("7")' href="javascript:void(0)">Leading A Team</a></span> &nbsp;&nbsp;  <span class="info2"> Category:</span>&nbsp;&nbsp;<span class="info3">Competencies &amp; Skills;</span> </td></tr></tbody></table>";
+	
+	*/
+	
+	//$("#tdResult").html(table);
  }
