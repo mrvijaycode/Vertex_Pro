@@ -264,86 +264,69 @@ var qry1 = "<Query><OrderBy><FieldRef Name='ID' Ascending='True' /></OrderBy><Wh
  }
   var QueryStatus=false;
   var QueryMiddlePart="";
+  
  //---Summary---
  // Function to construct query dynamically 
  //---Summary---
- function GenerateQuery(Position,currID)
- {
-	 debugger
- 	var QueryBeginPart="";
-  //  var QueryMiddlePart="";
-    var QueryEndPart="";
-    var counter=1;
-    
+ 
+ 
+ function GenerateQuery(Position, currID) {
+ 	debugger
+ 	var QueryBeginPart = "";
+ 	//  var QueryMiddlePart="";
+ 	var QueryEndPart = "";
+ 	var counter = 1;
 
-    var Fields=new Array("Categories","Role","Subject","Role","Role");
-    var ControlNames=new Array("#selCategories","#selRole","#selSubject","#selSubRole","#selRRole");
-    QueryBeginPart="<Query><Where>";
-    QueryEndPart="</Where></Query>";
-    if(!QueryStatus)
-    {
-    QueryMiddlePart="";
-   
- 	for(var i=0; i<Fields.length; i++)
- 	{
- 		var FieldName=ControlNames[i];
- 		var FieldValue=$(FieldName).val();
- 		//&amp;
- 		if(FieldValue.indexOf("&") != -1)
- 		   FieldValue = FieldValue.replace("&","&amp;");
- 		var FieldText=$(FieldName).text();
- 		var selVal=  $(FieldName).get(0).selectedIndex
- 		if(selVal!=0)
- 		{
- 		var valtype="<Value Type='Lookup'>"
- 		if(Fields[i]=="Role") 		
- 		valtype="<Value Type='LookupMulti'>"
- 		if(Fields[i]=="Subject") 		
- 		valtype="<Value Type='LookupMulti'>"
-			if(counter==1)
- 			{
- 				QueryMiddlePart="<Eq><FieldRef Name='"+Fields[i]+"' LookupId='TRUE' />"+valtype+FieldValue+"</Value></Eq>";
- 				
- 			}
- 			else
- 			{
- 				QueryMiddlePart="<And>"+QueryMiddlePart+"<Eq><FieldRef Name='"+Fields[i]+"' LookupId='TRUE' />"+valtype+FieldValue+"</Value></Eq></And>";
- 			}
- 			counter++;
+ 	var Fields = new Array("Categories", "Role", "Subject", "Role", "Role");
+ 	var ControlNames = new Array("#selCategories", "#selRole", "#selSubject", "#selSubRole", "#selRRole");
+ 	QueryBeginPart = "<Query><Where>";
+ 	QueryEndPart = "</Where></Query>";
+ 	if (!QueryStatus) {
+ 		QueryMiddlePart = "";
+
+ 		for (var i = 0; i < Fields.length; i++) {
+ 			var FieldName = ControlNames[i];
+ 			var FieldValue = $(FieldName).val();
+ 			//&amp;
+ 			if (FieldValue.indexOf("&") != -1)
+ 				FieldValue = FieldValue.replace("&", "&amp;");
+ 			var FieldText = $(FieldName).text();
+ 			var selVal = $(FieldName).get(0).selectedIndex
+ 				if (selVal != 0) {
+ 					var valtype = "<Value Type='Lookup'>"
+ 						if (Fields[i] == "Role")
+ 							valtype = "<Value Type='LookupMulti'>"
+ 								if (Fields[i] == "Subject")
+ 									valtype = "<Value Type='LookupMulti'>"
+ 										if (counter == 1) {
+ 											QueryMiddlePart = "<Eq><FieldRef Name='" + Fields[i] + "' LookupId='TRUE' />" + valtype + FieldValue + "</Value></Eq>";
+
+ 										} else {
+ 											QueryMiddlePart = "<And>" + QueryMiddlePart + "<Eq><FieldRef Name='" + Fields[i] + "' LookupId='TRUE' />" + valtype + FieldValue + "</Value></Eq></And>";
+ 										}
+ 										counter++;
+ 				}
  		}
- 		
  	}
- }
 
- 	if(QueryMiddlePart!="")
- 	{
- 	if(Position=='Previous')
- 	var Query="<Query><OrderBy><FieldRef Name='ID' Ascending='False'  /></OrderBy><Where><And><Lt><FieldRef Name='ID' /><Value Type='Counter'>"+currID+"</Value></Lt>"+QueryMiddlePart+"</And>"+QueryEndPart;
- 	else if(Position=='Next')
-	var Query=QueryBeginPart+"<And><Gt><FieldRef Name='ID' /><Value Type='Counter'>"+currID+"</Value></Gt>"+QueryMiddlePart+"</And>"+QueryEndPart; 	
-	}
-	else
-	{
-	 	if(Position=='Previous')
-	var Query="<Query><OrderBy><FieldRef Name='Colleges' /></OrderBy><Where><Lt><FieldRef Name='ID' /><Value Type='Counter'>"+currID+"</Value></Lt></Where></Query>";
-	
-	 	else if(Position=='Next')
-	 		var Query="<Query><OrderBy><FieldRef Name='Colleges' /></OrderBy><Where><Gt><FieldRef Name='ID' /><Value Type='Counter'>"+currID+"</Value></Gt></Where></Query>";
-	}
+ 	if (QueryMiddlePart != "") {
+ 		if (Position == 'Previous')
+ 			var Query = "<Query><OrderBy><FieldRef Name='ID' Ascending='False'  /></OrderBy><Where><And><Lt><FieldRef Name='ID' /><Value Type='Counter'>" + currID + "</Value></Lt>" + QueryMiddlePart + "</And>" + QueryEndPart;
+ 		else if (Position == 'Next')
+ 			var Query = QueryBeginPart + "<And><Gt><FieldRef Name='ID' /><Value Type='Counter'>" + currID + "</Value></Gt>" + QueryMiddlePart + "</And>" + QueryEndPart;
+ 	} else {
+ 		if (Position == 'Previous')
+ 			var Query = "<Query><OrderBy><FieldRef Name='Colleges' /></OrderBy><Where><Lt><FieldRef Name='ID' /><Value Type='Counter'>" + currID + "</Value></Lt></Where></Query>";
+ 		else if (Position == 'Next')
+ 			var Query = "<Query><OrderBy><FieldRef Name='Colleges' /></OrderBy><Where><Gt><FieldRef Name='ID' /><Value Type='Counter'>" + currID + "</Value></Gt></Where></Query>";
+ 	}
 
-
-
-	if(QueryMiddlePart!="")
- 	MaxValueQuery="<Query><OrderBy><FieldRef Name='ID' Ascending='False' /></OrderBy><Where>"+QueryMiddlePart+"</Where></Query>";
+ 	if (QueryMiddlePart != "")
+ 		MaxValueQuery = "<Query><OrderBy><FieldRef Name='ID' Ascending='False' /></OrderBy><Where>" + QueryMiddlePart + "</Where></Query>";
  	else
- 	MaxValueQuery="<Query><OrderBy><FieldRef Name='ID' Ascending='False' /></OrderBy></Query>";
+ 		MaxValueQuery = "<Query><OrderBy><FieldRef Name='ID' Ascending='False' /></OrderBy></Query>";
  	return Query;
- 	
- 	
- 	
  }
- 
- 
  
  function getSelRole(selVal)
  {
@@ -675,9 +658,9 @@ var totalItems = 0;
 					}
 				}
 	});
-	*/
-	//end of the old style Navigation
 	
+	//end of the old style Navigation
+	*/
  }
 
  function sortArray(trainingArray) {
@@ -721,7 +704,7 @@ var totalItems = 0;
  }
  
  function builtContents(pageN){
- debugger
+
  	t = spfiles.length - 1;
  	var start = pageN * 5;
  	var end = start + 5;
@@ -740,9 +723,10 @@ var totalItems = 0;
  	}
 	tbl+="</table>";
 	var maintble="<table width='100%' bgColor='#e2e2e2' cellSpacing='2' cellPadding='2'><tr><td bgColor='white'>"+tbl+"</td></tr></table>";
-	var headers="<table width='100%' align='center' border='0' cellSpacing='0' cellPadding='0'><tr><td></tr></table>";
+	
+	var headers="<table width='100%' border='0' cellSpacing='0' align='center' cellPadding='0'><tr><td class='itemTitle' style='14px;color:#70655e'> Results : X - XX of XXX</td><td align=right class='norTxt' style='padding: 5px;'><a href='javascript:void(0)' id='btnPrev' onclick='prev()'>Previous</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='javascript:void(0)' id='btnNext' onclick='next()'>Next</a></td></tr><tr><td height=3px></td></tr></table>";
 		
-	$("#tdResult").html(maintble);
+	$("#tdResult").html(headers+maintble);
  }
  
  
