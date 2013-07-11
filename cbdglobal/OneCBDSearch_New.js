@@ -325,10 +325,10 @@ var qry1 = "<Query><OrderBy><FieldRef Name='ID' Ascending='True' /></OrderBy><Wh
 	else
 	{
 	 	if(Position=='Previous')
-	var Query="<Query><OrderBy><FieldRef Name='LinkForTraining'/></OrderBy><Where><Lt><FieldRef Name='ID' /><Value Type='Counter'>"+currID+"</Value></Lt></Where></Query>";
+	var Query="<Query><OrderBy><FieldRef Name='Colleges' /></OrderBy><Where><Lt><FieldRef Name='ID' /><Value Type='Counter'>"+currID+"</Value></Lt></Where></Query>";
 	
 	 	else if(Position=='Next')
-	 		var Query="<Query><OrderBy><FieldRef Name='LinkForTraining'/></OrderBy><Where><Gt><FieldRef Name='ID' /><Value Type='Counter'>"+currID+"</Value></Gt></Where></Query>";
+	 		var Query="<Query><OrderBy><FieldRef Name='Colleges' /></OrderBy><Where><Gt><FieldRef Name='ID' /><Value Type='Counter'>"+currID+"</Value></Gt></Where></Query>";
 	}
 
 
@@ -386,6 +386,7 @@ var endID;
 var Fullcount=0;
  function searchResults(Position,currID,SeldrpID)
  {
+	 debugger
     if(SeldrpID == 'Power')
 		{
 		    //$('#selCategories').get(0).selectedIndex=0;
@@ -423,25 +424,16 @@ if(Position!='Next')
     
  searchQuery=GenerateQuery(Position,currID);
  
- debugger;
- 
- //"<Query><OrderBy><FieldRef Name='LinkForTraining'/></OrderBy><Where><Gt><FieldRef Name='ID' /><Value Type='Counter'>0</Value></Gt></Where></Query>"
- 
- 
- 
-// var myObject = new Object();
+debugger;
+
 var spfiles = [];
- /* var spfiles = [
-{ "itmid" : "---" , "itmTitle" : "---", "itmLinkTitle" : "---", "itmColleges" : "---", "itmFormat1" : "---","itmObjective" : "---", "itmLinkForTraining" : "---", "itmTraining" : "---", "itmCategories" : "---", "itmRole" : "---", }, 
-{ "firstName" : "Anna" , "lastName" : "Smith" }, 
-{ "firstName" : "Peter" , "lastName" : "Jones" } ];
-*/
  
  var totalItems = 0;
  $().SPServices({
 		operation : "GetListItems", //Method name
 		async : false,
 		listName : oTrainingsList, // List Name
+		 CAMLViewFields: "<ViewFields><FieldRef Name='ID' /><FieldRef Name='Title' /><FieldRef Name='LinkTitle' /><FieldRef Name='Colleges' /><FieldRef Name='Format1' /><FieldRef Name='Objective' /><FieldRef Name='LinkForTraining' /><FieldRef Name='Training_x0020_Type' /><FieldRef Name='Categories' /><FieldRef Name='Role' /> </ViewFields>",
 		CAMLQuery : searchQuery,
 		completefunc : function (xData, Status) {
 			alert(xData.responseText);
@@ -452,17 +444,69 @@ var spfiles = [];
 					
 					//var new_obj = {'itmid':"vij"};
 					
-					var itmid = $(this).attr("ows_ID");
-					var itmLinkTitle = $(this).attr("ows_LinkTitle");
-					var itmColleges = $(this).attr("ows_Colleges");
-					var itmFormat1 = $(this).attr("ows_Format1");
-					var itmObjective = $(this).attr("ows_Objective");
-					var itmLinkForTraining = $(this).attr("ows_LinkForTraining");
-					var itmTraining = $(this).attr("ows_Training_x0020_Type");
-					var itmCategories = $(this).attr("ows_Categories");
-					var itmRole = $(this).attr("ows_Role");
+					if ($(this).attr("ows_ID") != null)
+						var itmid = $(this).attr("ows_ID");
+					else
+						var itmid = "";
+
+					if ($(this).attr("ows_Title") != null)
+						var itmTitle = $(this).attr("ows_Title");
+					else
+						var itmTitle = "";
+
+					if ($(this).attr("ows_LinkTitle") != null)
+						var itmLinkTitle = $(this).attr("ows_LinkTitle");
+					else
+						var itmLinkTitle = "";
+
+					if ($(this).attr("ows_Colleges") != null)
+						var itmColleges = $(this).attr("ows_Colleges");
+					else
+						var itmColleges = "";
+
+					if ($(this).attr("ows_Format1") != null)
+						var itmFormat1 = $(this).attr("ows_Format1");
+					else
+						var itmFormat1 = "";
+
+					if ($(this).attr("ows_Objective") != null)
+						var itmObjective = $(this).attr("ows_Objective");
+					else
+						var itmObjective = "";
+
+					if ($(this).attr("ows_LinkForTraining") != null)
+						var itmLinkForTraining = $(this).attr("ows_LinkForTraining");
+					else
+						var itmLinkForTraining = "";
+
+					if ($(this).attr("ows_Training_x0020_Type") != null)
+						var itmTraining = $(this).attr("ows_Training_x0020_Type");
+					else
+						var itmTraining = "";
+
+					if ($(this).attr("ows_Categories") != null)
+						var itmCategories = $(this).attr("ows_Categories");
+					else
+						var itmCategories = "";
+
+					if ($(this).attr("ows_Role") != null)
+						var itmRole = $(this).attr("ows_Role");
+					else
+						var itmRole = "";
+						
 					
-					var new_obj = { "itmid" : itmid , "itmTitle" : "---", "itmLinkTitle" : itmLinkTitle, "itmColleges" : itmColleges, "itmFormat1" : itmFormat1, "itmObjective" : itmObjective, "itmLinkForTraining" : itmLinkForTraining, "itmTraining" : itmTraining, "itmCategories" : itmCategories, "itmRole" : itmRole};
+					var new_obj = {
+						"itmid" : itmid,
+						"itmTitle" : itmTitle,
+						"itmLinkTitle" : itmLinkTitle,
+						"itmColleges" : itmColleges,
+						"itmFormat1" : itmFormat1,
+						"itmObjective" : itmObjective,
+						"itmLinkForTraining" : itmLinkForTraining,
+						"itmTraining" : itmTraining,
+						"itmCategories" : itmCategories,
+						"itmRole" : itmRole
+					};
 					
 					spfiles.push(new_obj);
 				});
@@ -485,7 +529,6 @@ var spfiles = [];
 	if($(xData.responseXML).SPFilterNode("rs:data").attr('ListItemCollectionPositionNext')!=null)    
 	 listNext=$(xData.responseXML).SPFilterNode("rs:data").attr('ListItemCollectionPositionNext');
 
-
    	Fullcount=$(xData.responseXML).SPFilterNode("z:row").length;
    	var responseArray;
    	if(Position=='Previous')
@@ -493,25 +536,20 @@ var spfiles = [];
    	else
    	responseArray=$(xData.responseXML).SPFilterNode("z:row");
    	
-   	
 	var table='';
+	
 	if(Fullcount!=0){
 	//Give this code for function if needed btn's..........
-	
 	table ="<table width='100%' bgcolor='#e2e2e2' cellspacing='2px' cellpadding='2px'><tr><td bgcolor=white><table>";
-	
-
-	
-	 $.each(responseArray,function(i) {
+		
+	$.each(responseArray,function(i) {
  	var bgColor="#ffffff";
  	if(i==0)
  	strtID=$(this).attr("ows_ID");
  	
  	if(i==Fullcount-1)
  	endID=$(this).attr("ows_ID");
- 	
- 	
- 	
+ 		
 	if(i%2!=0)
 	bgColor="#e5e5e5";
 	
@@ -580,11 +618,6 @@ var spfiles = [];
 	else
 	innerTbl+="<tr><td line-height:200%'><span class='info2'> Role:</span>&nbsp;&nbsp;<span class='info3'>"+roles+"</span> &nbsp;&nbsp;  <span class='info2'> Category:</span>&nbsp;&nbsp;<span class='info3'>"+$(this).attr("ows_Training_x0020_Type").split("#")[1]+"</span> </td></tr></table>";
 	
-
-	
-	
-	
-	
 	table +=innerTbl+"</td></tr><tr><td height='5px'></td></tr>";
 		 if(i!=Fullcount-1)
 		table +="<tr><td height='1px' bgcolor='#e2e2e2'></td></tr>";
@@ -592,8 +625,8 @@ var spfiles = [];
 	});
 	//....End of table construction.....
 	}
-	else
 	
+	else
 	table +="<table width='100%' bgColor='#c4c5c6' border='0' cellSpacing='0' align='center' cellPadding='0'><tr><td align=center class='norTxt' style='padding-left: 5px;' bgColor='#ffffff'>No Learning Resources Found...</td></tr>";
 	
 
@@ -630,24 +663,21 @@ var spfiles = [];
 
 	actualCount+=Fullcount;
 	
-	$('#tdResult').find('a').each(function(){
-			var href=$(this).attr('href');
-			var target="";
-			if($(this).attr('target'))
-			var target=$(this).attr('target')
-			
-			if(href!=null)
-			{
-			if(href.indexOf('#')<0)
-			{
-			if((href.indexOf('/sites/cbdglobal/')<0)&&(href.indexOf('/sites/cbdcareers/')<0))
-			{
-				if(target=="" && href.indexOf('javascript')<0)
-				$(this).attr('target','_blank');
-			}
-			}
-			}
-		});	
+	$('#tdResult').find('a').each(function () {
+		var href = $(this).attr('href');
+		var target = "";
+		if ($(this).attr('target'))
+			var target = $(this).attr('target')
+
+				if (href != null) {
+					if (href.indexOf('#') < 0) {
+						if ((href.indexOf('/sites/cbdglobal/') < 0) && (href.indexOf('/sites/cbdcareers/') < 0)) {
+							if (target == "" && href.indexOf('javascript') < 0)
+								$(this).attr('target', '_blank');
+						}
+					}
+				}
+	});
  }
  
  function sortArray(trainingArray)
