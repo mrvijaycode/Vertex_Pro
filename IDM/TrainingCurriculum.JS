@@ -11,8 +11,9 @@ var courseAvailable = new Array();
 var trainingCategory = new Array();
 var tcells;
 var catName = '';
-//debugger
+
 function LoadTraining() {
+debugger;
 	var urlpath = window.location.href;
 	var qryStrPos = urlpath.indexOf('?id=');
 	catName = urlpath.substring(qryStrPos + 4);
@@ -20,7 +21,7 @@ function LoadTraining() {
 	lists = new SPAPI_Lists('http://teamspace.pg.com/sites/idm');
 	
 	var lstDetails = lists.getListItems('Training Details', '', '', '', '', '', '');
-	
+
 	var rows = lstDetails.responseXML.getElementsByTagName('z:row');
 	if (rows.length > 0) {
 		for (var rNo = 0; rNo < rows.length; rNo++) {
@@ -68,6 +69,7 @@ var coachAdvanced = "";
 var coachMaster = "";
 
 function getLinksnRollovers(catName) {
+	debugger;
 	hideNenableTabs();
 	CATE = catName;
 	tblTraining = document.getElementById('{D659FA9D-7489-422F-8F71-F67326D03D26}-{922FA459-81DF-4281-8CA0-953A05426DD9}');
@@ -245,7 +247,7 @@ function getLinksnRollovers(catName) {
 
 var ctext = '';
 function getValues(category, courseLevel, subsection) {
-	//debugger
+	
 	var trows = tblTraining.getElementsByTagName('tr');
 	var rowCount = trows.length;
 	var itmLength = trainingID.length;
@@ -381,7 +383,7 @@ function getCoachValues(category, courseLevel) {
 }
 
 function fetchlblDetails(cAvailabale, title, item, cNo, itemID, lblExists) {
-	//debugger
+	
 	if (cNo == "7") {
 		if (item == "0") {
 			if (cAvailabale == "Course available now")
