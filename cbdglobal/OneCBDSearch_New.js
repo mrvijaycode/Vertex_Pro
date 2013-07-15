@@ -259,7 +259,7 @@ var QueryMiddlePart = "";
 
 
 function GenerateQuery(Position, currID) {
-	debugger
+	//debugger
 	var QueryBeginPart = "";
 	//  var QueryMiddlePart="";
 	var QueryEndPart = "";
@@ -304,9 +304,9 @@ function GenerateQuery(Position, currID) {
 			var Query = QueryBeginPart + "<And><Gt><FieldRef Name='ID' /><Value Type='Counter'>" + currID + "</Value></Gt>" + QueryMiddlePart + "</And>" + QueryEndPart;
 	} else {
 		if (Position == 'Previous')
-			var Query = "<Query><OrderBy><FieldRef Name='Colleges' /></OrderBy><Where><Lt><FieldRef Name='ID' /><Value Type='Counter'>" + currID + "</Value></Lt></Where></Query>";
+			var Query = "<Query><OrderBy><FieldRef Name='Colleges_x0020_Trainings' /></OrderBy><Where><Lt><FieldRef Name='ID' /><Value Type='Counter'>" + currID + "</Value></Lt></Where></Query>";
 		else if (Position == 'Next')
-			var Query = "<Query><OrderBy><FieldRef Name='Colleges' /></OrderBy><Where><Gt><FieldRef Name='ID' /><Value Type='Counter'>" + currID + "</Value></Gt></Where></Query>";
+			var Query = "<Query><OrderBy><FieldRef Name='Colleges_x0020_Trainings' /></OrderBy><Where><Gt><FieldRef Name='ID' /><Value Type='Counter'>" + currID + "</Value></Gt></Where></Query>";
 	}
 
 	if (QueryMiddlePart != "")
@@ -334,7 +334,7 @@ var strtID;
 var endID;
 var Fullcount = 0;
 function searchResults(Position, currID, SeldrpID) {
-	debugger
+	//debugger
 	if (SeldrpID == 'Power') {
 		//$('#selCategories').get(0).selectedIndex=0;
 		//$('#selRole').get(0).selectedIndex=0;
@@ -365,15 +365,21 @@ function searchResults(Position, currID, SeldrpID) {
 	var listNext = 0;
 
 	searchQuery = GenerateQuery(Position, currID);
-
-	debugger;
+	
+	//debugger;
+			
+	/*$.each(spfiles,function(i)){
+		delete spfiles[i];
+	}*/
+		
+	spfiles = [];
 
 	var totalItems = 0;
 	$().SPServices({
 		operation : "GetListItems", //Method name
 		async : false,
 		listName : oTrainingsList, // List Name
-		CAMLViewFields : "<ViewFields><FieldRef Name='ID' /><FieldRef Name='Title' /><FieldRef Name='LinkTitle' /><FieldRef Name='Colleges' /><FieldRef Name='Format1' /><FieldRef Name='Objective' /><FieldRef Name='LinkForTraining' /><FieldRef Name='Training_x0020_Type' /><FieldRef Name='Categories' /><FieldRef Name='Role' /> </ViewFields>",
+		CAMLViewFields : "<ViewFields><FieldRef Name='ID' /><FieldRef Name='Title' /><FieldRef Name='LinkTitle' /><FieldRef Name='Colleges_x0020_Trainings' /><FieldRef Name='Format1' /><FieldRef Name='Objective' /><FieldRef Name='LinkForTraining' /><FieldRef Name='Training_x0020_Type' /><FieldRef Name='Categories' /><FieldRef Name='Role' /> </ViewFields>",
 		CAMLQuery : searchQuery,
 		completefunc : function (xData, Status) {
 			alert(xData.responseText);
@@ -399,8 +405,8 @@ function searchResults(Position, currID, SeldrpID) {
 					else
 						var itmLinkTitle = "";
 
-					if ($(this).attr("ows_Colleges") != null)
-						var itmColleges = $(this).attr("ows_Colleges");
+					if ($(this).attr("ows_Colleges_x0020_Trainings") != null)
+						var itmColleges = $(this).attr("ows_Colleges_x0020_Trainings");
 					else
 						var itmColleges = "";
 
@@ -459,7 +465,7 @@ function searchResults(Position, currID, SeldrpID) {
 	mainload();
 
 	// old style program
-	/*
+/*
 	$().SPServices({
 	operation: "GetListItems",
 	async: false,
@@ -656,7 +662,10 @@ var t = "";
 var k = 0;
 var PageNo = 0;
 
+var totCount= 0;
+
 function mainload() {
+	PageNo = 0;
 	builtContents(PageNo);
 }
 
@@ -666,28 +675,43 @@ function builtContents(pageN) {
 	var start = pageN * 5;
 	var end = start + 5;
 	var str = "";
+	totCount = t / 5;
 	var tbl = "<table width='100%' cellSpacing='0' cellPadding='0'>";
 	for (var j = start; j < end; j++) {
 		if (j <= t) {
 			tbl += "<tr><td>";
 			tbl += "<table id='innerTbl'>";
 			tbl += "<tr><td class='itemTitle'><a href='#' target='_blank'>" + spfiles[j].itmColleges + "</a></td></tr>";
+			
+			tbl +="<tr><td class=\"itemtitle\" style=\"font-weight: normal; color: black; padding-top: 5px; line-height: 120%\">"+spfiles[j].itmObjective+"</td></tr>";
+			
+			tbl +="<tr><td><span class='info2'>Power:</span>&nbsp;&nbsp;<span class='info3'>"+spfiles[j].itmCategories+"</span>&nbsp;&nbsp;<span class='info2'>Format:</span>&nbsp;&nbsp;<span class='info3'>"+spfiles[j].itmFormat1+"</span></td></tr>";
+			
+			tbl +="<tr><td><span class='info2'>Role:</span>&nbsp;&nbsp;<span class='info3'><a onclick='getselrole(\"5\")' href=\"javascript:void(0)\">"+spfiles[j].itmRole+"</a></span> &nbsp;&nbsp; <span class='info2'>Category:</span>&nbsp;&nbsp;<span class='info3'>"+spfiles[j].itmTraining+"</span> </td></tr>";
+			
 			tbl += "</table>";
 			tbl += "</td></tr>";
 			tbl += "<tr><td height=5></td></tr>";
 			tbl += "<tr><td bgcolor=#e2e2e2 height=1></td></tr>";
+			
 		}
 	}
+	
 	tbl += "</table>";
 	var maintble = "<table width='100%' bgColor='#e2e2e2' cellSpacing='2' cellPadding='2'><tr><td bgColor='white'>" + tbl + "</td></tr></table>";
 
-	var headers = "<table width='100%' border='0' cellSpacing='0' align='center' cellPadding='0'><tr><td class='itemTitle' style='14px;color:#70655e'> Results : X - XX of XXX</td><td align=right class='norTxt' style='padding: 5px;'><a href='javascript:void(0)' id='btnPrev' onclick='prev()'>Previous</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='javascript:void(0)' id='btnNext' onclick='next()'>Next</a></td></tr><tr><td height=3px></td></tr></table>";
+	var tot= parseInt(t)+1;
+	if(end>tot)
+	{
+		end=tot;
+	}
+	var headers = "<table width='100%' border='0' cellSpacing='0' align='center' cellPadding='0'><tr><td class='itemTitle' style='14px;color:#70655e'> Results :"+start+" - "+end+" of "+tot+"</td><td align=right class='norTxt' style='padding: 5px;'><a href='javascript:void(0)' id='btnPrev' onclick='prev()'>Previous</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='javascript:void(0)' id='btnNext' onclick='next()'>Next</a></td></tr><tr><td height=3px></td></tr></table>";
 
 	$("#tdResult").html(headers + maintble);
 }
 
 function next() {
-	var totCount = t / 5;
+	
 	if (PageNo < totCount - 1) {
 		$('#btnPrev').show();
 		$('#btnNext').show();
