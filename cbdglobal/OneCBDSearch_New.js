@@ -366,12 +366,8 @@ function searchResults(Position, currID, SeldrpID) {
 
 	searchQuery = GenerateQuery(Position, currID);
 	
-	debugger;
-			
-	/*$.each(spfiles,function(i)){
-		delete spfiles[i];
-	}*/
-		
+	//debugger;
+				
 	spfiles = [];
 
 	var totalItems = 0;
@@ -669,8 +665,6 @@ function mainload() {
 	builtContents(PageNo);
 }
 
-
-
 function roles(j) {
 	
 var roleArray=spfiles[j].itmRole.split(';#');
@@ -690,7 +684,7 @@ var roleCount=roleArray.length;
 
 
 function builtContents(pageN) {
-
+debugger
 	t = spfiles.length - 1;
 	var start = pageN * 5;
 	var end = start + 5;
@@ -698,24 +692,29 @@ function builtContents(pageN) {
 	totCount = t / 5;	
 	
 	var tbl = "<table width='100%' cellSpacing='0' cellPadding='0'>";
-	for (var j = start; j < end; j++) {
-		if (j <= t) {
-			tbl += "<tr><td>";
-			tbl += "<table id='innerTbl'>";
-			tbl += "<tr><td class='itemTitle'><a href='"+spfiles[j].itmLinkForTraining.split(',')[0]+"' target='_blank'>" + spfiles[j].itmColleges + "</a></td></tr>";
-			
-			tbl +="<tr><td class=\"itemtitle\" style=\"font-weight: normal; color: black; padding-top: 5px; line-height: 120%\">"+spfiles[j].itmObjective+"</td></tr>";
-			
-			tbl +="<tr><td><span class='info2'>Power:</span>&nbsp;&nbsp;<span class='info3'>"+spfiles[j].itmCategories.split("#")[1]+"</span>&nbsp;&nbsp;<span class='info2'>Format:</span>&nbsp;&nbsp;<span class='info3'>"+spfiles[j].itmFormat1.replace(/;#/gi,"");+"</span></td></tr>";
-			
-			tbl +="<tr><td><span class='info2'>Role:</span>&nbsp;&nbsp;<span class='info3'><a onclick='getselrole(\"5\")' href=\"javascript:void(0)\">"+roles(j)+"</a></span> &nbsp;&nbsp; <span class='info2'>Category:</span>&nbsp;&nbsp;<span class='info3'>"+spfiles[j].itmTraining.split(';#')[1];+"</span> </td></tr>";
-			
-			tbl += "</table>";
-			tbl += "</td></tr>";
-			tbl += "<tr><td height=5></td></tr>";
-			tbl += "<tr><td bgcolor=#e2e2e2 height=1></td></tr>";
-			
+	if (spfiles.length > 0) {
+		for (var j = start; j < end; j++) {
+			if (j <= t) {
+				tbl += "<tr><td>";
+				tbl += "<table id='innerTbl'>";
+				tbl += "<tr><td class='itemTitle'><a href='" + spfiles[j].itmLinkForTraining.split(',')[0] + "' target='_blank'>" + spfiles[j].itmColleges + "</a></td></tr>";
+
+				tbl += "<tr><td class=\"itemtitle\" style=\"font-weight: normal; color: black; padding-top: 5px; line-height: 120%\">" + spfiles[j].itmObjective + "</td></tr>";
+
+				tbl += "<tr><td><span class='info2'>Power:</span>&nbsp;&nbsp;<span class='info3'>" + spfiles[j].itmCategories.split("#")[1] + "</span>&nbsp;&nbsp;<span class='info2'>Format:</span>&nbsp;&nbsp;<span class='info3'>" + spfiles[j].itmFormat1.replace(/;#/gi, "");
+				 + "</span></td></tr>";
+
+				tbl += "<tr><td><span class='info2'>Role:</span>&nbsp;&nbsp;<span class='info3'><a onclick='getselrole(\"5\")' href=\"javascript:void(0)\">" + roles(j) + "</a></span> &nbsp;&nbsp; <span class='info2'>Category:</span>&nbsp;&nbsp;<span class='info3'>" + spfiles[j].itmTraining.split(';#')[1];
+				 + "</span> </td></tr>";
+
+				tbl += "</table>";
+				tbl += "</td></tr>";
+				tbl += "<tr><td height='5'></td></tr>";
+				tbl += "<tr><td bgcolor='#e2e2e2' height='1'></td></tr>";
+			}
 		}
+	} else {
+		tbl += "<tr><td>No records found.</td></tr>";
 	}
 	
 	tbl += "</table>";
