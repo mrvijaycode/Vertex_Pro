@@ -366,7 +366,7 @@ function searchResults(Position, currID, SeldrpID) {
 
 	searchQuery = GenerateQuery(Position, currID);
 	
-	//debugger;
+	debugger;
 			
 	/*$.each(spfiles,function(i)){
 		delete spfiles[i];
@@ -382,7 +382,7 @@ function searchResults(Position, currID, SeldrpID) {
 		CAMLViewFields : "<ViewFields><FieldRef Name='ID' /><FieldRef Name='Title' /><FieldRef Name='LinkTitle' /><FieldRef Name='Colleges_x0020_Trainings' /><FieldRef Name='Format1' /><FieldRef Name='Objective' /><FieldRef Name='LinkForTraining' /><FieldRef Name='Training_x0020_Type' /><FieldRef Name='Categories' /><FieldRef Name='Role' /> </ViewFields>",
 		CAMLQuery : searchQuery,
 		completefunc : function (xData, Status) {
-			alert(xData.responseText);
+			//alert(xData.responseText);
 			if (xData.status == 200) {
 				totalItems = $(xData.responseXML).SPFilterNode("rs:data").attr('ItemCount');
 
@@ -669,25 +669,46 @@ function mainload() {
 	builtContents(PageNo);
 }
 
+
+
+function roles(j) {
+	
+var roleArray=spfiles[j].itmRole.split(';#');
+var roleCount=roleArray.length;
+
+	var roles = "";
+	$.each(roleArray, function (i) {
+		if ((i + 1) % 2 == 0) {
+			roles += "<a href='javascript:void(0)' onclick='getSelRole(&quot;" + roleArray[i - 1] + "&quot;)'>" + roleArray[i] + "</a>";
+			if ((i + 1) != roleCount)
+				roles += ", ";
+		}
+	});
+	
+	return roles;
+}
+
+
 function builtContents(pageN) {
 
 	t = spfiles.length - 1;
 	var start = pageN * 5;
 	var end = start + 5;
 	var str = "";
-	totCount = t / 5;
+	totCount = t / 5;	
+	
 	var tbl = "<table width='100%' cellSpacing='0' cellPadding='0'>";
 	for (var j = start; j < end; j++) {
 		if (j <= t) {
 			tbl += "<tr><td>";
 			tbl += "<table id='innerTbl'>";
-			tbl += "<tr><td class='itemTitle'><a href='#' target='_blank'>" + spfiles[j].itmColleges + "</a></td></tr>";
+			tbl += "<tr><td class='itemTitle'><a href='"+spfiles[j].itmLinkForTraining.split(',')[0]+"' target='_blank'>" + spfiles[j].itmColleges + "</a></td></tr>";
 			
 			tbl +="<tr><td class=\"itemtitle\" style=\"font-weight: normal; color: black; padding-top: 5px; line-height: 120%\">"+spfiles[j].itmObjective+"</td></tr>";
 			
-			tbl +="<tr><td><span class='info2'>Power:</span>&nbsp;&nbsp;<span class='info3'>"+spfiles[j].itmCategories+"</span>&nbsp;&nbsp;<span class='info2'>Format:</span>&nbsp;&nbsp;<span class='info3'>"+spfiles[j].itmFormat1+"</span></td></tr>";
+			tbl +="<tr><td><span class='info2'>Power:</span>&nbsp;&nbsp;<span class='info3'>"+spfiles[j].itmCategories.split("#")[1]+"</span>&nbsp;&nbsp;<span class='info2'>Format:</span>&nbsp;&nbsp;<span class='info3'>"+spfiles[j].itmFormat1.replace(/;#/gi,"");+"</span></td></tr>";
 			
-			tbl +="<tr><td><span class='info2'>Role:</span>&nbsp;&nbsp;<span class='info3'><a onclick='getselrole(\"5\")' href=\"javascript:void(0)\">"+spfiles[j].itmRole+"</a></span> &nbsp;&nbsp; <span class='info2'>Category:</span>&nbsp;&nbsp;<span class='info3'>"+spfiles[j].itmTraining+"</span> </td></tr>";
+			tbl +="<tr><td><span class='info2'>Role:</span>&nbsp;&nbsp;<span class='info3'><a onclick='getselrole(\"5\")' href=\"javascript:void(0)\">"+roles(j)+"</a></span> &nbsp;&nbsp; <span class='info2'>Category:</span>&nbsp;&nbsp;<span class='info3'>"+spfiles[j].itmTraining.split(';#')[1];+"</span> </td></tr>";
 			
 			tbl += "</table>";
 			tbl += "</td></tr>";
