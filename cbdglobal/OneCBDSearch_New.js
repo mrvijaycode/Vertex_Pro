@@ -299,7 +299,7 @@ function GenerateQuery(Position, currID) {
 
 	if (QueryMiddlePart != "") {
 		if (Position == 'Previous')
-			var Query = "<Query><OrderBy><FieldRef Name='ID' Ascending='False'  /></OrderBy><Where><And><Lt><FieldRef Name='ID' /><Value Type='Counter'>" + currID + "</Value></Lt>" + QueryMiddlePart + "</And>" + QueryEndPart;
+			var Query = "<Query><OrderBy><FieldRef Name='Colleges_x0020_Trainings' Ascending='False'  /></OrderBy><Where><And><Lt><FieldRef Name='ID' /><Value Type='Counter'>" + currID + "</Value></Lt>" + QueryMiddlePart + "</And>" + QueryEndPart;
 		else if (Position == 'Next')
 			var Query = QueryBeginPart + "<And><Gt><FieldRef Name='ID' /><Value Type='Counter'>" + currID + "</Value></Gt>" + QueryMiddlePart + "</And>" + QueryEndPart;
 	} else {
@@ -663,6 +663,7 @@ var totCount= 0;
 function mainload() {
 	PageNo = 0;
 	builtContents(PageNo);
+	$("#tdSelTitle").text(TrainingTitle);
 }
 
 function roles(j) {
@@ -684,7 +685,6 @@ var roleCount=roleArray.length;
 
 
 function builtContents(pageN) {
-debugger
 	t = spfiles.length - 1;
 	var start = pageN * 5;
 	var end = start + 5;
