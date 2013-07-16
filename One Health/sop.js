@@ -1,10 +1,6 @@
 
 //***************************************************************
-<<<<<<< HEAD
-//* Project Name     : ONE HEALTH
-=======
 //* Project Name     : One Health
->>>>>>> 4e9d15d4ef949958703f251ed63a8b66261820c4
 //* Application name :
 //* Dependencies     :
 //* Limitations      :
@@ -14,11 +10,7 @@
 
 $(document).ready(function () {
 	alert('working fine sop');
-<<<<<<< HEAD
 	$("#divSop").accordion({header : "span"},{heightStyle: "content" });
-=======
-	$("#divSop").accordion({ header: "span" });
->>>>>>> 4e9d15d4ef949958703f251ed63a8b66261820c4
 	main();
 });
 
@@ -38,17 +30,12 @@ function main() {
 			completefunc : function (xData, Status) {
 
 				//alert(xData.responseText);
-<<<<<<< HEAD
 				debugger
-=======
-debugger
->>>>>>> 4e9d15d4ef949958703f251ed63a8b66261820c4
 				if (xData.status == 200) {
 					$(xData.responseXML).SPFilterNode("z:row").each(function () {
 
 						//var keyMeasure = $(this).attr("ows_Key_x0020_Measure");
 
-<<<<<<< HEAD
 						if ($(this).attr("ows_SOP") != null)
 							var sop = $(this).attr("ows_SOP");
 						else
@@ -83,15 +70,6 @@ debugger
 							var grpName = $(this).attr("ows_grpName");
 						else
 							var grpName = '';
-=======
-						var sop = $(this).attr("ows_SOP");
-						var itmid = $(this).attr("ows_ID");
-						var title = $(this).attr("ows_Title");
-						var attachments = $(this).attr("ows_Attachment1");
-						var formersop = $(this).attr("ows_Former_x0020_Sop");
-						var corporateqa = $(this).attr("ows_Corporate_x0020_QA_x0020_Link");
-						var grpName = $(this).attr("ows_grpName");
->>>>>>> 4e9d15d4ef949958703f251ed63a8b66261820c4
 
 						var new_obj = {
 							"itmid" : itmid,
@@ -124,19 +102,11 @@ function buildContents() {
 
 	$.each(sops, function (i) {
 		tblsop += '<tr>';
-<<<<<<< HEAD
 		tblsop += '<td width="60" align="left" class="grid_bg" valign="middle">' + sops[i].sop + '</td>';
 		tblsop += '<td align="left" class="grid_bg" valign="middle">' + sops[i].title + '</td>';
 		tblsop += '<td width="100" align="left" class="grid_bg" valign="middle">&nbsp;</td>';
 		tblsop += '<td width="100" align="left" class="grid_bg" valign="middle">' + sops[i].formersop + '</td>';
 		tblsop += '<td width="120" align="left" class="grid_bg" valign="middle">' + sops[i].corporateqa + '</td>';
-=======
-		tblsop += '<td width="60" align="left" class="grid_bg" valign="middle">OH – 201</td>';
-		tblsop += '<td align="left" class="grid_bg" valign="middle">&nbsp;</td>';
-		tblsop += '<td width="100" align="left" class="grid_bg" valign="middle">&nbsp;</td>';
-		tblsop += '<td width="100" align="left" class="grid_bg" valign="middle">&nbsp;</td>';
-		tblsop += '<td width="120" align="left" class="grid_bg" valign="middle">&nbsp;</td>';
->>>>>>> 4e9d15d4ef949958703f251ed63a8b66261820c4
 		tblsop += '</tr>';
 	});
 	tblsop += "</tbody></table></div>";
