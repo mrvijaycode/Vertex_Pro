@@ -11,7 +11,7 @@
 $(document).ready(function () {
 	alert('working fine sop');
 	$("#divSop").accordion({
-		header : "span"
+		header : "div"
 	}, {
 		heightStyle : "content"
 	});
