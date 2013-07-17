@@ -9,13 +9,14 @@
 //****************************************************************
 
 $(document).ready(function () {
-	alert('working fine sop');
+	//alert('working fine sop');
 	$("#divSop").accordion({
 		header : "div"
 	}, {
 		heightStyle : "content"
 	});
 	main();
+	quickLinks();
 });
 
 var sops = [];
@@ -34,7 +35,7 @@ function main() {
 			completefunc : function (xData, Status) {
 
 				//alert(xData.responseText);
-				debugger
+//				debugger
 				if (xData.status == 200) {
 					$(xData.responseXML).SPFilterNode("z:row").each(function () {
 
@@ -135,9 +136,9 @@ return links;
 
 
 function buildContents() {
-	var tblsop = "<div><table width='100%'>";
+	var tblsop = "<table width='100%'>";
 	tblsop += ' <tbody><thead> <tr class="subheader_bg"><th width="60" align="left" valign="middle">SOP #</th><th align="left" valign="middle">Title</th><th width="100" align="left" valign="middle">Attachments</th><th width="100" align="left" valign="middle">Former SOP #</th><th width="120" align="left" valign="middle">Corporate QA Link</th></tr> </thead> ';
-	tblsop += "</tbody></table></div>";
+	tblsop += "</tbody></table>";
 
 	var divsArr = ['div1', 'div2', 'div3', 'div4', 'div5', 'div6', 'div7', 'div8', 'div9'];
 
@@ -195,5 +196,40 @@ function buildContents() {
 		}
 
 	});
+}
 
+function quickLinks()
+{
+var strTRs='<table width="100%" style="border: 1px solid rgb(222, 230, 232);" border="0" cellspacing="0" cellpadding="5"><tbody><tr><td align="left" class="soaps_header" valign="middle">OTHER SOPS</td></tr>';
+	$().SPServices({
+		operation : "GetListItems", //Method name
+		async : false,
+		//webURL : webUrl,//pass webUrl dynamically
+		listName : "Other SOP", // List Name
+		//CAMLQueryOptions : "<QueryOptions><IncludeAttachmentUrls>TRUE</IncludeAttachmentUrls></QueryOptions>",
+		CAMLViewFields : "<ViewFields><FieldRef Name='SOP_x0020_Link' /></ViewFields>",
+		CAMLQuery : "",
+		//CAMLRowLimit : 1,
+		completefunc : function (xData, Status) {
+
+			//alert(xData.responseText);
+
+			if (xData.status == 200) {
+				$(xData.responseXML).SPFilterNode("z:row").each(function () {
+
+					if($(this).attr("ows_SOP_x0020_Link")!=null)
+					var qLink = $(this).attr("ows_SOP_x0020_Link");
+					else
+					var qLink = '';
+					
+				strTRs+='<tr><td class="soaps_links"><a href="'+qLink.split(',')[0]+'">'+qLink.split(',')[1]+'</a></td></tr>';
+
+				});
+			} else {
+				alert(xData.status);
+			}
+		}
+	});
+	strTRs+='<tr><td class="soaps_links">If you can\'t access the above links, contact the person in parenthesis for access.</td></tr></tbody></table>';
+	$('#spnQlinks').html(strTRs);
 }
