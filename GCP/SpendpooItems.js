@@ -289,6 +289,7 @@ function LoadFunction() {
 
 		Materials.parentElement.style.display = 'none';
 		Materials.parentElement.parentElement.appendChild(drpFram);
+
 		PoolType.onchange = LoadMaterial;
 
 	} else {
