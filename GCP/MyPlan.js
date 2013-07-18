@@ -61,8 +61,11 @@ $(document).ready(function () {
 
 				if (planStatus == "Pending" || planStatus == "") {
 					date = "";
+					if (planStatus == "") {
+						planStatus = 'Not yet sent for approval';
+					}
 				}
-
+				
 				strContents += '<tr><td class="ms-vb2" vAlign="top"><input type="radio" name="dynradio" id="btnRadio" onclick="javascript:getSpendingItem(&quot;' + PlanId + '&quot;)"; /></td><td class="ms-vb2">' + SrcPlan + '</td><td class="ms-vb2">' + planStatus + '</td><td class="ms-vb2">' + date + '</td>';
 				strContents += '<td class="ms-vb2" vAlign="top"><a href="http://teamspace.pg.com/sites/sourcingplanmanager/capitalsrc/Lists/SourcingPlan/EditSourcingPlan.aspx?ID=' + PlanId + '&Source=http://teamspace.pg.com/sites/sourcingplanmanager/capitalsrc/Site%20Pages/MyPlan.aspx">Edit</a></td>';
 				strContents += '<td class="ms-vb2" vAlign="top"><a href="http://teamspace.pg.com/sites/sourcingplanmanager/capitalsrc/WPPages/MyPlanItems.aspx?SId=' + PlanId + '&Source=http://teamspace.pg.com/sites/sourcingplanmanager/capitalsrc/Site%20Pages/MyPlan.aspx">View</a></td>';
