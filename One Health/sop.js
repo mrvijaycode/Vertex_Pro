@@ -29,7 +29,7 @@ function main() {
 			//webURL : webUrl,//pass webUrl dynamically
 			listName : "Sops", // List Name
 			//CAMLQueryOptions : "<QueryOptions><IncludeAttachmentUrls>TRUE</IncludeAttachmentUrls></QueryOptions>",
-			CAMLViewFields : '<ViewFields><FieldRef Name="Title" /><FieldRef Name="Former_x0020_Sop" /><FieldRef Name="Corporate_x0020_QA_x0020_Link" /><FieldRef Name="SOP" /><FieldRef Name="Attachment1" /><FieldRef Name="Attachment4" /><FieldRef Name="Attachment3" /><FieldRef Name="Attachment2" /><FieldRef Name="grpName" /></ViewFields>',
+			CAMLViewFields : '<ViewFields><FieldRef Name="Title" /><FieldRef Name="Former_x0020_Sop" /><FieldRef Name="Corporate_x0020_QA_x0020_Link" /><FieldRef Name="SOP" /><FieldRef Name="Attachment1" /><FieldRef Name="Attachment2" /><FieldRef Name="Attachment3" /><FieldRef Name="Attachment4" /><FieldRef Name="Attachment5" /><FieldRef Name="Attachment6" /><FieldRef Name="Attachment7" /><FieldRef Name="Attachment8" /><FieldRef Name="grpName" /></ViewFields>',
 			CAMLQuery : "",
 			//CAMLRowLimit : 1,
 			completefunc : function (xData, Status) {
@@ -76,6 +76,28 @@ function main() {
 						else
 							var att4 = '';			
 							
+							if ($(this).attr("ows_Attachment5") != null)
+							var att5 = $(this).attr("ows_Attachment5");
+						else
+							var att5 = '';	
+							
+							if ($(this).attr("ows_Attachment6") != null)
+							var att6 = $(this).attr("ows_Attachment6");
+						else
+							var att6 = '';	
+							
+							
+							if ($(this).attr("ows_Attachment7") != null)
+							var att7 = $(this).attr("ows_Attachment7");
+						else
+							var att7 = '';	
+							
+							
+							if ($(this).attr("ows_Attachment8") != null)
+							var att8 = $(this).attr("ows_Attachment8");
+						else
+							var att8 = '';	
+							
 						if ($(this).attr("ows_Former_x0020_Sop") != null)
 							var formersop = $(this).attr("ows_Former_x0020_Sop");
 						else
@@ -100,6 +122,10 @@ function main() {
 							"att2" : att2,
 							"att3" : att3,
 							"att4" : att4,
+							"att5" : att5,
+							"att6" : att6,
+							"att7" : att7,
+							"att8" : att8,
 							"sop" : sop,
 							"grpName" : grpName
 						};
@@ -130,7 +156,17 @@ var links="<ul>";
 	links+="<li><a href='"+sops[n].att3.split(',')[0]+"'>"+sops[n].att3.split(',')[1]+"</a></li>";
 	if(sops[n].att4!='')
 	links+="<li><a href='"+sops[n].att4.split(',')[0]+"'>"+sops[n].att4.split(',')[1]+"</a></li>";
+		
+	if(sops[n].att5!='')
+	links+="<li><a href='"+sops[n].att5.split(',')[0]+"'>"+sops[n].att5.split(',')[1]+"</a></li>";
+	if(sops[n].att6!='')
+	links+="<li><a href='"+sops[n].att6.split(',')[0]+"'>"+sops[n].att6.split(',')[1]+"</a></li>";
+	if(sops[n].att7!='')
+	links+="<li><a href='"+sops[n].att7.split(',')[0]+"'>"+sops[n].att7.split(',')[1]+"</a></li>";
+	if(sops[n].att8!='')
+	links+="<li><a href='"+sops[n].att8.split(',')[0]+"'>"+sops[n].att8.split(',')[1]+"</a></li>";
 	links+="</ul>";
+	
 return links;
 }
 
