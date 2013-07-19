@@ -10,14 +10,10 @@ Created Date: Feb 24th, 2012
 
  */
 
-//_spBodyOnLoadFunctionNames.push('LoadFunction');
-
-
 $(document).ready(function () {
-
 	//debugger
 	LoadFunction();
-	AllSpensPoolItemsInProcess();
+	AllSpensPoolItems();
 
 	if (IsApprovalEnable) {
 		$('#tdplanApproval').show();
@@ -36,7 +32,6 @@ var planId = "";
 
 function LoadFunction() {
 	document.title = "My Plan Items";
-	//document.getElementById('MyPlan1').src = 'http://teamspace.pg.com/sites/sourcingplanmanager/capitalsrc/images/MasterPage%20Images/my_plans_hover_btn.jpg';
 	planId = gup('SId');
 	if (planId == "") {
 		window.location = "http://teamspace.pg.com/sites/sourcingplanmanager/capitalsrc/Home.aspx";
@@ -129,8 +124,6 @@ function planApproval() {
 		return false;
 	}
 
-	//alert(SpenPoolTotal);
-
 	ETC = ETC.replace(/,/gi, "");
 	if (Number(ETC) != Number(SpenPoolTotal)) {
 		alert('Total Estimated Cost must match with Total Estimated Spend ');
@@ -176,24 +169,49 @@ function planApproval() {
 	}
 }
 
-function AllSpensPoolItemsInProcess() {
+function AllSpensPoolItems() {
+debugger;
+	
+	var qry='<Query><Where><Eq><FieldRef Name="Title" /><Value Type="Text">'+planId+'</Value></Eq></Where></Query>';
+	chkCount(qry,"Total");
+	
+	qry='<Query><Where><And><Eq><FieldRef Name="Title" /><Value Type="Text">'+planId+'</Value></Eq><Eq><FieldRef Name="Status" /><Value Type="Choice">Cancelled</Value></Eq></And></Where></Query>';
+	chkCount(qry,"Cancel");
+
+	qry='<Query><Where><And><Eq><FieldRef Name="Status" /><Value Type="Choice">Create</Value></Eq><Eq><FieldRef Name="Title" /><Value Type="Text">'+planId+'</Value></Eq></And></Where></Query>';
+	chkCount(qry,"Active");
+}
+
+
+var totalSpendPoolsForThisItem = null;
+function chkCount(qry, state) {
 	$().SPServices({
 		operation : "GetListItems", //Method name
 		async : false,
-		//webURL : webUrl,//pass webUrl dynamically
 		listName : "SourcingPlanItems", // List Name
-		//CAMLQueryOptions : "<QueryOptions><IncludeAttachmentUrls>TRUE</IncludeAttachmentUrls></QueryOptions>",
-		//CAMLViewFields: "<ViewFields><FieldRef Name='Title' /></ViewFields>",
-		//CAMLQuery : '<Query><Where><And><Eq><FieldRef Name="Title" /><Value Type="Text">'+planId+'</Value></Eq><Neq><FieldRef Name="Status" /><Value Type="Choice">In Process</Value></Neq></And></Where></Query>',
-		CAMLQuery : '<Query><Where><And><Eq><FieldRef Name="Status" /><Value Type="Choice">Create</Value></Eq><Eq><FieldRef Name="Title" /><Value Type="Text">'+planId+'</Value></Eq></And></Where></Query>',
-		//CAMLRowLimit: 1,
+		CAMLQuery : qry,
 		completefunc : function (xData, Status) {
-
+		
 			//alert(xData.responseText);
-			var itemCount = $(xData.responseXML).SPFilterNode("rs:data").attr('ItemCount');
+			switch (state) {
 
-			if (parseInt(itemCount) > 0) {
-				IsApprovalEnable = false;
+			case "Total":
+				totalSpendPoolsForThisItem = $(xData.responseXML).SPFilterNode("rs:data").attr('ItemCount');
+				break;
+
+			case "Cancel":
+				var itemCount = $(xData.responseXML).SPFilterNode("rs:data").attr('ItemCount');
+				if (totalSpendPoolsForThisItem == itemCount) {
+					IsApprovalEnable = false;
+				}
+				break;
+
+			case "Active":
+				var itemCount = $(xData.responseXML).SPFilterNode("rs:data").attr('ItemCount');
+				if (parseInt(itemCount) > 0) {
+					IsApprovalEnable = false;
+				}
+				break;
 			}
 		}
 	});

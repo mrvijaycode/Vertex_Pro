@@ -6,11 +6,9 @@ Assembly Equipment
 Converting Equipment
 EOL Packing Equipment
 Facilities Equipment
-Facilities Equipment
 Packing Generic Equipment
 Power, Controls and Instrumentation Equipment
 Primary Packing Equipment
-Process Equipment
 Process Equipment
 Warehouse Equipment
 

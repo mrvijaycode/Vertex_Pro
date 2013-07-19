@@ -10,8 +10,6 @@ var strUrl = "http://teamspace.pg.com/sites/sourcingplanmanager/capitalsrc";
 var loginUserName = '';
 var sQuery = '';
 
-//CAMLViewFields: "<ViewFields><FieldRef Name='Title'/><FieldRef Name='Category'/><FieldRef Name='Link'/><FieldRef Name='General_x0020_CBD'/><FieldRef Name='Regions' /></ViewFields>",
-
 var curUser = $().SPServices.SPGetCurrentUser({
 		fieldName : "Title",
 		debug : false
@@ -20,10 +18,17 @@ var curUser = $().SPServices.SPGetCurrentUser({
 //alert(curUser);
 
 var viewflds = "";
-var strContents = '<table id="myPlans" width="100%" class="tablesorter"  border="0" cellSpacing="0" cellPadding="5" >';
-strContents += '<thead><tr><th colspan="2">Sourcing Plan</th><th>Status</th><th colspan="3">Approved Date</th></tr></thead>';
+
 
 $(document).ready(function () {
+	getSourcePlans();
+});
+
+
+function getSourcePlans()
+{
+	var strContents = '<table id="myPlans" width="100%" class="tablesorter"  border="0" cellSpacing="0" cellPadding="5" >';
+	strContents += '<thead><tr><th colspan="2">Sourcing Plan</th><th>Status</th><th colspan="3">Approved Date</th></tr></thead>';
 
 	sQuery = '<Query><Where><Eq><FieldRef Name="ProjectPurchasesManager" /><Value Type="User">' + curUser + '</Value></Eq></Where></Query>';
 
@@ -69,6 +74,9 @@ $(document).ready(function () {
 				strContents += '<tr><td class="ms-vb2" vAlign="top"><input type="radio" name="dynradio" id="btnRadio" onclick="javascript:getSpendingItem(&quot;' + PlanId + '&quot;)"; /></td><td class="ms-vb2">' + SrcPlan + '</td><td class="ms-vb2">' + planStatus + '</td><td class="ms-vb2">' + date + '</td>';
 				strContents += '<td class="ms-vb2" vAlign="top"><a href="http://teamspace.pg.com/sites/sourcingplanmanager/capitalsrc/Lists/SourcingPlan/EditSourcingPlan.aspx?ID=' + PlanId + '&Source=http://teamspace.pg.com/sites/sourcingplanmanager/capitalsrc/Site%20Pages/MyPlan.aspx">Edit</a></td>';
 				strContents += '<td class="ms-vb2" vAlign="top"><a href="http://teamspace.pg.com/sites/sourcingplanmanager/capitalsrc/WPPages/MyPlanItems.aspx?SId=' + PlanId + '&Source=http://teamspace.pg.com/sites/sourcingplanmanager/capitalsrc/Site%20Pages/MyPlan.aspx">View</a></td>';
+				
+				strContents += '<td class="ms-vb2" vAlign="top"><a href="javascript:void(0)" onclick="javascript:deleteSourcePlan('+PlanId+')">Delete</a></td>';
+				
 				strContents += '</tr>';
 			});
 		}
@@ -85,7 +93,9 @@ $(document).ready(function () {
 		//sortList: [[0,0],[2,0]]
 	});
 
-});
+}
+
+
 
 // Customm date format
 function reformDate(date) {
@@ -99,6 +109,8 @@ function reformDate(date) {
 var xml = '';
 var rowlength = '';
 var sourceId = "";
+
+
 function getSpendingItem(PoolId) {
 	sourceId = PoolId;
 	$('#tblSpendingItem').html("");
@@ -116,28 +128,35 @@ function getSpendingItem(PoolId) {
 			//debugger;
 			xml = xData.responseXML;
 			rowlength = $(xData.responseXML).SPFilterNode("z:row").length;
-			$(xData.responseXML).SPFilterNode("z:row").each(function () {
-				var SpendItemID = $(this).attr('ows_ID');
-				var spendingPool = $(this).attr('ows_SpendingPool');
-				var mtrlCode = $(this).attr('ows_MaterialCode');
-				var srcTiming = $(this).attr('ows_SourcingTiming');
-				if (srcTiming == null || srcTiming == undefined) {
-					srcTiming = "";
-				} else {
-					srcTiming = reformDate(srcTiming);
-				}
-				var poolOwner = $(this).attr('ows_Buyer_SpendPoolOwner');
-				poolOwner = poolOwner.split(';#')[1];
 
-				var status = $(this).attr('ows_Status');
-				if (status == null || status == undefined)
-					status = '';
+			if (rowlength > 0) {
 
-				strTable += '<tr><td class="ms-vb2" vAlign="top">' + spendingPool + '</td><td class="ms-vb2">' + mtrlCode + '</td><td class="ms-vb2">' + srcTiming + '</td><td class="ms-vb2">' + poolOwner + '</td><td class="ms-vb2" align="center">' + status + '</td><td class="ms-vb2"><a href="javascript:deleteSpendingItem(&quot;' + SpendItemID + '&quot;)";>Delete</a></td></tr>';
-			});
+				$(xData.responseXML).SPFilterNode("z:row").each(function () {
+					var SpendItemID = $(this).attr('ows_ID');
+					var spendingPool = $(this).attr('ows_SpendingPool');
+					var mtrlCode = $(this).attr('ows_MaterialCode');
+					var srcTiming = $(this).attr('ows_SourcingTiming');
+					if (srcTiming == null || srcTiming == undefined) {
+						srcTiming = "";
+					} else {
+						srcTiming = reformDate(srcTiming);
+					}
+					var poolOwner = $(this).attr('ows_Buyer_SpendPoolOwner');
+					poolOwner = poolOwner.split(';#')[1];
+
+					var status = $(this).attr('ows_Status');
+					if (status == null || status == undefined)
+						status = '';
+
+					strTable += '<tr><td class="ms-vb2" vAlign="top">' + spendingPool + '</td><td class="ms-vb2">' + mtrlCode + '</td><td class="ms-vb2">' + srcTiming + '</td><td class="ms-vb2">' + poolOwner + '</td><td class="ms-vb2" align="center">' + status + '</td><td class="ms-vb2"><a href="javascript:deleteSpendingItem(&quot;' + SpendItemID + '&quot;,true)";>Delete</a></td></tr>';
+				});
+			} else {
+			
+			strTable +="<tr><td colspan='6' align='center'>No data found.</td></tr>";
+			}
+
 		}
 	});
-
 	strTable += '</table>';
 
 	$('#tblSpendingItem').html(strTable);
@@ -158,11 +177,15 @@ function getSpendingItem(PoolId) {
 
 //function to delete Speding pool Item
 
-function deleteSpendingItem(itemID) {
+function deleteSpendingItem(itemID, Isalert) {
 	var docId = itemID;
-	var response = confirm("Are you sure you want to delete the Sourcing Plan Item ?");
+
+	if (Isalert) {
+		var response = confirm("Are you sure you want to delete the Sourcing Plan Item ?");
+	} else {
+		var response = true;
+	}
 	if (response == true) {
-		//debugger;
 		var sQuery = '<Query><Where><Eq><FieldRef Name="ID" /><Value Type="Counter">' + docId + '</Value></Eq></Where></Query>';
 		$().SPServices({
 			operation : "UpdateListItems",
@@ -172,10 +195,53 @@ function deleteSpendingItem(itemID) {
 			ID : docId,
 			completefunc : function (xData, Status) {
 
-				alert('Souece Plan Item deleted successfully');
+				if (Isalert)
+					alert('Souece Plan Item deleted successfully');
+
 				//location.reload();
 				getSpendingItem(sourceId);
 			}
 		});
 	}
+}
+
+function deleteSourcePlan(planid)
+{
+var response = confirm("Are you sure you want to delete the Sourcing Plan Item ?");
+//debugger;
+	if (response == true) {	
+	getAllSpendPoolsOf(planid);
+		$().SPServices({
+			operation : "UpdateListItems",
+			async : false,
+			batchCmd : "Delete",
+			listName : "SourcingPlan",
+			ID : planid,
+			completefunc : function (xData, Status) {
+				alert('Souece Plan & SpendPool items are deleted successfully');
+				getSourcePlans();
+			}
+		});
+	}
+}
+
+
+//var SpendPools=[];
+function getAllSpendPoolsOf(poolid) {
+	$().SPServices({
+		operation : "GetListItems",
+		async : false,
+		listName : "SourcingPlanItems",
+		CAMLQuery : '<Query><Where><Eq><FieldRef Name="Title" /><Value Type="Text">'+poolid+'</Value></Eq></Where></Query>',
+		completefunc : function (xData, Status) {
+			//location.reload();
+				if (xData.status == 200) {
+					$(xData.responseXML).SPFilterNode("z:row").each(function () {
+						deleteSpendingItem($(this).attr("ows_ID"),false);
+					});
+				} else {
+					alert(xData.status);
+				}
+		}
+	});
 }
