@@ -1,6 +1,9 @@
 ﻿	<%@ Page Language="C#" masterpagefile="~masterurl/default.master" title="Untitled 1" inherits="Microsoft.SharePoint.WebPartPages.WebPartPage, Microsoft.SharePoint, Version=12.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c" meta:progid="SharePoint.WebPartPage.Document" %>
+<%@ Register tagprefix="WebPartPages" namespace="Microsoft.SharePoint.WebPartPages" assembly="Microsoft.SharePoint, Version=12.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c" %>
 	<asp:Content id="Content1" runat="server" contentplaceholderid="PlaceHolderMain">
 
+	<WebPartPages:SPProxyWebPartManager runat="server" id="ProxyWebPartManager">
+	</WebPartPages:SPProxyWebPartManager>
 	<link href="http://vcs.pg.com/sites/HC/OC/tc/drc/SiteAssets/CSS/style.css" rel="stylesheet" type="text/css" />
 
 		<!--[if !(IE 8)]>
@@ -16,10 +19,17 @@
 		<![endif]-->
 
 					
-					
+	<!--				
 	<script type="text/javascript" src="http://vcs.pg.com/sites/HC/OC/tc/drc/SiteAssets/JS/jquery-1.8.3.min.js"></script>
-	<script type="text/javascript" src="http://vcs.pg.com/sites/HC/OC/tc/drc/SiteAssets/JS/jquery.SPServices-0.7.2.min.js"></script>
+
 	<script type="text/javascript" src="http://vcs.pg.com/sites/HC/OC/tc/drc/SiteAssets/JS/jquery-ui.js"></script>
+	-->
+	
+	<script type="text/javascript" src="http://vcs.pg.com/sites/HC/OC/tc/drc/SiteAssets/JS/jquery-1.4.3.min.js"></script>
+	<script type="text/javascript" src="http://vcs.pg.com/sites/HC/OC/tc/drc/SiteAssets/JS/jquery-ui-1.8.13.custom.min.js"></script>
+		<script type="text/javascript" src="http://vcs.pg.com/sites/HC/OC/tc/drc/SiteAssets/JS/jquery.SPServices-0.7.2.min.js"></script>
+		
+	<script type="text/javascript" src="http://vcs.pg.com/sites/HC/OC/tc/drc/SiteAssets/JS/jquery.multi-accordion-1.5.3.js"></script>
 	<script type="text/javascript" src="http://vcs.pg.com/sites/HC/OC/tc/drc/SiteAssets/JS/sop.js"></script>
 					
 	<script type="text/javascript">			
@@ -107,55 +117,47 @@
 <div>
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
       <tbody><tr>
-        <td height="30"><strong>New  to SOPs?</strong> <a href="#">Click  here</a></td>
+        <td height="30">
+		<WebPartPages:WebPartZone id="g_130F08ACAB214F4C99BC11E883F2EE86" runat="server" title="Zone 1"><ZoneTemplate>
+<WebPartPages:ContentEditorWebPart runat="server" __MarkupType="xmlmarkup" WebPart="true" __WebPartId="{367C8902-A056-4BF9-BBA6-3B5D4FAF3E4E}" >
+<WebPart xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.microsoft.com/WebPart/v2">
+  <Title>New to SOPs</Title>
+  <FrameType>None</FrameType>
+  <Description>Use for formatted text, tables, and images.</Description>
+  <IsIncluded>true</IsIncluded>
+  <PartOrder>1</PartOrder>
+  <FrameState>Normal</FrameState>
+  <Height />
+  <Width />
+  <AllowRemove>false</AllowRemove>
+  <AllowZoneChange>true</AllowZoneChange>
+  <AllowMinimize>true</AllowMinimize>
+  <AllowConnect>false</AllowConnect>
+  <AllowEdit>false</AllowEdit>
+  <AllowHide>false</AllowHide>
+  <IsVisible>true</IsVisible>
+  <DetailLink />
+  <HelpLink />
+  <HelpMode>Modeless</HelpMode>
+  <Dir>Default</Dir>
+  <PartImageSmall />
+  <MissingAssembly>Cannot import this Web Part.</MissingAssembly>
+  <PartImageLarge>/_layouts/images/mscontl.gif</PartImageLarge>
+  <IsIncludedFilter />
+  <ExportControlledProperties>true</ExportControlledProperties>
+  <ConnectionID>00000000-0000-0000-0000-000000000000</ConnectionID>
+  <ID>g_367c8902_a056_4bf9_bba6_3b5d4faf3e4e</ID>
+  <ContentLink xmlns="http://schemas.microsoft.com/WebPart/v2/ContentEditor" />
+  <Content xmlns="http://schemas.microsoft.com/WebPart/v2/ContentEditor"><![CDATA[<P><STRONG>New to SOPs?</STRONG> <A href="#">Click here</A><BR></P>
+<P>&nbsp;</P>]]></Content>
+  <PartStorage xmlns="http://schemas.microsoft.com/WebPart/v2/ContentEditor" />
+</WebPart>
+</WebPartPages:ContentEditorWebPart>
+</ZoneTemplate></WebPartPages:WebPartZone>
+        </td>
       </tr>
       <tr>
-        <td align="left" valign="middle"><table width="100%" style="border: 1px solid rgb(222, 230, 232);" border="0" cellspacing="0" cellpadding="5">
-          <tbody><tr>
-            <td align="left" class="soaps_header" valign="middle">OTHER SOPS</td>
-          </tr>
-          <span id="spnQlinks">
-          <tr>
-            <td class="soaps_links"><a href="#">Corporate QA Procedures (Bumgarner, B)</a></td>
-          </tr>
-          <tr>
-            <td class="soaps_links"><a href="#">Pet Care Procedures (Viles, T)
-            </a></td>
-          </tr>
-          <tr>
-            <td class="soaps_links"><a href="#">Mason Business Center Procedures (Tong, S)</a></td>
-          </tr>
-          <tr>
-            <td class="soaps_links"><a href="#">Global Micro Delivery Organization (GMDO) <br>
-              Procedures (Bierman, S)</a></td>
-          </tr>
-          <tr>
-            <td class="soaps_links"><a href="#">Iowa City Rinse/Beauty Site (Herdliska, K)</a></td>
-          </tr>
-          <tr>
-            <td class="soaps_links"><a href="#">Iowa City Brush Site (Cooper, M)</a></td>
-          </tr>
-          <tr>
-            <td class="soaps_links"><a href="#">Naucalpan Site (Rangel, E)</a></td>
-          </tr>
-          <tr>
-            <td class="soaps_links"><a href="#">Kronberg Site (Hustedt, S)</a></td>
-          </tr>
-          <tr>
-            <td class="soaps_links"><a href="#">Coevorden Site (Vrielink, S)</a></td>
-          </tr>
-          <tr>
-            <td class="soaps_links"><a href="#">Gross Gerau Site (Thierold, M)</a></td>
-          </tr>
-          <tr>
-            <td class="soaps_links"><a href="#">Quantitative Sciences (Tucker, H)</a></td>
-          </tr>
-          </span>
-          <tr>
-            <td class="soaps_links">If you can't access the above links, contact the person in parenthesis for access.
-</td>
-          </tr>
-        </tbody></table></td>
+        <td align="left" valign="middle" id="spnQlinks"></td>
       </tr>
     </tbody></table>
 </div>
