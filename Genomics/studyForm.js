@@ -370,7 +370,18 @@ $(document).ready(function () {
 
 	$("#ctl00_PlaceHolderMain_teamUsers_upLevelDiv").css("width", "342px");
 	$("#ctl00_PlaceHolderMain_teamUsers_upLevelDiv").css("border-width", "1px");
+	
+	if (isSplGC) {
+		$('#txtCommentsM2a').attr('disabled', false);
+		$('#txtCommentsM2d').attr('disabled', false);
+		$('#txtComments3b').attr('disabled', false);
 
+		$('#btnBuGc').parent().parent().show();
+		$('#btnBuGc').show();
+
+		$('#txtComments3b').attr("disabled", false);
+		$('#btnStatistics').show();
+	}
 });
 
 function getDatePicker() {
@@ -430,6 +441,7 @@ function fillReasonforChange(selMilestone) {
 }
 
 var isgcUser = false;
+var isSplGC=false;
 
 function isGc() {
 	$().SPServices({
@@ -453,11 +465,11 @@ function isGc() {
 				divToggle(DIV_STATISTICS, HIDE);
 				divToggle(DIV_BIOINFORMATICS, HIDE);
 			}
-			
-			if($(xData.responseXML).find("Group[ID='80']").length == 1) {
-			
+
+			if ($(xData.responseXML).find("Group[ID='80']").length == 1) {
+				isSplGC = true;
 			}
-			
+
 		}
 	});
 }
@@ -1122,7 +1134,6 @@ function contentLoad(itmid) {
 												applied = true;
 											}
 										});
-
 									}
 								}
 								if (needTabSetup)
@@ -1435,7 +1446,7 @@ function contentLoad(itmid) {
 								$("#div3").find('img').each(function (i) {
 									$(this).hide();
 								})
-debugger
+
 								GenomicUserId = $(this).attr("ows_GC_x0020_Analyst").split(";#")[0];
 								if ($(this).attr("ows_GC_x0020_Analyst").split(";#")[0] == getuserId(curUser)) {
 									divToggle(DIV_REQUEST_STUDY, SHOW);
@@ -1469,7 +1480,6 @@ debugger
 												applied = true;
 											}
 										});
-
 									}
 								}
 
