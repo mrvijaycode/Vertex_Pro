@@ -453,6 +453,11 @@ function isGc() {
 				divToggle(DIV_STATISTICS, HIDE);
 				divToggle(DIV_BIOINFORMATICS, HIDE);
 			}
+			
+			if($(xData.responseXML).find("Group[ID='80']").length == 1) {
+			
+			}
+			
 		}
 	});
 }
@@ -1430,7 +1435,7 @@ function contentLoad(itmid) {
 								$("#div3").find('img').each(function (i) {
 									$(this).hide();
 								})
-
+debugger
 								GenomicUserId = $(this).attr("ows_GC_x0020_Analyst").split(";#")[0];
 								if ($(this).attr("ows_GC_x0020_Analyst").split(";#")[0] == getuserId(curUser)) {
 									divToggle(DIV_REQUEST_STUDY, SHOW);
@@ -2316,6 +2321,7 @@ function submitStatistics() {
 		"<Method ID='1' Cmd='Update'>";
 
 	var txtComments3b = CorrectStringAsSPData($('#txtComments3b').val());
+	debugger
 	if (GenomicUserId != getuserId(curUser)) {
 
 		if ($('#M3aDate').val() != "")
