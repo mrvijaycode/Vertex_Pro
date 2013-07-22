@@ -10,11 +10,31 @@
 
 $(document).ready(function () {
 	//alert('working fine sop');
-	$("#divSop").accordion({
+	/*$("#divSop").accordion({
 		header : "div"
 	}, {
 		heightStyle : "content"
-	});
+	});*/
+	
+		$('#divSop').multiAccordion({
+				active: [1, 2],
+				click: function(event, ui) {
+					//console.log('clicked')
+				},
+				init: function(event, ui) {
+					//console.log('whoooooha')
+				},
+				tabShown: function(event, ui) {
+					//console.log('shown')
+				},
+				tabHidden: function(event, ui) {
+					//console.log('hidden')
+				}
+				
+			});
+	
+	$("#divSop").multiAccordion({header : "div"});
+	
 	main();
 	quickLinks();
 });
@@ -38,8 +58,6 @@ function main() {
 //				debugger
 				if (xData.status == 200) {
 					$(xData.responseXML).SPFilterNode("z:row").each(function () {
-
-						//var keyMeasure = $(this).attr("ows_Key_x0020_Measure");
 
 						if ($(this).attr("ows_SOP") != null)
 							var sop = $(this).attr("ows_SOP");
@@ -147,7 +165,7 @@ function main() {
 
 function attachments(n)
 {
-var links="<ul>";
+var links="<ul style='list-style-type: none'>";
 	if(sops[n].att1!='')
 	links+="<li><a href='"+sops[n].att1.split(',')[0]+"'>"+sops[n].att1.split(',')[1]+"</a></li>";
 	if(sops[n].att2!='')
@@ -242,7 +260,6 @@ var strTRs='<table width="100%" style="border: 1px solid rgb(222, 230, 232);" bo
 		async : false,
 		//webURL : webUrl,//pass webUrl dynamically
 		listName : "Other SOP", // List Name
-		//CAMLQueryOptions : "<QueryOptions><IncludeAttachmentUrls>TRUE</IncludeAttachmentUrls></QueryOptions>",
 		CAMLViewFields : "<ViewFields><FieldRef Name='SOP_x0020_Link' /></ViewFields>",
 		CAMLQuery : "",
 		//CAMLRowLimit : 1,
@@ -259,7 +276,6 @@ var strTRs='<table width="100%" style="border: 1px solid rgb(222, 230, 232);" bo
 					var qLink = '';
 					
 				strTRs+='<tr><td class="soaps_links"><a href="'+qLink.split(',')[0]+'">'+qLink.split(',')[1]+'</a></td></tr>';
-
 				});
 			} else {
 				alert(xData.status);
