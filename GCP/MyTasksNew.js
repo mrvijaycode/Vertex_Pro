@@ -1,5 +1,14 @@
-/* Created By : Ravikishore */
-/* Created Date :06/17/2013 */
+//***************************************************************
+//* Project Name     : CPPD
+//* Application name : Administration
+//* Dependencies     :
+//* Limitations      :
+//* Created Date     : 06/17/2013
+//* Author           : Ravikishore
+
+//*Change1 date : 22-07-2013
+//*Author           : Vijay Bhaskar CH
+//****************************************************************
 
 var sourceTable = "";
 var clickID;
