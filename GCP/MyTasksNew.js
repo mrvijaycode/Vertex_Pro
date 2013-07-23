@@ -6,9 +6,11 @@ var clickID;
 var srcListName = "SourcingPlan";
 var spendPoolListName = "SourcingPlanItems";
 var arrayID = new Array();
-
+var lstItemsId ;
 var sourceTable = '<table id="tblSourcePlan" width="100%" class="tablesorter"  border="0" cellSpacing="0" cellPadding="2" >';
+//sourceTable += '<tr><td class="ms-vb2" colspan="4">&nbsp;</td></tr>';
 sourceTable += '<thead><tr Align="top"><th align="center" colspan="2">Sourcing Plan</th><th>Status</th><th>Approved Date</th></tr></thead>';
+//sourceTable += "<tr><td class='ms-vb2' colspan='4'>&nbsp;</td></tr>";
 
 var loginUser = $().SPServices.SPGetCurrentUser({
 		fieldName : "Title",
@@ -50,20 +52,27 @@ $(document).ready(function () {
 function appendSourcingPlans(resXML) {
 	var strSourcePlan = "";
 	var temp = true;
+//	debugger
 	$(resXML).SPFilterNode("z:row").each(function () {
 		var splID = $(this).attr("ows_ID");
 		var ind = $.inArray(splID, arrayID);
 		if (ind > -1) {
-			//debugger;
+			
 			temp = false;
 			var sourcePlan = $(this).attr("ows_SourcingPlan");
 			if (strSourcePlan.indexOf(sourcePlan) == -1) {
 				//var status = $(this).attr("ows_Status");
-				var status = $(this).attr("ows_Title");
-				var planStatus = status//$(this).attr('ows_LinkTitle');
-				if (status == null || status == undefined)
-					status = '';
 				
+				if ($(this).attr("ows_Title") != null) {
+					var status = $(this).attr("ows_Title");
+					var planStatus = status; //$(this).attr('ows_LinkTitle');
+
+					if (status == null || typeof status === 'undefined')
+						status = '';
+				} else {
+					var status = '';
+					var planStatus = '';
+				}
 				var estimatedCost = $(this).attr('ows_Total_Estimated_Cost');
 
 				var date = "";
@@ -75,7 +84,7 @@ function appendSourcingPlans(resXML) {
 					date = $(this).attr('ows_S_CapitalPurchasesAD_Date');
 				}
 
-				if (date == null || date == undefined) {
+				if (date == null ||typeof date === 'undefined') {
 					date = '';
 				} else {
 					date = reformDate(date);
@@ -83,10 +92,14 @@ function appendSourcingPlans(resXML) {
 
 				if (planStatus == "Pending" || planStatus == "") {
 					date = "";
+					//debugger
+				if (planStatus == "") {
+					planStatus = 'Not yet sent for approval';
+					}
 				}
 								
 				strSourcePlan += sourcePlan + "~";
-				sourceTable += '<tr><td vAlign="top"><input type="radio" name="dynradio" id="btnRadio" onclick="javascript:getPools(&quot;' + splID + '&quot;)"; /></td><td>' + sourcePlan + '</td><td>' + status + '</td><td>' + date + '</td>';
+				sourceTable += '<tr><td vAlign="top"><input type="radio" name="dynradio" id="btnRadio" onclick="javascript:getPools(&quot;' + splID + '&quot;)"; /></td><td>' + sourcePlan + '</td><td>' + planStatus + '</td><td>' + date + '</td>';
 				sourceTable += '</tr>';
 			}
 		}
@@ -94,7 +107,7 @@ function appendSourcingPlans(resXML) {
 	if (temp) {
 		sourceTable += "<tr><td class='ms-vb2' colspan='4'>No tasks are assigned.</td></tr>";
 	}
-
+   
 	sourceTable += '</table>';
 	$("#mySrcPlanID").html(sourceTable);
 	//sort source plan table
@@ -102,7 +115,7 @@ function appendSourcingPlans(resXML) {
 }
 
 function getPools(id) {
-	clickID = id;
+	lstItemsId = id;
 	getData(id);
 }
 
@@ -160,17 +173,18 @@ function getData(title) {
 						sourceTime = "";
 
 					poolTable += '<tr>';
-					poolTable += '<td  class="ms-vb2"><label id="lblSpPool' + i + '">' + spendingPool + '</label></td>';
-					poolTable += '<td class="ms-vb2"><label id="lblmaterialCode' + i + '">' + materialCode + '</label></td>';
+					poolTable += '<td  class="ms-vb2" id="lblSpPool"><label id="lblSpPool' + i + '">' + spendingPool + '</label></td>';
+					poolTable += '<td class="ms-vb2" id=""><label id="lblmaterialCode' + i + '">' + materialCode + '</label></td>';
 					poolTable += '<td class="ms-vb2"><label id="lblbspo' + i + '">' + buyerSpendPoolOwner + '</label></td>';
 					poolTable += '<td class="ms-vb2"><label id="lblestimated' + i + '">' + estimatedSpend + '</label></td>';
-					poolTable += '<td class="ms-vb2"><label id="lblestimated' + i + '">' + reformDate(sourceTime) + '</label></td>';
+					//poolTable += '<td class="ms-vb2"><label id="lblSourceTime' + i + '">' + reformDate(sourceTime) + '</label></td>';
+					poolTable += '<td class="ms-vb2"><input type="text" id="txtSourcingTime' + i + '" value="' + reformDate(sourceTime) + '" style="display:none"/><label id="lblSourceTime' + i + '">' + reformDate(sourceTime) + '</label></td>';
 					poolTable += '<td class="ms-vb2">';
 					poolTable += buildSelectBox(status, i);
 					poolTable += '<label id="lblStatus' + i + '">' + status + '</label></td>';
 					poolTable += '<td class="ms-vb2"><input type="text" id="txtSupplier' + i + '" value="' + supplier + '" style="display:none"><label id="lblSupplier' + i + '">' + supplier + '</label></td>';
 					poolTable += '<td class="ms-vb2">' + buildPurpose(purchasingProcess, i) + '<label id="lblPurProcess' + i + '">' + purchasingProcess + '</label></td>';
-					poolTable += '<td class="ms-vb2"><input type="text" id="txtSpecAvaDate' + i + '" value="' + specAvailableDate + '" style="display:none"><label id="lblSpecAvaDate' + i + '">' + specAvailableDate + '</label></td>';
+					poolTable += '<td class="ms-vb2"><input type="text" id="txtSpecAvaDate' + i + '" value="' + specAvailableDate + '" style="display:none"/><label id="lblSpecAvaDate' + i + '">' + specAvailableDate + '</label></td>';
 					poolTable += '<td class="ms-vb2"><textarea  rows=3 cols=10 id="txtComments' + i + '"  style="display:none">' + comments + '</textarea><label id="lblComments' + i + '">' + comments + '</label></td>';
 
 					poolTable += '<td valign="top"><img alt="Edit" id="editID' + i + '" src="/_layouts/images/edititem.gif" border="0" onclick="goEdit(' + i + ');" alt="" /></td>';
@@ -197,11 +211,30 @@ function getData(title) {
 	cols += '<th>Comments</th>';
 	cols += '<th colspan="3">&nbsp;</th>';
 	cols += '</tr>';
+	
+	var filtercols = '<tr>';
+	filtercols += '<td>&nbsp;</td>';
+	filtercols += '<td>&nbsp;</td>';
+	filtercols += '<td>&nbsp;</td>';
+	filtercols += '<td>&nbsp;</td>';
+	filtercols += '<td><input type="text" id="srcingTimingID" onkeypress="clearSrcingFilter(event)" onchange="filterSrcingTime();" readonly/></td>';
+	filtercols += '<td><select id="filterStatusId" onchange="filterStatus();"><option>All</option><option>Create</option><option>In Process</option><option>Completed</option><option>Awarded<option>Cancelled</option></select></td>';
+	filtercols += '<td>&nbsp;</td>';
+	filtercols += '<td>&nbsp;</td>';
+	filtercols += '<td>&nbsp;</td>';
+	filtercols += '<td>&nbsp;</td>';
+	filtercols += '<td colspan="3">&nbsp;</td>';
+	filtercols += '</tr>';
 	if (poolTable == "")
 		poolTable = "<tr><td>No records found.</td></tr>";
+	else
+	   poolTable = filtercols+poolTable ; 
 	poolTable = "<table id='tblSpendPool' width='100%' cellspacing='0' cellpadding='8' class='tablesorter'><thead>" + cols + "</thead>" + poolTable + "</table>";
 	$("#mySrcpoolID").html(poolTable);
 	$("#tblSpendPool").tablesorter();
+	if($("#srcingTimingID"))
+	$("#srcingTimingID").datepicker();
+	 
 }
 
 function buildSelectBox(status, num) {
@@ -245,23 +278,24 @@ function buildPurpose(strVal, num) {
 }
 
 /// updating selected item
-function updateItem(idOfItem, num) {
+function updateItem(idOfItem,num) {
 	//debugger
 	var status = $("#selStatus" + num + "").val(); //.val();
 	var supplier = $("#txtSupplier" + num + "").val();
 	var purProcess = $("#selPurProcess" + num + "").val();
 	var SpecAvaDate = $("#txtSpecAvaDate" + num + "").val();
 	var comments = $("#txtComments" + num + "").val();
+	var sourceTime =  $("#txtSourcingTime" + num + "").val();
+	sourceTime = formDate(sourceTime);
 	SpecAvaDate = formDate(SpecAvaDate);
 
 	$().SPServices({
 		operation : "UpdateListItems",
 		listName : spendPoolListName,
 		ID : idOfItem,
-		valuepairs : [["Notes", comments], ["Status", status], ["Supplier", supplier], ["PurchasingProcess", purProcess], ["SpecificationAvailableDate", SpecAvaDate]],
+		valuepairs : [["Notes", comments], ["Status", status], ["Supplier", supplier], ["PurchasingProcess", purProcess], ["SpecificationAvailableDate", SpecAvaDate], ["SourcingTiming",sourceTime]],
 		completefunc : function (xData, Status) {
 			if (Status)
-				//getPools(clickID);
 				afterUpdate(idOfItem, num);
 		}
 	});
@@ -283,7 +317,7 @@ function afterUpdate(idOfItem, num) {
 
 			if (xData.status == 200) {
 				$(xData.responseXML).SPFilterNode("z:row").each(function () {
-
+                   // debugger;
 					if ($(this).attr("ows_Status") != null)
 						var SPstatus = $(this).attr("ows_Status");
 					else
@@ -308,8 +342,15 @@ function afterUpdate(idOfItem, num) {
 						var comments = $(this).attr("ows_Notes");
 					else
 						var comments = "";
+					if ($(this).attr("ows_SourcingTiming") != null){
+						var srcTime = $(this).attr("ows_SourcingTiming");
+						srcTime = reformDate(srcTime); 
+						}
+					else
+						var srcTime = "";
 
 					updatelbls("selStatus", "lblStatus", SPstatus, num);
+					updatelbls("txtSourcingTime", "lblSourceTime", srcTime , num);
 					updatelbls("txtSupplier", "lblSupplier", supplier, num);
 					updatelbls("selPurProcess", "lblPurProcess", purProcess, num);
 					updatelbls("txtSpecAvaDate", "lblSpecAvaDate", SpecAvaDate, num);
@@ -320,14 +361,16 @@ function afterUpdate(idOfItem, num) {
 					$('#btnCancel' + num + '').hide();
 
 				});
-			} else {
-				alert(xData.status);
-			}
+			} 
+			//else {
+			//	alert(xData.status);
+			//}
 		}
 	});
 }
 
 function updatelbls(id1, id2, val, num) {
+//debugger;
 	$("#" + id1 + num + "").hide(function () {
 		$("#" + id2 + num + "").show(function () {
 			$(this).text(val);
@@ -344,11 +387,13 @@ function goEdit(num) {
 	var spID = "txtSupplier" + num;
 	if ($("#" + spID + "").is(':visible')) {
 		$("#selStatus" + num + "").hide();
+		$("#txtSourcingTime" + num + "").hide();
 		$("#txtSupplier" + num + "").hide();
 		$("#selPurProcess" + num + "").hide();
 		$("#txtSpecAvaDate" + num + "").hide();
 		$("#txtComments" + num + "").hide();
 		$("#lblStatus" + num + "").show();
+		$("#lblSourceTime" + num + "").show();
 		$("#lblPurProcess" + num + "").show();
 		$("#lblSupplier" + num + "").show();
 		$("#lblComments" + num + "").show();
@@ -364,10 +409,12 @@ function goEdit(num) {
 
 		$("#selStatus" + num + "").show();
 		$("#txtSupplier" + num + "").show();
+		$("#txtSourcingTime" + num + "").show();
 		$("#selPurProcess" + num + "").show();
 		$("#txtSpecAvaDate" + num + "").show();
 		$("#txtComments" + num + "").show();
 		$("#lblStatus" + num + "").hide();
+		$("#lblSourceTime" + num + "").hide();
 		$("#lblPurProcess" + num + "").hide();
 		$("#lblSupplier" + num + "").hide();
 		$("#lblComments" + num + "").hide();
@@ -375,6 +422,7 @@ function goEdit(num) {
 		$("#btnUpdate" + num + "").attr('disabled', false);
 	}
 	$("#txtSpecAvaDate" + num + "").datepicker();
+	$("#txtSourcingTime" + num + "").datepicker();
 }
 
 function formDate(date) {
@@ -394,3 +442,51 @@ function reformDate(date) {
 		return date;
 	}
 }
+
+function filterSrcingTime()
+{
+ var selSrcTime = $("#srcingTimingID").val();
+ searchTable("lblSourceTime",selSrcTime)
+}
+function filterStatus()
+{
+ var selStatus = $("#filterStatusId").val();
+ if(selStatus == "All")
+  getPools(lstItemsId);
+ else
+  searchTable("lblStatus",selStatus)
+}
+
+function searchTable(id,inputVal)
+{
+
+	var table = $('#tblSpendPool');
+	table.find('tr').each(function(index, row)
+	{
+		var allCells = $(row).find('td').find('label[id*='+id+']');
+		if(allCells.length > 0)
+		{
+			var found = false;
+			allCells.each(function(index, td)
+			{
+				var regExp = new RegExp(inputVal, 'i');
+				if(regExp.test($(this).text()))
+				{
+					found = true;
+					return false;
+				}
+			});
+			if(found == true)$(row).show();else $(row).hide();
+		}
+	});
+}
+
+function clearSrcingFilter(e)
+{
+ var key=e.keyCode || e.which;
+ if(key==27)
+  getPools(lstItemsId);
+}
+
+
+
