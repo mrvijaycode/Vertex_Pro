@@ -30,9 +30,19 @@ getMyGeneomicStudies();
 
 function getMyGeneomicStudies()
 {
+//debugger;
+
+/*
 var mandatoryQuery="<And><And><And><And><IsNotNull><FieldRef Name='GC_x0020_Analyst' /></IsNotNull><IsNotNull><FieldRef Name='Statistics_x0020_Owner' />"+
 		"</IsNotNull></And><IsNotNull><FieldRef Name='Bio_x0020_Informatics_x0020_Owne' /></IsNotNull></And><IsNotNull>"+
 		"<FieldRef Name='Overall_Study_Status' /></IsNotNull></And><Neq><FieldRef Name='studyCancel' /><Value Type='Boolean'>1</Value>"+
+		"</Neq></And>";
+		
+*/		
+//Changed query by Vijay Bhaskar CH, due to requesting of the report when Study Information is updated.
+	var mandatoryQuery="<And><And><And><IsNotNull><FieldRef Name='GC_x0020_Analyst' /></IsNotNull><IsNotNull><FieldRef Name='Statistics_x0020_Owner' />"+
+		"</IsNotNull></And><IsNotNull><FieldRef Name='Bio_x0020_Informatics_x0020_Owne' /></IsNotNull></And>"+
+		"<Neq><FieldRef Name='studyCancel' /><Value Type='Boolean'>1</Value>"+
 		"</Neq></And>";
 
 	var strCaml = "<Query><OrderBy><FieldRef Name='Modified' Ascending='False' /></OrderBy><Where>"+mandatoryQuery+"</where></Query>";
