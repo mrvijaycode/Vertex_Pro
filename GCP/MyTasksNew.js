@@ -1,14 +1,5 @@
-//***************************************************************
-//* Project Name     : CPPD
-//* Application name : Administration
-//* Dependencies     :
-//* Limitations      :
-//* Created Date     : 06/17/2013
-//* Author           : Ravikishore
-
-//*Change1 date : 22-07-2013
-//*Author           : Vijay Bhaskar CH
-//****************************************************************
+/* Created By : Ravikishore */
+/* Created Date :06/17/2013 */
 
 var sourceTable = "";
 var clickID;
@@ -57,6 +48,14 @@ $(document).ready(function () {
 		}
 	});
 });
+
+
+	$(document).on('#srcingTimingID', function () {
+					var io = $(this).val().length ? 1 : 0;
+					$(this).next('.icon_clear').stop().fadeTo(300, io);
+				}).on('click', '.icon_clear', function () {
+					$(this).delay(300).fadeTo(300, 0).prev('input').val('');
+				});
 
 function appendSourcingPlans(resXML) {
 	var strSourcePlan = "";
@@ -226,7 +225,7 @@ function getData(title) {
 	filtercols += '<td>&nbsp;</td>';
 	filtercols += '<td>&nbsp;</td>';
 	filtercols += '<td>&nbsp;</td>';
-	filtercols += '<td><input type="text" id="srcingTimingID" onkeypress="clearSrcingFilter(event)" onchange="filterSrcingTime();" readonly/></td>';
+	filtercols += '<td><input type="text" id="srcingTimingID" onkeyup="clearSrcingFilter(event)" onchange="filterSrcingTime();" readonly/></td>';
 	filtercols += '<td><select id="filterStatusId" onchange="filterStatus();"><option>All</option><option>Create</option><option>In Process</option><option>Completed</option><option>Awarded<option>Cancelled</option></select></td>';
 	filtercols += '<td>&nbsp;</td>';
 	filtercols += '<td>&nbsp;</td>';
@@ -490,12 +489,8 @@ function searchTable(id,inputVal)
 	});
 }
 
-function clearSrcingFilter(e)
-{
- var key=e.keyCode || e.which;
- if(key==27)
-  getPools(lstItemsId);
+function clearSrcingFilter(e) {
+	var key = e.keyCode || e.which;
+	if (key == 8)
+		getPools(lstItemsId);
 }
-
-
-

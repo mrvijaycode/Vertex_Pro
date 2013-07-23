@@ -207,7 +207,7 @@ function deleteSpendingItem(itemID, Isalert) {
 
 function deleteSourcePlan(planid)
 {
-var response = confirm("Are you sure you want to delete the Sourcing Plan Item ?");
+var response = confirm("Are you sure you want to delete the Sourcing Plan?");
 //debugger;
 	if (response == true) {	
 	getAllSpendPoolsOf(planid);
@@ -218,7 +218,7 @@ var response = confirm("Are you sure you want to delete the Sourcing Plan Item ?
 			listName : "SourcingPlan",
 			ID : planid,
 			completefunc : function (xData, Status) {
-				alert('Souece Plan & SpendPool items are deleted successfully');
+				alert('Source Plan & SpendPool items are deleted successfully');
 				getSourcePlans();
 			}
 		});
