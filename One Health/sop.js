@@ -16,7 +16,7 @@ $(document).ready(function () {
 		heightStyle : "content"
 	});*/
 	
-		$('#divSop').multiAccordion({
+	$('#divSop').multiAccordion({
 				active: [1, 2],
 				click: function(event, ui) {
 					//console.log('clicked')
@@ -29,11 +29,10 @@ $(document).ready(function () {
 				},
 				tabHidden: function(event, ui) {
 					//console.log('hidden')
-				}
-				
+				}			
 			});
 	
-	$("#divSop").multiAccordion({header : "div"});
+	$("#divSop").multiAccordion("option", "active", [0]);
 	
 	main();
 	quickLinks();
@@ -191,7 +190,8 @@ return links;
 
 function buildContents() {
 	var tblsop = "<table width='100%'>";
-	tblsop += ' <tbody><thead> <tr class="subheader_bg"><th width="60" align="left" valign="middle">SOP #</th><th align="left" valign="middle">Title</th><th width="100" align="left" valign="middle">Attachments</th><th width="100" align="left" valign="middle">Former SOP #</th><th width="120" align="left" valign="middle">Corporate QA Link</th></tr> </thead> ';
+	tblsop += ' <tbody><thead> <tr class="subheader_bg"><th width="60" align="center" valign="middle">SOP #</th><th align="center" valign="middle">Title</th><th width="100" align="center" valign="middle">Attachments</th><th width="100" align="center" valign="middle">Former SOP #</th><th width="120" align="center" valign="middle">Corporate QA Link</th></tr> </thead> ';
+	tblsop += "<tr><td colspan='5' id='tdNodata' class='grid_bg'>No data found.</td></tr>";
 	tblsop += "</tbody></table>";
 
 	var divsArr = ['div1', 'div2', 'div3', 'div4', 'div5', 'div6', 'div7', 'div8', 'div9'];
@@ -202,56 +202,68 @@ function buildContents() {
 
 	
 	$.each(sops, function (i) {
+
 		var trsop = "";
 		trsop += '<tr>';
-		trsop += '<td width="60" align="left" class="grid_bg" valign="middle"><a href="' + sops[1].sop.split(',')[0] + '">'+sops[1].sop.split(',')[1]+'<a></td>';
+		if (sops[i].sop != "") {
+			trsop += '<td width="60" align="left" class="grid_bg" valign="middle"><a href="' + sops[i].sop.split(',')[0] + '">' + sops[i].sop.split(',')[1] + '<a></td>';
+		} else {
+			trsop += '<td width="60" align="left" class="grid_bg" valign="middle"></td>';
+		}
 		trsop += '<td align="left" class="grid_bg" valign="middle">' + sops[i].title + '</td>';
-		trsop += '<td width="100" align="left" class="grid_bg" valign="middle">'+attachments(i)+'</td>';
+		trsop += '<td width="100" align="left" class="grid_bg" valign="middle">' + attachments(i) + '</td>';
 		trsop += '<td width="100" align="left" class="grid_bg" valign="middle">' + sops[i].formersop + '</td>';
 		trsop += '<td width="120" align="left" class="grid_bg" valign="middle">' + sops[i].corporateqa + '</td>';
 		trsop += '</tr>';
-
+		
 		switch (sops[i].grpName) {
 		case 'QUALITY LEADERSHIP':
+			$('#div1 table tr td[id="tdNodata"]').remove();
 			$('#div1 table').append(trsop);
 			break;
 
 		case 'QUALITY SYSTEMS':
+			$('#div2 table tr td[id="tdNodata"]').remove();
 			$('#div2 table').append(trsop);
 			break;
 
 		case 'DESIGN & DEVELOPMENT':
+			$('#div3 table tr td[id="tdNodata"]').remove();
 			$('#div3 table').append(trsop);
 			break;
 
 		case 'FACILITIES & EQUIPMENT':
+			$('#div4 table tr td[id="tdNodata"]').remove();
 			$('#div4 table').append(trsop);
 			break;
 
 		case 'PRODUCTION SYSTEMS':
+			$('#div5 table tr td[id="tdNodata"]').remove();
 			$('#div5 table').append(trsop);
 			break;
 
 		case 'PACKAGING & LABELING SYSTEM':
+			$('#div6 table tr td[id="tdNodata"]').remove();
 			$('#div6 table').append(trsop);
 			break;
 
 		case 'MATERIAL SYSTEMS':
+			$('#div7 table tr td[id="tdNodata"]').remove();
 			$('#div7 table').append(trsop);
 			break;
 
 		case 'LABORATORY CONTROL':
+			$('#div8 table tr td[id="tdNodata"]').remove();
 			$('#div8 table').append(trsop);
 			break;
 
 		case 'REFERENCE FILES':
+			$('#div9 table tr td[id="tdNodata"]').remove();
 			$('#div9 table').append(trsop);
 			break;
 		}
-
 	});
-}
-
+	}
 function quickLinks()
 {
 var strTRs='<table width="100%" style="border: 1px solid rgb(222, 230, 232);" border="0" cellspacing="0" cellpadding="5"><tbody><tr><td align="left" class="soaps_header" valign="middle">OTHER SOPS</td></tr>';
