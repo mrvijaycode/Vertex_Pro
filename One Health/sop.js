@@ -164,24 +164,24 @@ function main() {
 
 function attachments(n)
 {
-var links="<ul style='list-style-type: none'>";
+var links="<ul style='list-style-type: none;width:150px;margin-left: -3px'>";
 	if(sops[n].att1!='')
-	links+="<li><a href='"+sops[n].att1.split(',')[0]+"'>"+sops[n].att1.split(',')[1]+"</a></li>";
+	links+="<li><div><a href='"+sops[n].att1.split(',')[0]+"'>"+sops[n].att1.split(',')[1]+"</a></div></li>";
 	if(sops[n].att2!='')
-	links+="<li><a href='"+sops[n].att2.split(',')[0]+"'>"+sops[n].att2.split(',')[1]+"</a></li>";
+	links+="<li><div><a href='"+sops[n].att2.split(',')[0]+"'>"+sops[n].att2.split(',')[1]+"</a></div></li>";
 	if(sops[n].att3!='')
-	links+="<li><a href='"+sops[n].att3.split(',')[0]+"'>"+sops[n].att3.split(',')[1]+"</a></li>";
+	links+="<li><div><a href='"+sops[n].att3.split(',')[0]+"'>"+sops[n].att3.split(',')[1]+"</a></div></li>";
 	if(sops[n].att4!='')
-	links+="<li><a href='"+sops[n].att4.split(',')[0]+"'>"+sops[n].att4.split(',')[1]+"</a></li>";
+	links+="<li><div><a href='"+sops[n].att4.split(',')[0]+"'>"+sops[n].att4.split(',')[1]+"</a></div></li>";
 		
 	if(sops[n].att5!='')
-	links+="<li><a href='"+sops[n].att5.split(',')[0]+"'>"+sops[n].att5.split(',')[1]+"</a></li>";
+	links+="<li><div><a href='"+sops[n].att5.split(',')[0]+"'>"+sops[n].att5.split(',')[1]+"</a></div></li>";
 	if(sops[n].att6!='')
-	links+="<li><a href='"+sops[n].att6.split(',')[0]+"'>"+sops[n].att6.split(',')[1]+"</a></li>";
+	links+="<li><div><a href='"+sops[n].att6.split(',')[0]+"'>"+sops[n].att6.split(',')[1]+"</a></div></li>";
 	if(sops[n].att7!='')
-	links+="<li><a href='"+sops[n].att7.split(',')[0]+"'>"+sops[n].att7.split(',')[1]+"</a></li>";
+	links+="<li><div><a href='"+sops[n].att7.split(',')[0]+"'>"+sops[n].att7.split(',')[1]+"</a></div></li>";
 	if(sops[n].att8!='')
-	links+="<li><a href='"+sops[n].att8.split(',')[0]+"'>"+sops[n].att8.split(',')[1]+"</a></li>";
+	links+="<li><div><a href='"+sops[n].att8.split(',')[0]+"'>"+sops[n].att8.split(',')[1]+"</a></div></li>";
 	links+="</ul>";
 	
 return links;
@@ -210,10 +210,10 @@ function buildContents() {
 		} else {
 			trsop += '<td width="60" align="left" class="grid_bg" valign="middle"></td>';
 		}
-		trsop += '<td align="left" class="grid_bg" valign="middle">' + sops[i].title + '</td>';
-		trsop += '<td width="100" align="left" class="grid_bg" valign="middle">' + attachments(i) + '</td>';
-		trsop += '<td width="100" align="left" class="grid_bg" valign="middle">' + sops[i].formersop + '</td>';
-		trsop += '<td width="120" align="left" class="grid_bg" valign="middle">' + sops[i].corporateqa + '</td>';
+		trsop += '<td align="left" class="grid_bg" valign="top">' + sops[i].title + '</td>';
+		trsop += '<td width="100" align="left" class="grid_bg" valign="top">' + attachments(i) + '</td>';
+		trsop += '<td width="100" align="left" class="grid_bg" valign="top">' + sops[i].formersop + '</td>';
+		trsop += '<td width="120" align="left" class="grid_bg" valign="top">' + sops[i].corporateqa + '</td>';
 		trsop += '</tr>';
 		
 		switch (sops[i].grpName) {
