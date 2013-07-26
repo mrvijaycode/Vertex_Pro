@@ -21,6 +21,7 @@ function loadProfiles() {
 		async : false,
 		listName : "Team Profiles", // List Name
 		CAMLQueryOptions : "<QueryOptions><IncludeAttachmentUrls>TRUE</IncludeAttachmentUrls></QueryOptions>",
+		CAMLQuery : "<Query><OrderBy><FieldRef Name='Order0' /></OrderBy></Query>",
 		completefunc : function (xData, Status) {
 
 			//alert(xData.responseText);
