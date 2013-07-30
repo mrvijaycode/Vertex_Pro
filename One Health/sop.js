@@ -164,7 +164,7 @@ function main() {
 
 function attachments(n)
 {
-var links="<ul style='list-style-type: none;width:150px;margin-left: -3px'>";
+var links="<div><ul style='list-style-type: none;width:150px;margin-left: -3px'>";
 	if(sops[n].att1!='')
 	links+="<li><div><a href='"+sops[n].att1.split(',')[0]+"'>"+sops[n].att1.split(',')[1]+"</a></div></li>";
 	if(sops[n].att2!='')
@@ -182,7 +182,7 @@ var links="<ul style='list-style-type: none;width:150px;margin-left: -3px'>";
 	links+="<li><div><a href='"+sops[n].att7.split(',')[0]+"'>"+sops[n].att7.split(',')[1]+"</a></div></li>";
 	if(sops[n].att8!='')
 	links+="<li><div><a href='"+sops[n].att8.split(',')[0]+"'>"+sops[n].att8.split(',')[1]+"</a></div></li>";
-	links+="</ul>";
+	links+="</ul></div>";
 	
 return links;
 }
@@ -190,7 +190,7 @@ return links;
 
 function buildContents() {
 	var tblsop = "<table width='100%'>";
-	tblsop += ' <tbody><thead> <tr class="subheader_bg"><th width="60" align="center" valign="middle">SOP #</th><th align="center" valign="middle">Title</th><th width="100" align="center" valign="middle">Attachments</th><th width="100" align="center" valign="middle">Former SOP #</th><th width="120" align="center" valign="middle">Corporate QA Link</th></tr> </thead> ';
+	tblsop += ' <tbody><thead> <tr class="subheader_bg"><th width="60" align="center" valign="middle">SOP #</th><th align="center" valign="middle">Title</th><th  align="center" valign="middle">Attachments</th><th width="100" align="center" valign="middle">Former SOP #</th><th width="120" align="center" valign="middle">Corporate QA Reference</th></tr> </thead> ';
 	tblsop += "<tr><td colspan='5' id='tdNodata' class='grid_bg'>No data found.</td></tr>";
 	tblsop += "</tbody></table>";
 
@@ -206,14 +206,14 @@ function buildContents() {
 		var trsop = "";
 		trsop += '<tr>';
 		if (sops[i].sop != "") {
-			trsop += '<td width="60" align="left" class="grid_bg" valign="middle"><a href="' + sops[i].sop.split(',')[0] + '">' + sops[i].sop.split(',')[1] + '<a></td>';
+			trsop += '<td width="60" align="center" class="grid_bg" valign="middle"><a href="' + sops[i].sop.split(',')[0] + '">' + sops[i].sop.split(',')[1] + '<a></td>';
 		} else {
 			trsop += '<td width="60" align="left" class="grid_bg" valign="middle"></td>';
 		}
-		trsop += '<td align="left" class="grid_bg" valign="top">' + sops[i].title + '</td>';
-		trsop += '<td width="100" align="left" class="grid_bg" valign="top">' + attachments(i) + '</td>';
-		trsop += '<td width="100" align="left" class="grid_bg" valign="top">' + sops[i].formersop + '</td>';
-		trsop += '<td width="120" align="left" class="grid_bg" valign="top">' + sops[i].corporateqa + '</td>';
+		trsop += '<td align="left" class="grid_bg" style="padding-left:10px;" valign="middle">' + sops[i].title + '</td>';
+		trsop += '<td width="100" align="center" class="grid_bg"  valign="middle">' + attachments(i) + '</td>';
+		trsop += '<td width="100" align="center" class="grid_bg"  valign="middle">' + sops[i].formersop + '</td>';
+		trsop += '<td width="120" align="center" class="grid_bg"  valign="middle">' + sops[i].corporateqa + '</td>';
 		trsop += '</tr>';
 		
 		switch (sops[i].grpName) {
