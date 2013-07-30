@@ -164,7 +164,7 @@ function main() {
 
 function attachments(n)
 {
-var links="<div><ul style='list-style-type: none;width:150px;margin-left: -3px'>";
+var links="<div><ul style='list-style-type: none;width:150px;margin-left: -3px;margin-top:10%'>";
 	if(sops[n].att1!='')
 	links+="<li><div><a href='"+sops[n].att1.split(',')[0]+"'>"+sops[n].att1.split(',')[1]+"</a></div></li>";
 	if(sops[n].att2!='')
@@ -212,6 +212,7 @@ function buildContents() {
 		}
 		trsop += '<td align="left" class="grid_bg" style="padding-left:10px;" valign="middle">' + sops[i].title + '</td>';
 		trsop += '<td width="100" align="center" class="grid_bg"  valign="middle">' + attachments(i) + '</td>';
+		//trsop += '<td width="100" align="center" class="grid_bg"  valign="middle">vijay</td>';
 		trsop += '<td width="100" align="center" class="grid_bg"  valign="middle">' + sops[i].formersop + '</td>';
 		trsop += '<td width="120" align="center" class="grid_bg"  valign="middle">' + sops[i].corporateqa + '</td>';
 		trsop += '</tr>';
