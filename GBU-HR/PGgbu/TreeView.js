@@ -12,7 +12,6 @@ var itmid = window.location.search.split("?itmid=")[1];
 
 $(document).ready(function () {
 
-//debugger
 	var liHtml = "";
 	var keysArr = new Array();
 	var rootSite = window.location.protocol + "//" + window.location.hostname;
@@ -29,7 +28,7 @@ $(document).ready(function () {
 		completefunc : function (xData, Status) {
 
 			//alert(xData.responseText);
-			//debugger
+			debugger
 			$(xData.responseXML).SPFilterNode("z:row").each(function () {
 
 				var title = $(this).attr("ows_BaseName");
@@ -41,66 +40,53 @@ $(document).ready(function () {
 				//alert(orgnPath);
 
 				var objPath = $(this).attr("ows_FileRef");
-				
-				var subSiteName=window.location.href.split('https://hrteamspace.pg.com/sites/gbuhr/')[1].split('/Site%20Pages/Reports.aspx')[0];
-				
-				objPath = objPath.split(';#sites/gbuhr/'+subSiteName+'/Reports/')[1];
+				objPath = objPath.split(';#sites/gbuhr/PGgbu/Reports/')[1];
 				//debugger
 				var isSub = false;
-				if (objPath != null) {
-					if (objPath.indexOf('/') > -1) {
-						isSub = true;
+				if (objPath.indexOf('/') > -1) {
+					isSub = true;
 
-						var objPathArr = new Array();
-						objPathArr = objPath.split('/');
-						var subLink = "";
+					var objPathArr = new Array();
+					objPathArr = objPath.split('/');
+					var subLink = "";
 
-						var titleID = "";
-						$.each(objPathArr, function (i) {
-							titleID += "_" + objPathArr[i];
-						});
-
-						titleID = titleID.replace(/ /gi, "");
-						titleID = titleID.replace(/[-(){}$ ]/g, '');
-
-						if (objType == "Folder") {
-							subLink = "<li><span class='folder'>" + title + '</span><ul id="' + titleID + '"/></li>';
-						} else {
-							subLink = "<li><span class='file tree'><a class='tree' href='" + orgnPath + "'>" + title + "</a></span></li>";
-						}
-
-						var Tfolder = "";
-						$.each(objPathArr, function (i) {
-							var objlen = objPathArr.length;
-							//alert(objPathArr[i]);
-							if (i != objlen - 1) {
-								Tfolder += "_" + objPathArr[i];
-							}
-						});
-
-						Tfolder = Tfolder.replace(/ /gi, "");
-						Tfolder = Tfolder.replace(/[-(){}$ ]/g, '');
-
-						$("#" + Tfolder).append(subLink);
-
-					} else {
+					var titleID = "";
+					$.each(objPathArr, function (i) {
+						titleID += "_" + objPathArr[i];
+					});
 					
-						if (objType == "Folder") {
-						
-						var dTitle=title.replace(/ /gi, "");
-							dTitle=dTitle.replace(/[-(){}$ ]/g, '');
-						
-							liHtml = "<li><span class='folder'>" + title + '</span><ul id="_' + dTitle + '"/></li>';
-						} else {
-												
-							liHtml = "<li><span class='file' style='text-decoration:none'><a class='tree' href='" + orgnPath + "'>" + title + "</a></span></li>";
-						}
-						$("#browser").append(liHtml);
-						
-						
+					titleID=titleID.replace(/ /gi,"");
+					titleID=titleID.replace(/[!@{}*+-;#$()]/g,'');
+
+					if (objType == "Folder") {
+						subLink = "<li><span class='folder'>" + title + '</span><ul id="' + titleID + '"/></li>';
+					} else {
+						subLink = "<li><span class='file tree'><a class='tree' href='" + orgnPath + "'>" + title + "</a></span></li>";
 					}
-				} else {
-					alert("Check URL: " + objPath);
+
+					var Tfolder = "";
+					$.each(objPathArr, function (i) {
+						var objlen = objPathArr.length;
+						if (i != objlen - 1) {
+							Tfolder += "_" + objPathArr[i];
+						}
+					});
+
+					Tfolder=Tfolder.replace(/ /gi,"");
+					Tfolder=Tfolder.replace(/[!@{}*+-;#$()]/g,'');
+
+					$("#" + Tfolder).append(subLink);
+				}
+				else {
+					if (objType == "Folder") {
+						var dTitle = title.replace(/ /gi, "");
+						dTitle = dTitle.replace(/[!@{}*+-;#$()]/g,'');
+
+						liHtml = "<li><span class='folder'>" + title + '</span><ul id="_' + dTitle + '"/></li>';
+					} else {
+						liHtml = "<li><span class='file' style='text-decoration:none'><a class='tree' href='" + orgnPath + "'>" + title + "</a></span></li>";
+					}
+					$("#browser").append(liHtml);
 				}
 			});
 		}
