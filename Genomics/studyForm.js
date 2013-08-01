@@ -433,7 +433,7 @@ var isgcUser = false;
 var isSplGC=false;
 
 function isGc() {
-debugger;
+//debugger;
 	$().SPServices({
 		operation : "GetGroupCollectionFromUser",
 		userLoginName : curUser,
@@ -2333,7 +2333,7 @@ function submitStatistics() {
 		"<Method ID='1' Cmd='Update'>";
 
 	var txtComments3b = CorrectStringAsSPData($('#txtComments3b').val());
-	debugger
+//	debugger
 	if (GenomicUserId != getuserId(curUser)) {
 
 		if ($('#M3aDate').val() != "")
