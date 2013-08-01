@@ -9,6 +9,7 @@
 //****************************************************************
 
 $(document).ready(function () {
+	
 	//alert('working fine sop');
 	/*$("#divSop").accordion({
 		header : "div"
@@ -218,42 +219,42 @@ function buildContents() {
 		trsop += '</tr>';
 		
 		switch (sops[i].grpName) {
-		case 'QUALITY LEADERSHIP':
+		case '1-QUALITY LEADERSHIP':
 			$('#div1 table tr td[id="tdNodata"]').remove();
 			$('#div1 table').append(trsop);
 			break;
 
-		case 'QUALITY SYSTEMS':
+		case '3-QUALITY SYSTEMS':
 			$('#div2 table tr td[id="tdNodata"]').remove();
 			$('#div2 table').append(trsop);
 			break;
 
-		case 'DESIGN & DEVELOPMENT':
+		case '2-DESIGN & DEVELOPMENT':
 			$('#div3 table tr td[id="tdNodata"]').remove();
 			$('#div3 table').append(trsop);
 			break;
 
-		case 'FACILITIES & EQUIPMENT':
+		case '4-FACILITIES & EQUIPMENT':
 			$('#div4 table tr td[id="tdNodata"]').remove();
 			$('#div4 table').append(trsop);
 			break;
 
-		case 'PRODUCTION SYSTEMS':
+		case '6-PRODUCTION SYSTEMS':
 			$('#div5 table tr td[id="tdNodata"]').remove();
 			$('#div5 table').append(trsop);
 			break;
 
-		case 'PACKAGING & LABELING SYSTEM':
+		case '7-PACKAGING & LABELING SYSTEM':
 			$('#div6 table tr td[id="tdNodata"]').remove();
 			$('#div6 table').append(trsop);
 			break;
 
-		case 'MATERIAL SYSTEMS':
+		case '5-MATERIAL SYSTEMS':
 			$('#div7 table tr td[id="tdNodata"]').remove();
 			$('#div7 table').append(trsop);
 			break;
 
-		case 'LABORATORY CONTROL':
+		case '8-LABORATORY CONTROL':
 			$('#div8 table tr td[id="tdNodata"]').remove();
 			$('#div8 table').append(trsop);
 			break;
