@@ -1,4 +1,4 @@
-/* Created By : Ravikishore */
+﻿/* Created By : Chinna */
 /* Created Date :06/17/2013 */
 
 var sourceTable = "";
@@ -7,19 +7,26 @@ var srcListName = "SourcingPlan";
 var spendPoolListName = "SourcingPlanItems";
 var arrayID = new Array();
 var lstItemsId ;
+var loginUser='';
 var sourceTable = '<table id="tblSourcePlan" width="100%" class="tablesorter"  border="0" cellSpacing="0" cellPadding="2" >';
 //sourceTable += '<tr><td class="ms-vb2" colspan="4">&nbsp;</td></tr>';
 sourceTable += '<thead><tr Align="top"><th align="center" colspan="2">Sourcing Plan</th><th>Status</th><th>Approved Date</th></tr></thead>';
 //sourceTable += "<tr><td class='ms-vb2' colspan='4'>&nbsp;</td></tr>";
 
-var loginUser = $().SPServices.SPGetCurrentUser({
+$(document).ready(function(){
+
+ loginUser = $().SPServices.SPGetCurrentUser({
 		fieldName : "Title",
 		debug : false
 	});
+getData(loginUser);
+$('#tdWelcome').text('Welcome ' + loginUser);
+});
 
-$(document).ready(function () {
 
-	$('#tdWelcome').text('Welcome ' + loginUser);
+/*$(document).ready(function () {
+
+	
 	
 	var query = "<Query><Where><Eq><FieldRef Name='Buyer_SpendPoolOwner'/><Value Type='User'>" + loginUser + "</Value></Eq></Where></Query>";
 	$().SPServices({
@@ -35,22 +42,22 @@ $(document).ready(function () {
 			});
 		}
 	});
-
-	var viewFields = '<ViewFields><FieldRef Name="ID" /><FieldRef Name="Title" /><FieldRef Name="Status" /><FieldRef Name="SourcingPlan" /><FieldRef Name="S_SiteBuyer1_UpManager_ClusterLe0" /></ViewFields>';
-	$().SPServices({
+});
+	//var viewFields = '<ViewFields><FieldRef Name="ID" /><FieldRef Name="Title" /><FieldRef Name="Status" /><FieldRef Name="SourcingPlan" /><FieldRef Name="S_SiteBuyer1_UpManager_ClusterLe0" /></ViewFields>';
+	/*$().SPServices({
 		operation : "GetListItems",
 		async : false,
 		listName : "SourcingPlan",
 		CAMLViewFields : viewFields,
 		completefunc : function (xData, Status) {
 			var resXML = $(xData.responseXML);
-			appendSourcingPlans(resXML);
+			//appendSourcingPlans(resXML);
 		}
 	});
 });
 
-
-	$(document).on('#srcingTimingID', function () {
+*/
+	/*$(document).on('#srcingTimingID', function () {
 					var io = $(this).val().length ? 1 : 0;
 					$(this).next('.icon_clear').stop().fadeTo(300, io);
 				}).on('click', '.icon_clear', function () {
@@ -60,7 +67,7 @@ $(document).ready(function () {
 function appendSourcingPlans(resXML) {
 	var strSourcePlan = "";
 	var temp = true;
-//	debugger
+	
 	$(resXML).SPFilterNode("z:row").each(function () {
 		var splID = $(this).attr("ows_ID");
 		var ind = $.inArray(splID, arrayID);
@@ -123,20 +130,22 @@ function appendSourcingPlans(resXML) {
 }
 
 function getPools(id) {
+
 	lstItemsId = id;
 	getData(id);
 }
+*/
 
-function getData(title) {
+
+function getData(loginUser) {
 	var poolTable = "";
-	var query = "<Query><Where><And><Eq><FieldRef Name='Title'/><Value Type='Text'>" + title + "</Value></Eq><Eq><FieldRef Name='Buyer_SpendPoolOwner'/><Value Type='User'>" + loginUser + "</Value></Eq></And></Where></Query>";
+	var query = "<Query><Where><Eq><FieldRef Name='Buyer_SpendPoolOwner'/><Value Type='User'>" + loginUser + "</Value></Eq></Where></Query>";
 	$().SPServices({
 		operation : "GetListItems",
 		async : false,
 		listName : spendPoolListName,
 		CAMLQuery : query,
 		completefunc : function (xDa, Status) {
-
 			var itemsCount = $(xDa.responseXML).SPFilterNode("rs:data").attr("ItemCount");
 			if (itemsCount > 0) {
 				$(xDa.responseXML).SPFilterNode("z:row").each(function (i) {
@@ -179,8 +188,10 @@ function getData(title) {
 					var sourceTime = $(this).attr("ows_SourcingTiming");
 					if (sourceTime == "" || sourceTime == 'undefined' || sourceTime == null)
 						sourceTime = "";
-
+					var sourceID = $(this).attr("ows_Title");
+					
 					poolTable += '<tr>';
+					poolTable += '<td class="ms-vb2">'+getSourcePlanName(sourceID)+'</td>';
 					poolTable += '<td  class="ms-vb2" id="lblSpPool"><label id="lblSpPool' + i + '">' + spendingPool + '</label></td>';
 					poolTable += '<td class="ms-vb2" id=""><label id="lblmaterialCode' + i + '">' + materialCode + '</label></td>';
 					poolTable += '<td class="ms-vb2"><label id="lblbspo' + i + '">' + buyerSpendPoolOwner + '</label></td>';
@@ -207,6 +218,7 @@ function getData(title) {
 
 	var cols = "";
 	cols += '<tr>';
+	cols += '<th>Source Plan</th>';
 	cols += '<th>Spending Pool</th>';
 	cols += '<th>Material Code</th>';
 	cols += '<th>Buyer_SpendPoolOwner</th>';
@@ -287,7 +299,7 @@ function buildPurpose(strVal, num) {
 
 /// updating selected item
 function updateItem(idOfItem,num) {
-	debugger
+	
 	var status = $("#selStatus" + num + "").val(); //.val();
 	var supplier = $("#txtSupplier" + num + "").val();
 	var purProcess = $("#selPurProcess" + num + "").val();
@@ -458,9 +470,11 @@ function filterSrcingTime()
 }
 function filterStatus()
 {
+
  var selStatus = $("#filterStatusId").val();
  if(selStatus == "All")
-  getPools(lstItemsId);
+  //getPools(lstItemsId);
+  getData(loginUser);
  else
   searchTable("lblStatus",selStatus)
 }
@@ -492,5 +506,36 @@ function searchTable(id,inputVal)
 function clearSrcingFilter(e) {
 	var key = e.keyCode || e.which;
 	if (key == 27)
-		getPools(lstItemsId);
+		//getPools(lstItemsId);
+		getData(loginUser);
+}
+
+function getSourcePlanName(planID) {
+var spName="";
+	$().SPServices({
+		operation : "GetListItems", //Method name
+		async : false,
+		//webURL : webUrl,//pass webUrl dynamically
+		listName : srcListName, // List Name
+		//CAMLQueryOptions : "<QueryOptions><IncludeAttachmentUrls>TRUE</IncludeAttachmentUrls></QueryOptions>",
+		CAMLViewFields : "<ViewFields> <FieldRef Name='SourcingPlan' /></ViewFields>",
+		CAMLQuery : "<Query><Where><Eq><FieldRef Name='ID' /><Value Type='Counter'>"+planID+"</Value></Eq></Where></Query>",
+		//CAMLRowLimit : 1,
+		completefunc : function (xData, Status) {
+
+			//alert(xData.responseText);
+			debugger;
+
+			if (xData.status == 200) {
+				$(xData.responseXML).SPFilterNode("z:row").each(function () {
+					//var keyMeasure = $(this).attr("ows_Key_x0020_Measure");
+					spName =$(this).attr("ows_Key_x0020_Measure");
+				});
+			} else {
+				alert(xData.status);
+			}
+		}
+	});
+	
+	
 }
