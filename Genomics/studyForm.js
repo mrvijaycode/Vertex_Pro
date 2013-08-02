@@ -455,11 +455,9 @@ function isGc() {
 				divToggle(DIV_STATISTICS, HIDE);
 				divToggle(DIV_BIOINFORMATICS, HIDE);
 			}
-
 			if ($(xData.responseXML).find("Group[ID='80']").length == 1) {
 				isSplGC = true;
 			}
-
 		}
 	});
 }
@@ -3293,7 +3291,6 @@ function reloadValidations() {
 }
 
 function enableSPLGC() {
-
 	if (isSplGC) {
 		$('#txtCommentsM2a').attr('disabled', false);
 		$('#txtCommentsM2d').attr('disabled', false);
