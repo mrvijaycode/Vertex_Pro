@@ -455,9 +455,11 @@ function isGc() {
 				divToggle(DIV_STATISTICS, HIDE);
 				divToggle(DIV_BIOINFORMATICS, HIDE);
 			}
+
 			if ($(xData.responseXML).find("Group[ID='80']").length == 1) {
 				isSplGC = true;
 			}
+
 		}
 	});
 }
@@ -1071,7 +1073,6 @@ function contentLoad(itmid) {
 								break;
 
 							case STEP2:
-
 								hideAll();
 
 								if ($(this).attr("ows_GC_x0020_Analyst").split(";#")[0] == getuserId(curUser)) {
@@ -1130,7 +1131,6 @@ function contentLoad(itmid) {
 								reloadValidations();
 								
 								enableSPLGC();
-								
 								break;
 
 							case STEPM1:
@@ -1662,7 +1662,6 @@ function getChangedMileStone(mileIDs, option) {
 				MileStoneArray = [plannedSamples, plannedRNAIsolation, plannedCRNA, plannedChipsRun, plannedDatePosted, plannedQC, plannedStatsRpt, plannedAnalysis];
 			}
 		})
-
 		return MileStoneArray;
 }
 
@@ -1846,9 +1845,13 @@ function submitStudyInfo() {
 		}
 
 		escOtherUsers = OtherUsers;
-		strBatch += "<Field Name='OtherTeamUsers'>" + OtherUsers + "</Field>" +
-		"<Field Name='EnableWF'>2</Field>" +
-		"<Field Name='ID'>" + itmid + "</Field>" +
+		strBatch += "<Field Name='OtherTeamUsers'>" + OtherUsers + "</Field>";
+		if (isSplGC == false)
+			strBatch += "<Field Name='EnableWF'>2</Field>";
+		else
+			strBatch += "<Field Name='IsSuperUser'>1</Field>";
+
+		strBatch += "<Field Name='ID'>" + itmid + "</Field>" +
 		"</Method>" +
 		"</Batch>";
 	}
@@ -2139,6 +2142,9 @@ function submitstudyDetails() {
 		}
 
 		strBatch += "<Field Name='Comments_M2a'>" + CorrectStringAsSPData(txtCommentsM2a) + "</Field>";
+		if(isSplGC)
+		strBatch += "<Field Name='IsSuperUser'>1</Field>";
+		
 		break;
 
 	case STEPM1:
@@ -2175,6 +2181,8 @@ function submitstudyDetails() {
 		if (selM2Reason != 0) {
 			strBatch += "<Field Name='Reason_for_Delay_M2a'>" + selM2Reason + "</Field>";
 			strBatch += "<Field Name='ReasonIn'>M2a</Field>";
+			if(isSplGC)
+			strBatch += "<Field Name='IsSuperUser'>1</Field>";
 		}
 		break;
 
@@ -2213,6 +2221,8 @@ function submitstudyDetails() {
 		if (selM2bReason != 0) {
 			strBatch += "<Field Name='Reason_for_Delay_m2b'>" + selM2bReason + "</Field>";
 			strBatch += "<Field Name='ReasonIn'>M2b</Field>";
+			if(isSplGC)
+			strBatch += "<Field Name='IsSuperUser'>1</Field>";
 		}
 		break;
 
@@ -2251,6 +2261,8 @@ function submitstudyDetails() {
 		if (selM2cReason != 0) {
 			strBatch += "<Field Name='Reason_for_Delay_m2c'>" + selM2cReason + "</Field>";
 			strBatch += "<Field Name='ReasonIn'>M2c</Field>";
+			if(isSplGC)
+			strBatch += "<Field Name='IsSuperUser'>1</Field>";
 		}
 		break;
 
@@ -2289,22 +2301,27 @@ function submitstudyDetails() {
 		if (selM2dReason != 0) {
 			strBatch += "<Field Name='Reason_for_Delay_m2d'>" + selM2dReason + "</Field>";
 			strBatch += "<Field Name='ReasonIn'>M2d</Field>";
+			if(isSplGC)
+			strBatch += "<Field Name='IsSuperUser'>1</Field>";
 		}
 		break;
 
 	case STEPM2D:
 		strBatch += "<Field Name='Comments_m2d'>" + CorrectStringAsSPData(txtCommentsM2d) + "</Field>";
 		strBatch += "<Field Name='Comments_M2a'>" + CorrectStringAsSPData(txtCommentsM2a) + "</Field>";
+		strBatch += "<Field Name='IsSuperUser'>1</Field>";
 		break;
 
 	case STEPM3A:
 		strBatch += "<Field Name='Comments_m2d'>" + CorrectStringAsSPData(txtCommentsM2d) + "</Field>";
 		strBatch += "<Field Name='Comments_M2a'>" + CorrectStringAsSPData(txtCommentsM2a) + "</Field>";
+		strBatch += "<Field Name='IsSuperUser'>1</Field>";
 		break;
 
 	case STEPM3B:
 		strBatch += "<Field Name='Comments_m2d'>" + CorrectStringAsSPData(txtCommentsM2d) + "</Field>";
 		strBatch += "<Field Name='Comments_M2a'>" + CorrectStringAsSPData(txtCommentsM2a) + "</Field>";
+		strBatch += "<Field Name='IsSuperUser'>1</Field>";
 		break;
 
 	}
@@ -2377,6 +2394,8 @@ function submitStatistics() {
 			if (sel3aReason != 0) {
 				strBatch += "<Field Name='Reason_for_Delay_m3a'>" + sel3aReason + "</Field>";
 				strBatch += "<Field Name='ReasonIn'>M3a</Field>";
+				if(isSplGC)
+				strBatch += "<Field Name='IsSuperUser'>1</Field>";
 			}
 			break;
 
@@ -2405,6 +2424,8 @@ function submitStatistics() {
 			if (sel3bReason != 0) {
 				strBatch += "<Field Name='Reason_for_Delay_m3b'>" + sel3bReason + "</Field>";
 				strBatch += "<Field Name='ReasonIn'>M3b</Field>";
+				if(isSplGC)
+				strBatch += "<Field Name='IsSuperUser'>1</Field>";
 			}
 			break;
 		}
@@ -2427,7 +2448,6 @@ function submitStatistics() {
 }
 
 function submitBioinfo() {
-
 	var gohead = true;
 
 	if ($('#M4Date').val() != "")
@@ -2483,7 +2503,6 @@ function submitBioinfo() {
 		if (EscalationIDs != "")
 			//delete Escalations
 			deleteReminders(getIdarray(EscalationIDs), "ActualEscalations");
-
 	}
 }
 
@@ -2569,17 +2588,18 @@ function updatePurpose() {
 	var strBatch = "<Batch OnError='Continue' PreCalc='TRUE'>" +
 		"<Method ID='1' Cmd='Update'>" +
 		"<Field Name='Purpose'>" + selPurpose + "</Field>" +
-		"<Field Name='Fundamental_questions'>" + txtQuestion + "</Field>" +
+		"<Field Name='Fundamental_questions'>" + txtQuestion + "</Field>";
 
-		"<Field Name='EnableWF'>1</Field>" +
-		"<Field Name='ID'>" + itmid + "</Field>" +
-		"</Method>" +
-		"</Batch>";
+	if (isSplGC)
+		strBatch += "<Field Name='EnableWF'>1</Field>";
+
+	strBatch += "<Field Name='ID'>" + itmid + "</Field>" +
+	"</Method>" +
+	"</Batch>";
 	if (chkAllfilled('divmain')) {
 		update(strBatch);
 	}
 }
-
 //convert date to SPDate
 function SPdate(strdate) {
 	var Gdate = strdate.split('/')[2] + "-" + strdate.split('/')[0] + "-" + strdate.split('/')[1] + "T00:00:00Z";
@@ -3291,15 +3311,62 @@ function reloadValidations() {
 }
 
 function enableSPLGC() {
-	if (isSplGC) {
-		$('#txtCommentsM2a').attr('disabled', false);
-		$('#txtCommentsM2d').attr('disabled', false);
-		$('#txtComments3b').attr('disabled', false);
 
+	if (isSplGC) {
+		
+		/* the below two options from the "Top Study Information" tab. 
+		If we implement the code; it will create another study. Need to add update button spcially.*/
+		
+		$('#selPurpose').attr('disabled', false);
+		$('#txtQuestion').attr('disabled', false);
+		$('#reqStudy').show();
+		
+		/* Study Information */
+		$('#ctl00_PlaceHolderMain_GCAnalyst_upLevelDiv').attr('disabled', false);		
+		$('#ctl00_PlaceHolderMain_statistics_upLevelDiv').attr('disabled', false);		
+		$('#ctl00_PlaceHolderMain_bolInfo_upLevelDiv').attr('disabled', false);		
+		$('#ctl00_PlaceHolderMain_teamUsers_upLevelDiv').attr('disabled', false);
+		$('#txtStudyName').attr('disabled', false);				
+		$('#txtPurpose').attr('disabled', false);		
+		$('#txtSamples').attr('disabled', false);		
+		$('#selChipType').attr('disabled', false);		
+		$('#txtProtocol').attr('disabled', false);		
+		$('#timingsSampleDate').attr('disabled', false);		
+		$('#selTissue').attr('disabled', false);	
+			
+		$('#studyInfo').parent().parent().show();
+		$('#studyInfo').show();		
+				
+		/* Genomics tab */
+		$('#txtM1Date').attr('disabled', false);
+		$('#selRNA').attr('disabled', false);
+		$('#txtM2aDate').attr('disabled', false);
+		$('#selM1Reason').attr('disabled', false);
+		$('#selM2Reason').attr('disabled', false);
+		$('#txtCommentsM2a').attr('disabled', false);
+		
+		$('#selcRNAprotocol').attr('disabled', false);
+		$('#M2bDate').attr('disabled', false);
+		$('#selM2bReason').attr('disabled', false);
+		$('#M2cDate').attr('disabled', false);
+		$('#selM2cReason').attr('disabled', false);
+		$('#M2dDate').attr('disabled', false);
+		$('#selM2dReason').attr('disabled', false);
+		$('#txtCommentsM2d').attr('disabled', false);
+				
 		$('#btnBuGc').parent().parent().show();
 		$('#btnBuGc').show();
-
+		
+		/* Statistics tab */
+		
+		$('#M3aDate').attr('disabled', false);
+		$('#sel3aReason').attr('disabled', false);
+		$('#M3bDate').attr('disabled', false);
+		$('#sel3bReason').attr('disabled', false);
+		
 		$('#txtComments3b').attr("disabled", false);
 		$('#btnStatistics').show();
+		
+		/* Bio-Informatics tab */
 	}
 }
