@@ -1070,6 +1070,8 @@ function contentLoad(itmid) {
 								});
 								if (needTabSetup)
 									GeneralDiv(1);
+									
+									enableSPLGC();
 								break;
 
 							case STEP2:
@@ -1088,6 +1090,8 @@ function contentLoad(itmid) {
 								$("#btnEdit").hide();
 								if (needTabSetup)
 									GeneralDiv(2);
+									
+									enableSPLGC();
 								break;
 
 							case STEP3:
@@ -1497,7 +1501,7 @@ function contentLoad(itmid) {
 								})
 								GeneralDiv(5);
 								reloadValidations();
-								enableSPLGC();
+								//enableSPLGC();
 								break;
 							} //Switch closed
 						} else {
@@ -1589,7 +1593,7 @@ function getMileStoneArray(option) {
 		if (option == 'Escalation') {
 
 			var allMembers = $(this).attr("ows_Author").split(';')[0] + ";#" + $(this).attr("ows_GC_x0020_Analyst").split(';')[0] + ";#" + $(this).attr("ows_Statistics_x0020_Owner").split(';')[0]
-				 + ";#" + $(this).attr("ows_Bio_x0020_Informatics_x0020_Owne").split(';')[0]
+				 + ";#" + $(this).attr("ows_Bio_x0020_Informatics_x0020_Owne").split(';')[0];
 
 				var plannedSamples = ["", $(this).attr("ows_GSSID"), "Samples", SPdate($('#PlannedSmplDate').val()), "", $(this).attr("ows_GC_x0020_Analyst").split(';')[0], $(this).attr("ows_M1_Actual_Samples_Received_Date"), "N", $(this).attr("ows_Study_x0020_Name")];
 			var plannedRNAIsolation = ["", $(this).attr("ows_GSSID"), "RNA Isolation", SPdate($('#rna2aDate').val()), otherUser2, getuserId(userGC), $(this).attr("ows_M1_Actual_Samples_Received_Date"), "N", $(this).attr("ows_Study_x0020_Name")];
@@ -1637,7 +1641,7 @@ function getChangedMileStone(mileIDs, option) {
 
 			if (option == 'Escalation') {
 				var allMembers = $(this).attr("ows_Author").split(';')[0] + ";#" + $(this).attr("ows_GC_x0020_Analyst").split(';')[0] + ";#" + $(this).attr("ows_Statistics_x0020_Owner").split(';')[0]
-					 + ";#" + $(this).attr("ows_Bio_x0020_Informatics_x0020_Owne").split(';')[0]
+					 + ";#" + $(this).attr("ows_Bio_x0020_Informatics_x0020_Owne").split(';')[0];
 
 					var plannedSamples = [RIDS[0], $(this).attr("ows_GSSID"), "Samples", SPdate($('#PlannedSmplDate').val()), "", $(this).attr("ows_GC_x0020_Analyst").split(';')[0], $(this).attr("ows_M1_Actual_Samples_Received_Date"), checkEscDates($(this).attr("ows_M1_Anticipated_Samples"), $('#PlannedSmplDate').val()), $(this).attr("ows_Study_x0020_Name")];
 				var plannedRNAIsolation = [RIDS[1], $(this).attr("ows_GSSID"), "RNA Isolation", SPdate($('#rna2aDate').val()), otherUser2, getuserId(userGC), $(this).attr("ows_M1_Actual_Samples_Received_Date"), checkEscDates($(this).attr("ows_M2a_RNA_Isolation_Date"), $('#rna2aDate').val()), $(this).attr("ows_Study_x0020_Name")];
@@ -1998,9 +2002,14 @@ function submitMilestoneInfo() {
 				strBatch += "<Field Name='enableStage'>" + STEP3 + "</Field>";
 			}
 
-			strBatch += "<Field Name='LogMilestones'>" + logMilestones + "</Field>" +
-			"<Field Name='EnableWF'>3</Field>" +
-			"<Field Name='ID'>" + itmid + "</Field>" +
+			strBatch += "<Field Name='LogMilestones'>" + logMilestones + "</Field>";
+			
+			if (isSplGC == false)
+			strBatch += "<Field Name='EnableWF'>3</Field>";
+		else
+			strBatch += "<Field Name='IsSuperUser'>1</Field>";
+			
+			strBatch += "<Field Name='ID'>" + itmid + "</Field>" +
 			"</Method>" +
 			"</Batch>";
 			if (addEdit) {
@@ -2326,7 +2335,7 @@ function submitstudyDetails() {
 
 	}
 
-	if (step != STEPM2D && step != STEPM3A && step != STEPM3B) {
+	if (step != STEPM2D && step != STEPM3A && step != STEPM3B && isSplGC == false) {
 		strBatch += "<Field Name='enableStage'>" + enableStage + "</Field>" +
 		"<Field Name='EnableWF'>" + eanableWF + "</Field>";
 	}
@@ -2342,14 +2351,14 @@ function submitstudyDetails() {
 
 //submit statistics
 function submitStatistics() {
+	debugger;
 	var gohead = true;
-
 	var strBatch = "<Batch OnError='Continue' PreCalc='TRUE'>" +
 		"<Method ID='1' Cmd='Update'>";
 
 	var txtComments3b = CorrectStringAsSPData($('#txtComments3b').val());
-//	debugger
-	if (GenomicUserId != getuserId(curUser)) {
+	//	debugger
+	if (GenomicUserId != getuserId(curUser) || isSplGC) {
 
 		if ($('#M3aDate').val() != "")
 			var M3aDate = SPdate($('#M3aDate').val());
@@ -2394,8 +2403,8 @@ function submitStatistics() {
 			if (sel3aReason != 0) {
 				strBatch += "<Field Name='Reason_for_Delay_m3a'>" + sel3aReason + "</Field>";
 				strBatch += "<Field Name='ReasonIn'>M3a</Field>";
-				if(isSplGC)
-				strBatch += "<Field Name='IsSuperUser'>1</Field>";
+				if (isSplGC)
+					strBatch += "<Field Name='IsSuperUser'>1</Field>";
 			}
 			break;
 
@@ -2424,18 +2433,67 @@ function submitStatistics() {
 			if (sel3bReason != 0) {
 				strBatch += "<Field Name='Reason_for_Delay_m3b'>" + sel3bReason + "</Field>";
 				strBatch += "<Field Name='ReasonIn'>M3b</Field>";
-				if(isSplGC)
-				strBatch += "<Field Name='IsSuperUser'>1</Field>";
+			}
+			break;
+
+		case STEPM3B:
+
+			if (M3aDate != "") {
+				strBatch += "<Field Name='M3a_act_Initial_QC_completion_da'>" + M3aDate + "</Field>";
+			} else {
+				alert('Please select date.');
+				$("#M3aDate").focus();
+				gohead = false;
+				break;
+			}
+
+			if (needReason && sel3aReason == 0) {
+				alert('Please select reason');
+				$("#sel3aReason").focus();
+				gohead = false;
+				break;
+			}
+
+			if (sel3aReason != 0) {
+				strBatch += "<Field Name='Reason_for_Delay_m3a'>" + sel3aReason + "</Field>";
+				
+			}
+
+			if (M3bDate != "")
+				strBatch += "<Field Name='M3b_act_Statistics_Report_Date'>" + M3bDate + "</Field>";
+			else {
+				alert('Please select date.');
+				$("#M3bDate").focus();
+				gohead = false;
+				break;
+			}
+
+			strBatch += "<Field Name='Comments_m3b'>" + txtComments3b + "</Field>";
+
+			if (needReason && sel3bReason == 0) {
+				alert('Please select reason');
+				$("#sel3bReason").focus();
+				gohead = false;
+				break;
+			}
+
+			if (sel3bReason != 0) {
+				strBatch += "<Field Name='Reason_for_Delay_m3b'>" + sel3bReason + "</Field>";
+				
 			}
 			break;
 		}
-
-		strBatch += "<Field Name='enableStage'>" + enableStage + "</Field>" +
-		"<Field Name='EnableWF'>" + eanableWF + "</Field>";
 	} else {
 		strBatch += "<Field Name='Comments_m3b'>" + txtComments3b + "</Field>";
 	}
 
+	if (isSplGC == false) {
+		strBatch += "<Field Name='enableStage'>" + enableStage + "</Field>" +
+		"<Field Name='EnableWF'>" + eanableWF + "</Field>";
+	}
+
+	if (isSplGC)
+		strBatch += "<Field Name='IsSuperUser'>1</Field>";
 	strBatch += "<Field Name='ID'>" + itmid + "</Field>" +
 	"</Method>" +
 	"</Batch>";
@@ -2444,9 +2502,7 @@ function submitStatistics() {
 		update(strBatch);
 		saveMileStone("div3");
 	}
-
 }
-
 function submitBioinfo() {
 	var gohead = true;
 
@@ -2590,8 +2646,10 @@ function updatePurpose() {
 		"<Field Name='Purpose'>" + selPurpose + "</Field>" +
 		"<Field Name='Fundamental_questions'>" + txtQuestion + "</Field>";
 
-	if (isSplGC)
+	if (isSplGC==false)
 		strBatch += "<Field Name='EnableWF'>1</Field>";
+		else
+		strBatch += "<Field Name='IsSuperUser'>1</Field>";
 
 	strBatch += "<Field Name='ID'>" + itmid + "</Field>" +
 	"</Method>" +
