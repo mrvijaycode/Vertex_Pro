@@ -142,9 +142,9 @@ function getStudyID(itemID) {
 //hide load image
 $(document).ready(function () {
 	var AuthorName = $("a[id$='txtTitle']").val();
-	//$("input[disabled='disabled']").addClass('disabled');
+	$("input[disabled='disabled']").addClass('disabled');
 	
-	$("input[readonly='readonly']").addClass('disabled');
+	//$("input[readonly='readonly']").addClass('disabled');
 	
 	$("textarea[disabled='disabled']").addClass('disabled');
 	$("select[disabled='disabled']").addClass('disabled');
@@ -474,8 +474,9 @@ function isGc() {
 function divToggle(divId, status) {
 	switch (status) {
 	case 'hide':
-		//$("#" + divId + " :input").attr('disabled', true);
-		$("#" + divId + " :input").attr('readonly', true);
+		$("#" + divId + ":input").attr('disabled', true);
+		//$("#" + divId + " :input").attr('readonly', true);
+		$("#" + divId + ":checkbox").attr('disabled', true);
 		$("#" + divId).find('img:last').hide();
 		$("#" + divId + " img[id$='Attach']").hide();
 		if (divId == DIV_STUDY_INFORMATION) {
@@ -490,8 +491,9 @@ function divToggle(divId, status) {
 		break;
 
 	case 'show':
-		//$("#" + divId + " :input").attr('disabled', false);
-		$("#" + divId + " :input").attr('readonly', false);
+		$("#" + divId + " :input").attr('disabled', false);
+		//$("#" + divId + " :input").attr('readonly', false);
+		$("#" + divId + " :checkbox").attr('disabled', false);
 		$("#" + divId).find('img:last').show();
 		$("#" + divId + " img[id$='Attach']").show();
 		if (divId == DIV_STUDY_INFORMATION) {
@@ -1517,8 +1519,8 @@ function contentLoad(itmid) {
 				}
 			});
 
-			//$("input[disabled='disabled']").addClass('disabled');
-			$("input[readonly='readonly']").addClass('disabled');
+			$("input[disabled='disabled']").addClass('disabled');
+			//$("input[readonly='readonly']").addClass('disabled');
 			//$("textarea[disabled='disabled']").addClass('disabled');
 			$("textarea[readonly='readonly']").addClass('disabled');
 			$("select[disabled='disabled']").addClass('disabled');
@@ -1556,8 +1558,17 @@ function contentLoad(itmid) {
 			//Deisgn End
 			if (needAlert)
 				jAlert('Study updated.', 'Alert Dialog');
-
+				
 			$('#divLoad').fadeOut(3000);
+			
+			/* Dates in read only */
+			/*
+			if ($("[id$='Date']").is('[readonly]')) {
+				$("[id$='Date']").datepicker("destroy");
+			} else {
+				$("[id$='Date']").datepicker();
+				$("[id$='Date']").attr('readonly', 'readonly');
+			}*/
 		}
 	});
 }
