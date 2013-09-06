@@ -1,10 +1,10 @@
 ﻿
 //***************************************************************
-//* Project Name     :GSS
+//* Project Name     : GSS
 //* Application name :Genomics Experiments
 //* Dependencies     :
-//* Limitations      :It is created for the IE browser
-//* Created Date     :04 Sept 2013
+//* Limitations      :
+//* Created Date     :30 Dec 2012
 //* Author           :Vijay Bhaskar C
 //****************************************************************
 
@@ -118,9 +118,6 @@ var dateM3a = "";
 var dateM3b = "";
 var dateM4 = "";
 
-//alert('loaded file');
-//debugger
-
 function getStudyID(itemID) {
 	var viewFlds = "<ViewFields><FieldRef Name='ID' /></ViewFields>";
 	$().SPServices({
@@ -141,10 +138,11 @@ function getStudyID(itemID) {
 
 //hide load image
 $(document).ready(function () {
+//debugger
 	var AuthorName = $("a[id$='txtTitle']").val();
 	$("input[disabled='disabled']").addClass('disabled');
-	
-	//$("input[readonly='readonly']").addClass('disabled');
+	//
+	$("textarea[readonly='readonly']").addClass('disabled');
 	
 	$("textarea[disabled='disabled']").addClass('disabled');
 	$("select[disabled='disabled']").addClass('disabled');
@@ -154,6 +152,7 @@ $(document).ready(function () {
 //onload function
 $(document).ready(function () {
 
+//debugger
 	$('body').fadeTo("slow", 0.3);
 
 	if ($(location).attr('href').indexOf('?') > 0 && $(location).attr('href').split('?').length > 0) {
@@ -315,10 +314,11 @@ $(document).ready(function () {
 
 	$.ajax({
 		success : function () {
+//			debugger
 			isGc();
 			fillSelects();
 			getDatePicker();
-debugger
+
 			if (IshavingItm) {
 				itmid = window.location.search.split("?itmid=")[1];
 				contentLoad(itmid);
@@ -474,9 +474,13 @@ function isGc() {
 function divToggle(divId, status) {
 	switch (status) {
 	case 'hide':
-		$("#" + divId + ":input").attr('disabled', true);
-		//$("#" + divId + " :input").attr('readonly', true);
-		$("#" + divId + ":checkbox").attr('disabled', true);
+		//$("#" + divId + " :input").attr('disabled', true);
+		$("#" + divId + " :text").attr('disabled', true);
+		
+		$("#" + divId + " :checkbox").attr('disabled', true);
+		$("#" + divId + " select").attr('disabled', true);
+		$("#" + divId + " textarea").attr('readonly', true);
+		
 		$("#" + divId).find('img:last').hide();
 		$("#" + divId + " img[id$='Attach']").hide();
 		if (divId == DIV_STUDY_INFORMATION) {
@@ -486,14 +490,16 @@ function divToggle(divId, status) {
 		if (divId == DIV_MILESTONES) {
 			$("#btnMilestones").hide();
 		}
-		$("#" + divId + " select").attr('disabled', true);
-		$("#" + divId + " textarea").attr('readonly', true);
 		break;
 
 	case 'show':
-		$("#" + divId + " :input").attr('disabled', false);
-		//$("#" + divId + " :input").attr('readonly', false);
+		//$("#" + divId + " :input").attr('disabled', false);
+		$("#" + divId + " :text").attr('disabled', false);
+		
 		$("#" + divId + " :checkbox").attr('disabled', false);
+		$("#" + divId + " select").attr('disabled', false);
+		$("#" + divId + " textarea").attr('readonly', false);
+		
 		$("#" + divId).find('img:last').show();
 		$("#" + divId + " img[id$='Attach']").show();
 		if (divId == DIV_STUDY_INFORMATION) {
@@ -502,8 +508,6 @@ function divToggle(divId, status) {
 		if (divId == DIV_MILESTONES) {
 			$("#btnMilestones").show();
 		}
-		$("#" + divId + " select").attr('disabled', false);
-		$("#" + divId + " textarea").attr('readonly', false);
 		break;
 	}
 }
@@ -547,10 +551,11 @@ function hideAll() {
 
 //fill existed item
 function contentLoad(itmid) {
-
-	//$("input[disabled='disabled']").removeClass('disabled');
-	$("input[readonly='readonly']").removeClass('disabled');
+//debugger
+	$("input[disabled='disabled']").removeClass('disabled');
 	$("textarea[disabled='disabled']").removeClass('disabled');
+	//
+	$("textarea[readonly='readonly']").removeClass('disabled');
 	$("select[disabled='disabled']").removeClass('disabled');
 	$("div[title='People Picker']").removeClass('disabled');
 
@@ -571,6 +576,7 @@ function contentLoad(itmid) {
 
 	$.ajax({
 		success : function () {
+
 			//debugger
 			$().SPServices({
 				operation : "GetListItems",
@@ -581,7 +587,7 @@ function contentLoad(itmid) {
 				CAMLViewFields : viewFlds,
 				completefunc : function (xData, Status) {
 					StudyObj = $(xData.responseXML);
-
+//debugger
 					//alert(xData.responseText);
 					$(xData.responseXML).SPFilterNode("z:row").each(function () {
 
@@ -602,7 +608,7 @@ function contentLoad(itmid) {
 							getMileStoneDocument();
 						}
 						if ($(this).attr("ows_GC_x0020_Analyst") != null && $(this).attr("ows_GC_x0020_Analyst").split(";#")[0] == getuserId(curUser)) {
-							currGroup = "GC";
+							currGroup = "GC"
 								$("#crnAttach").attr('ID', 'GCAttach');
 							$("#GCAttach").click(function () {
 								window.open('http://teamspace.pg.com/sites/genomics/Site Assets/Pages/AttachFile.aspx?SubFolder=GC', "mywindow", "width=700,height=500,top=200")
@@ -611,7 +617,7 @@ function contentLoad(itmid) {
 						}
 						if ($(this).attr("ows_Statistics_x0020_Owner") != null && $(this).attr("ows_Statistics_x0020_Owner").split(";#")[0] == getuserId(curUser)) {
 
-							currGroup = "Stats";
+							currGroup = "Stats"
 								$("#StatisticsAttach").click(function () {
 									window.open('http://teamspace.pg.com/sites/genomics/Site Assets/Pages/AttachFile.aspx?SubFolder=Statistics', "mywindow", "width=700,height=500,top=200")
 								})
@@ -620,7 +626,7 @@ function contentLoad(itmid) {
 						}
 						if ($(this).attr("ows_Bio_x0020_Informatics_x0020_Owne") != null && $(this).attr("ows_Bio_x0020_Informatics_x0020_Owne").split(";#")[0] == getuserId(curUser)) {
 
-							currGroup = "BioInformatics";
+							currGroup = "BioInformatics"
 
 								$("#BioinformaticsAttach").click(function () {
 									window.open('http://teamspace.pg.com/sites/genomics/Site Assets/Pages/AttachFile.aspx?SubFolder=Bioinformatics', "mywindow", "width=700,height=500,top=200")
@@ -686,7 +692,7 @@ function contentLoad(itmid) {
 							$("#ctl00_PlaceHolderMain_bolInfo_checkNames").click();
 						}
 
-						//Other users load
+						//multiple users load
 
 						if ($(this).attr("ows_OtherTeamUsers") != null) {
 							var otherUsers = $(this).attr("ows_OtherTeamUsers").split(";#");
@@ -709,9 +715,14 @@ function contentLoad(itmid) {
 						}
 
 						if ($(this).attr("ows_DescriptionPurpose") != null) {
+
 							var txtPurpose = $(this).attr("ows_DescriptionPurpose");
+
 							$("#txtPurpose").val(CorrectSPDataAsString(txtPurpose));
+
 							//To Adjust the Text area scroll bars Added By Manjula on 6/15/2013
+
+
 						}
 
 						if ($(this).attr("ows_Estimated_x0020_Number_x0020_of_") != null) {
@@ -734,6 +745,7 @@ function contentLoad(itmid) {
 
 							var newHeight = ($("#txtProtocol").prop("scrollHeight") > 32 ? $("#txtProtocol").prop("scrollHeight") : 32);
 							$("#txtProtocol").css("height", totalH.toString() + 'px');
+
 						}
 
 						if ($(this).attr("ows_Estimated_timing") != null) {
@@ -757,6 +769,7 @@ function contentLoad(itmid) {
 
 							var newHeight = ($("#txtOthers").prop("scrollHeight") > 32 ? $("#txtOthers").prop("scrollHeight") : 32);
 							$("#txtOthers").css("height", newHeight.toString() + 'px');
+
 						}
 
 						//studyInformation
@@ -861,6 +874,7 @@ function contentLoad(itmid) {
 						}
 
 						$("#btnCancel").hide();
+
 						$("#lblCancel").hide();
 						$("#selCancelReason").hide();
 
@@ -871,8 +885,7 @@ function contentLoad(itmid) {
 							var txtM1Date = $(this).attr("ows_M1_Actual_Samples_Received_Date");
 							txtM1Date = conDate(txtM1Date);
 							$("#txtM1Date").val(txtM1Date);
-							//$("#PlannedSmplDate").attr('disabled', true);
-							$("#PlannedSmplDate").attr('readonly', 'readonly');
+							$("#PlannedSmplDate").attr('disabled', true);
 						}
 
 						if ($(this).attr("ows_Reason_for_Delay_m1") != null) {
@@ -1114,6 +1127,7 @@ function contentLoad(itmid) {
 											divToggle(DIV_BUGC_BUTTONS, SHOW);
 											//$("#txtCommentsM2a").attr("disabled", false);
 											$("#txtCommentsM2a").attr("readonly", false);
+											//$("#txtCommentsM2a").removeClass("readonly", false);
 										}
 									}
 								}
@@ -1211,6 +1225,8 @@ function contentLoad(itmid) {
 									divToggle(DIV_MILESTONES, SHOW);
 									divToggle(DIV_GC, SHOW);
 									divToggle(DIV_BUGC_BUTTONS, SHOW);
+									$("#txtCommentsM2d").attr("disabled", false);
+									$("#txtCommentsM2d").attr("readonly", false);
 
 									var idsArray = ["selRNA", "txtM2aDate", "M2cDate", "M2dDate", "selM2Reason", "selM2cReason", "selM2dReason"];
 									//alert(idsArray.length)
@@ -1350,7 +1366,11 @@ function contentLoad(itmid) {
 									divToggle(DIV_STUDY_INFORMATION, SHOW);
 									divToggle(DIV_MILESTONES, SHOW);
 									$('#txtCommentsM2a').attr("disabled", false);
+									$('#txtCommentsM2a').attr("readonly", false);
+									
 									$('#txtCommentsM2d').attr("disabled", false);
+									$('#txtCommentsM2d').attr("readonly", false);
+									
 									$('#btnBuGc').parent().parent().show();
 									$('#btnBuGc').show();
 								}
@@ -1404,11 +1424,17 @@ function contentLoad(itmid) {
 									divToggle(DIV_MILESTONES, SHOW);
 
 									$('#txtCommentsM2a').attr("disabled", false);
+									$('#txtCommentsM2a').attr("readonly", false);
+									
 									$('#txtCommentsM2d').attr("disabled", false);
+									$('#txtCommentsM2d').attr("readonly", false);
+																		
 									$('#btnBuGc').parent().parent().show();
 									$('#btnBuGc').show();
 
 									$('#txtComments3b').attr("disabled", false);
+									$('#txtComments3b').attr("readonly", false);
+									
 									$('#btnStatistics').show();
 								}
 
@@ -1464,10 +1490,15 @@ function contentLoad(itmid) {
 									divToggle(DIV_MILESTONES, SHOW);
 
 									$('#txtCommentsM2a').attr("disabled", false);
+									$('#txtCommentsM2a').attr("readonly", false);
+									
 									$('#txtCommentsM2d').attr("disabled", false);
+									$('#txtCommentsM2d').attr("readonly", false);
+									
 									$('#btnBuGc').parent().parent().show();
 									$('#btnBuGc').show();
 									$('#txtComments3b').attr("disabled", false);
+									$('#txtComments3b').attr("readonly", false);
 									$('#btnStatistics').show();
 								}
 
@@ -1520,9 +1551,10 @@ function contentLoad(itmid) {
 			});
 
 			$("input[disabled='disabled']").addClass('disabled');
-			//$("input[readonly='readonly']").addClass('disabled');
-			//$("textarea[disabled='disabled']").addClass('disabled');
+			//
 			$("textarea[readonly='readonly']").addClass('disabled');
+			
+			$("textarea[disabled='disabled']").addClass('disabled');
 			$("select[disabled='disabled']").addClass('disabled');
 			$("div[title='People Picker']").addClass('disabled');
 
@@ -1558,17 +1590,8 @@ function contentLoad(itmid) {
 			//Deisgn End
 			if (needAlert)
 				jAlert('Study updated.', 'Alert Dialog');
-				
+
 			$('#divLoad').fadeOut(3000);
-			
-			/* Dates in read only */
-			/*
-			if ($("[id$='Date']").is('[readonly]')) {
-				$("[id$='Date']").datepicker("destroy");
-			} else {
-				$("[id$='Date']").datepicker();
-				$("[id$='Date']").attr('readonly', 'readonly');
-			}*/
 		}
 	});
 }
@@ -2370,7 +2393,7 @@ function submitstudyDetails() {
 
 //submit statistics
 function submitStatistics() {
-	debugger;
+//	debugger;
 	var gohead = true;
 	var strBatch = "<Batch OnError='Continue' PreCalc='TRUE'>" +
 		"<Method ID='1' Cmd='Update'>";
@@ -2928,11 +2951,22 @@ function GeneralDiv(divs) {
 		applyWidth(studyInformationArray);
 
 		var tx = $("#ctl00_PlaceHolderMain_teamUsers_upLevelDiv").width();
-		
+		//var divW = $("#ctl00_PlaceHolderMain_teamUsers_upLevelDiv").width();
+		//var txtW = $("#ctl00_PlaceHolderMain_teamUsers_downlevelTextBox").width();
+		//var boxwidths = [txtW, divW]
+		//var tx = Math.max.apply(null, boxwidths);
+
+
 		txtAreaResize("#txtPurpose");
 		txtAreaResize("#txtProtocol");
 
 		txtAreaResize("#txtOthers");
+
+		//$("#txtPurpose").css("height","auto");
+
+		//   var newHeight = ($("#txtPurpose").prop("scrollHeight")> 32 ? $("#txtPurpose").prop("scrollHeight"): 32);
+		//$("#txtPurpose").css("height",newHeight.toString() +'px');
+
 
 		$("#txtPurpose").width(342);
 		$("#txtProtocol").width(342);
@@ -3379,11 +3413,13 @@ function reloadValidations() {
 function enableSPLGC() {
 
 	if (isSplGC) {
+		
 		/* the below two options from the "Top Study Information" tab. 
 		If we implement the code; it will create another study. Need to add update button spcially.*/
 		
 		$('#selPurpose').attr('disabled', false);
 		$('#txtQuestion').attr('disabled', false);
+		$('#txtQuestion').attr('readonly', false);
 		$('#reqStudy').show();
 		
 		/* Study Information */
@@ -3393,12 +3429,18 @@ function enableSPLGC() {
 		$('#ctl00_PlaceHolderMain_teamUsers_upLevelDiv').attr('disabled', false);
 		$('#txtStudyName').attr('disabled', false);				
 		$('#txtPurpose').attr('disabled', false);		
+		$('#txtPurpose').attr('readonly', false);
+		
 		$('#txtSamples').attr('disabled', false);		
 		$('#selChipType').attr('disabled', false);		
 		$('#txtProtocol').attr('disabled', false);		
+		$('#txtProtocol').attr('readonly', false);	
 		$('#timingsSampleDate').attr('disabled', false);		
 		$('#selTissue').attr('disabled', false);	
-			
+
+		$('#txtOthers').attr('disabled', false);	
+		$('#txtOthers').attr('readonly', false);
+
 		$('#studyInfo').parent().parent().show();
 		$('#studyInfo').show();		
 				
@@ -3409,6 +3451,7 @@ function enableSPLGC() {
 		$('#selM1Reason').attr('disabled', false);
 		$('#selM2Reason').attr('disabled', false);
 		$('#txtCommentsM2a').attr('disabled', false);
+		$('#txtCommentsM2a').attr('readonly', false);
 		
 		$('#selcRNAprotocol').attr('disabled', false);
 		$('#M2bDate').attr('disabled', false);
@@ -3418,6 +3461,7 @@ function enableSPLGC() {
 		$('#M2dDate').attr('disabled', false);
 		$('#selM2dReason').attr('disabled', false);
 		$('#txtCommentsM2d').attr('disabled', false);
+		$('#txtCommentsM2d').attr('readonly', false);
 				
 		$('#btnBuGc').parent().parent().show();
 		$('#btnBuGc').show();
@@ -3430,6 +3474,7 @@ function enableSPLGC() {
 		$('#sel3bReason').attr('disabled', false);
 		
 		$('#txtComments3b').attr("disabled", false);
+		$('#txtComments3b').attr("readonly", false);
 		$('#btnStatistics').show();
 		
 		/* Bio-Informatics tab */
