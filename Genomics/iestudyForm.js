@@ -2360,19 +2360,19 @@ function submitstudyDetails() {
 	case STEPM2D:
 		strBatch += "<Field Name='Comments_m2d'>" + CorrectStringAsSPData(txtCommentsM2d) + "</Field>";
 		strBatch += "<Field Name='Comments_M2a'>" + CorrectStringAsSPData(txtCommentsM2a) + "</Field>";
-		//strBatch += allgenomics(gohead,txtM1Date,selM1Reason,selRNA,txtM2aDate,selM2Reason,selcRNAprotocol,M2bDate,M2cDate,M2dDate,selM2bReason,selM2cReason,selM2dReason);
+		strBatch += allgenomics(gohead,txtM1Date,selM1Reason,selRNA,txtM2aDate,selM2Reason,selcRNAprotocol,M2bDate,M2cDate,M2dDate,selM2bReason,selM2cReason,selM2dReason);
 		strBatch += "<Field Name='IsSuperUser'>1</Field>";
 		break;
 
 	case STEPM3A:
 		strBatch += "<Field Name='Comments_m2d'>" + CorrectStringAsSPData(txtCommentsM2d) + "</Field>";
 		strBatch += "<Field Name='Comments_M2a'>" + CorrectStringAsSPData(txtCommentsM2a) + "</Field>";
-		//strBatch += allgenomics(gohead,txtM1Date,selM1Reason,selRNA,txtM2aDate,selM2Reason,selcRNAprotocol,M2bDate,M2cDate,M2dDate,selM2bReason,selM2cReason,selM2dReason);
+		strBatch += allgenomics(gohead,txtM1Date,selM1Reason,selRNA,txtM2aDate,selM2Reason,selcRNAprotocol,M2bDate,M2cDate,M2dDate,selM2bReason,selM2cReason,selM2dReason);
 		strBatch += "<Field Name='IsSuperUser'>1</Field>";
 		break;
 
 	case STEPM3B:
-		//strBatch += allgenomics(gohead,txtM1Date,selM1Reason,selRNA,txtM2aDate,selM2Reason,selcRNAprotocol,M2bDate,M2cDate,M2dDate,selM2bReason,selM2cReason,selM2dReason);
+		strBatch += allgenomics(gohead,txtM1Date,selM1Reason,selRNA,txtM2aDate,selM2Reason,selcRNAprotocol,M2bDate,M2cDate,M2dDate,selM2bReason,selM2cReason,selM2dReason);
 		strBatch += "<Field Name='Comments_m2d'>" + CorrectStringAsSPData(txtCommentsM2d) + "</Field>";
 		strBatch += "<Field Name='Comments_M2a'>" + CorrectStringAsSPData(txtCommentsM2a) + "</Field>";
 		strBatch += "<Field Name='IsSuperUser'>1</Field>";
@@ -2396,7 +2396,7 @@ function submitstudyDetails() {
 
 function allgenomics(gohead,txtM1Date,selM1Reason,selRNA,txtM2aDate,selM2Reason,selcRNAprotocol,M2bDate,M2cDate,M2dDate,selM2bReason,selM2cReason,selM2dReason) {
 
-/*
+
 	var strBatch = "";
 
 	//Step3
@@ -2406,14 +2406,12 @@ function allgenomics(gohead,txtM1Date,selM1Reason,selRNA,txtM2aDate,selM2Reason,
 		alert('Please select date.');
 		$("#txtM1Date").focus();
 		gohead = false;
-		break;
 	}
 
 	if (needReason && selM1Reason == 0) {
 		alert('Please select reason');
 		$("#selM1Reason").focus();
 		gohead = false;
-		break;
 	}
 
 	if (selM1Reason != 0) {
@@ -2428,7 +2426,6 @@ function allgenomics(gohead,txtM1Date,selM1Reason,selRNA,txtM2aDate,selM2Reason,
 		alert('Please select Protocol.');
 		$("#selRNA").focus();
 		gohead = false;
-		break;
 	}
 
 	if (txtM2aDate != "") {
@@ -2437,14 +2434,12 @@ function allgenomics(gohead,txtM1Date,selM1Reason,selRNA,txtM2aDate,selM2Reason,
 		alert('Please select date.');
 		$("#txtM2aDate").focus();
 		gohead = false;
-		break;
 	}
 
 	if (needReason && selM2Reason == 0) {
 		alert('Please select reason');
 		$("#selM2Reason").focus();
 		gohead = false;
-		break;
 	}
 
 	if (selM2Reason != 0) {
@@ -2452,14 +2447,6 @@ function allgenomics(gohead,txtM1Date,selM1Reason,selRNA,txtM2aDate,selM2Reason,
 	}
 
 	//Step m2a
-	if (selcRNAprotocol != 0) {
-		strBatch += "<Field Name='cRNA_Protocol'>" + selcRNAprotocol + "</Field>";
-	} else {
-		alert('Please select cRNA Protocol.');
-		$("#selcRNAprotocol").focus();
-		gohead = false;
-		break;
-	}
 
 	if (M2bDate != "") {
 		strBatch += "<Field Name='M2b_cRNA_act_Dates_Label'>" + M2bDate + "</Field>";
@@ -2467,14 +2454,12 @@ function allgenomics(gohead,txtM1Date,selM1Reason,selRNA,txtM2aDate,selM2Reason,
 		alert('Please select date');
 		$("#M2bDate").focus();
 		gohead = false;
-		break;
 	}
 
 	if (needReason && selM2bReason == 0) {
 		alert('Please select reason');
 		$("#selM2bReason").focus();
 		gohead = false;
-		break;
 	}
 
 	if (selM2bReason != 0) {
@@ -2483,29 +2468,18 @@ function allgenomics(gohead,txtM1Date,selM1Reason,selRNA,txtM2aDate,selM2Reason,
 
 	//Step M2b
 
-	if (selcRNAprotocol != 0) {
-		strBatch += "<Field Name='cRNA_Protocol'>" + selcRNAprotocol + "</Field>";
-	} else {
-		alert('Please select cRNA Protocol.');
-		$("#selcRNAprotocol").focus();
-		gohead = false;
-		break;
-	}
-
 	if (M2cDate != "") {
 		strBatch += "<Field Name='M2c_act_Chips_Run_date'>" + M2cDate + "</Field>";
 	} else {
 		alert('Please select date.');
 		$("#M2cDate").focus();
 		gohead = false;
-		break;
 	}
 
 	if (needReason && selM2cReason == 0) {
 		alert('Please select reason');
 		$("#selM2cReason").focus();
 		gohead = false;
-		break;
 	}
 
 	if (selM2cReason != 0) {
@@ -2513,15 +2487,14 @@ function allgenomics(gohead,txtM1Date,selM1Reason,selRNA,txtM2aDate,selM2Reason,
 	}
 
 	//Step M2C
-
+	
 	if (selcRNAprotocol != 0) {
-		strBatch += "<Field Name='cRNA_Protocol'>" + selcRNAprotocol + "</Field>";
-	} else {
-		alert('Please select cRNA Protocol.');
-		$("#selcRNAprotocol").focus();
-		gohead = false;
-		break;
-	}
+			strBatch += "<Field Name='cRNA_Protocol'>" + selcRNAprotocol + "</Field>";
+		} else {
+			alert('Please select cRNA Protocol.');
+			$("#selcRNAprotocol").focus();
+			gohead = false;
+		}
 
 	if (M2dDate != "") {
 		strBatch += "<Field Name='M2d_act_Data_Posted_date'>" + M2dDate + "</Field>";
@@ -2529,14 +2502,12 @@ function allgenomics(gohead,txtM1Date,selM1Reason,selRNA,txtM2aDate,selM2Reason,
 		alert('Plese enter date.');
 		$("#M2dDate").focus();
 		gohead = false;
-		break;
 	}
 
 	if (needReason && selM2dReason == 0) {
 		alert('Please select reason');
 		$("#selM2dReason").focus();
 		gohead = false;
-		break;
 	}
 
 	if (selM2dReason != 0) {
@@ -2544,7 +2515,7 @@ function allgenomics(gohead,txtM1Date,selM1Reason,selRNA,txtM2aDate,selM2Reason,
 	}
 
 	return strBatch;
-	*/
+	
 }
 //submit statistics
 function submitStatistics() {
