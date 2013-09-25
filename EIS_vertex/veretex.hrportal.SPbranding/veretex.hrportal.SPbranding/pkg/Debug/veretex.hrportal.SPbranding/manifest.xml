@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Solution xmlns="http://schemas.microsoft.com/sharepoint/" SolutionId="35b1dd6d-70ee-4fcf-9605-c86f42abab9d" SharePointProductVersion="14.0">
+  <Assemblies>
+    <Assembly Location="veretex.hrportal.SPbranding.dll" DeploymentTarget="GlobalAssemblyCache" />
+  </Assemblies>
+  <FeatureManifests>
+    <FeatureManifest Location="veretex.hrportal.SPbranding_VertexBrand\Feature.xml" />
+  </FeatureManifests>
+</Solution>

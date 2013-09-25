@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Elements xmlns="http://schemas.microsoft.com/sharepoint/">
+
+  <Module Name="MasterPageGallery" Path="MasterPageGallery" Url="_catalogs/masterpage" >
+  
+    <File Url="vertexPortal.master" Type="GhostableInLibrary" >
+      <Property Name="UIVersion" Value="4" />
+      <Property Name="ContentTypeId" Value="0x010105" />
+    </File>
+
+  </Module>
+</Elements>

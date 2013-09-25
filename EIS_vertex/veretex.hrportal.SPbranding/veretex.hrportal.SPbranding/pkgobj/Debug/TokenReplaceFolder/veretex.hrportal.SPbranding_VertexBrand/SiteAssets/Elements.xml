@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Elements xmlns="http://schemas.microsoft.com/sharepoint/">
+  <Module Name="SiteAssets">
+<File Path="SiteAssets\jquery-1.8.1.js" Url="SiteAssets/jquery-1.8.1.js" Type="GhostableInLibrary" />
+<File Path="SiteAssets\masterPage.js" Url="SiteAssets/masterPage.js" Type="GhostableInLibrary" />
+<File Path="SiteAssets\homePage.js" Url="SiteAssets/homePage.js" Type="GhostableInLibrary" />
+<File Path="SiteAssets\Projects.js" Url="SiteAssets/Projects.js" Type="GhostableInLibrary" />
+</Module>
+</Elements>
