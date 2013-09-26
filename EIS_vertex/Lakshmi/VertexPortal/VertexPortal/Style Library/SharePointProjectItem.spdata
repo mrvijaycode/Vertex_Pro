@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ProjectItem Type="Microsoft.VisualStudio.SharePoint.Module" DefaultFile="Elements.xml" SupportedTrustLevels="All" SupportedDeploymentScopes="Web, Site" xmlns="http://schemas.microsoft.com/VisualStudio/2010/SharePointTools/SharePointProjectItemModel">
+  <Files>
+    <ProjectItemFile Source="Elements.xml" Target="Style Library\" Type="ElementManifest" />
+    <ProjectItemFile Source="images\banner.jpg" Target="Style Library\images\" Type="ElementFile" />
+    <ProjectItemFile Source="images\banner_shadow.png" Target="Style Library\images\" Type="ElementFile" />
+    <ProjectItemFile Source="images\body_bg.jpg" Target="Style Library\images\" Type="ElementFile" />
+    <ProjectItemFile Source="images\body_top_shadow.png" Target="Style Library\images\" Type="ElementFile" />
+    <ProjectItemFile Source="images\bread_crump.png" Target="Style Library\images\" Type="ElementFile" />
+    <ProjectItemFile Source="images\button_bg.jpg" Target="Style Library\images\" Type="ElementFile" />
+    <ProjectItemFile Source="images\calender_icon.png" Target="Style Library\images\" Type="ElementFile" />
+    <ProjectItemFile Source="images\delete_icon.png" Target="Style Library\images\" Type="ElementFile" />
+    <ProjectItemFile Source="images\edit.png" Target="Style Library\images\" Type="ElementFile" />
+    <ProjectItemFile Source="images\employee_information_system.png" Target="Style Library\images\" Type="ElementFile" />
+    <ProjectItemFile Source="images\footer_bg.jpg" Target="Style Library\images\" Type="ElementFile" />
+    <ProjectItemFile Source="images\header_bg.jpg" Target="Style Library\images\" Type="ElementFile" />
+    <ProjectItemFile Source="images\inner_table_header.jpg" Target="Style Library\images\" Type="ElementFile" />
+    <ProjectItemFile Source="images\innertable_header_bg.jpg" Target="Style Library\images\" Type="ElementFile" />
+    <ProjectItemFile Source="images\Thumbs.db" Target="Style Library\images\" Type="ElementFile" />
+    <ProjectItemFile Source="images\vertex_logo.png" Target="Style Library\images\" Type="ElementFile" />
+    <ProjectItemFile Source="css\style.css" Target="Style Library\css\" Type="ElementFile" />
+    <ProjectItemFile Source="css\menu.css" Target="Style Library\css\" Type="ElementFile" />
+    <ProjectItemFile Source="css\jquery.Datepicker.UI.css" Target="Style Library\css\" Type="ElementFile" />
+  </Files>
+</ProjectItem>

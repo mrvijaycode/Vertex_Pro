@@ -11,7 +11,7 @@ $(document).ready(function () {
 });
 
 function RetrieveListItems() {
-	//debugger;
+	debugger;
 	//alert("Entered");
 	context = new SP.ClientContext.get_current();
 	web = context.get_web();

@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Feature xmlns="http://schemas.microsoft.com/sharepoint/" Title="VertexPortal Feature1" Id="756abebe-66f3-40d6-b52c-20fe96915d79" ReceiverAssembly="VertexPortal, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f3a50c150cea0eec" ReceiverClass="VertexPortal.Features.Feature1.Feature1EventReceiver" Scope="Site">
+  <ElementManifests>
+    <ElementManifest Location="MasterPageGallery\Elements.xml" />
+    <ElementFile Location="MasterPageGallery\vertexPortal.master" />
+    <ElementManifest Location="SiteAssets\Elements.xml" />
+    <ElementFile Location="SiteAssets\jquery-1.8.1.js" />
+    <ElementFile Location="SiteAssets\masterPage.js" />
+    <ElementFile Location="SiteAssets\homePage.js" />
+    <ElementFile Location="SiteAssets\Administration\Projects.js" />
+    <ElementFile Location="SiteAssets\Projects.js" />
+    <ElementFile Location="SiteAssets\datepick.js" />
+    <ElementFile Location="SiteAssets\JobDescription.js" />
+    <ElementFile Location="SiteAssets\Configuration.js" />
+    <ElementFile Location="SiteAssets\jquery.SPServices-0.7.1a.min.js" />
+    <ElementManifest Location="SitePages\Elements.xml" />
+    <ElementFile Location="SitePages\vhome.aspx" />
+    <ElementFile Location="SitePages\vprojects.aspx" />
+    <ElementFile Location="SitePages\Projects.aspx" />
+    <ElementFile Location="SitePages\JobDescription.aspx" />
+    <ElementFile Location="SitePages\Configuration.aspx" />
+    <ElementManifest Location="Style Library\Elements.xml" />
+    <ElementFile Location="Style Library\images\banner.jpg" />
+    <ElementFile Location="Style Library\images\banner_shadow.png" />
+    <ElementFile Location="Style Library\images\body_bg.jpg" />
+    <ElementFile Location="Style Library\images\body_top_shadow.png" />
+    <ElementFile Location="Style Library\images\bread_crump.png" />
+    <ElementFile Location="Style Library\images\button_bg.jpg" />
+    <ElementFile Location="Style Library\images\calender_icon.png" />
+    <ElementFile Location="Style Library\images\delete_icon.png" />
+    <ElementFile Location="Style Library\images\edit.png" />
+    <ElementFile Location="Style Library\images\employee_information_system.png" />
+    <ElementFile Location="Style Library\images\footer_bg.jpg" />
+    <ElementFile Location="Style Library\images\header_bg.jpg" />
+    <ElementFile Location="Style Library\images\inner_table_header.jpg" />
+    <ElementFile Location="Style Library\images\innertable_header_bg.jpg" />
+    <ElementFile Location="Style Library\images\Thumbs.db" />
+    <ElementFile Location="Style Library\images\vertex_logo.png" />
+    <ElementFile Location="Style Library\css\style.css" />
+    <ElementFile Location="Style Library\css\menu.css" />
+    <ElementFile Location="Style Library\css\jquery.Datepicker.UI.css" />
+  </ElementManifests>
+</Feature>

@@ -60,7 +60,7 @@ h2, h3, h4, h5, h6 {
 
 
 #header{
-	background:url("http://hydpcnew00123:4444/Style Library/images/header_bg.jpg") repeat-x top left;
+	background:url("http://sp2010:4444/Style Library/images/header_bg.jpg") repeat-x top left;
 	height:101px;
 	}
 	
@@ -94,12 +94,12 @@ h2, h3, h4, h5, h6 {
 	}
 	 
 #content_bg{
-	background:url("http://hydpcnew00123:4444/Style Library/images/body_bg.jpg") repeat top left;
+	background:url("http://sp2010:4444/Style Library/images/body_bg.jpg") repeat top left;
 	min-height:550px;
 	}
 	
 #content_bg_shadow{
-	background:url("http://hydpcnew00123:4444/Style Library/images/body_top_shadow.png") repeat-x top left;
+	background:url("http://sp2010:4444/Style Library/images/body_top_shadow.png") repeat-x top left;
 	height:100%;
 	/*overflow:hidden;*/
 	}
@@ -108,7 +108,7 @@ h2, h3, h4, h5, h6 {
 	width:990px;
 	height:330px;
 	margin:20px 0 0 0;
-	background:url("http://hydpcnew00123:4444/Style Library/images/banner_shadow.png") no-repeat bottom left;
+	background:url("http://sp2010:4444/Style Library/images/banner_shadow.png") no-repeat bottom left;
 	}
 	
 #status_container{
@@ -152,7 +152,7 @@ h2, h3, h4, h5, h6 {
 	
 
 #footer{
-	background:url("http://hydpcnew00123:4444/Style Library/images/footer_bg.jpg") repeat-x top left;
+	background:url("http://sp2010:4444/Style Library/images/footer_bg.jpg") repeat-x top left;
 	height:40px;
 	}
 	
@@ -172,7 +172,7 @@ h2, h3, h4, h5, h6 {
 	}
 	
 #inner-header-bg{
-	background:url("http://hydpcnew00123:4444/Style Library/images/innertable_header_bg.jpg") repeat-x top left;
+	background:url("http://sp2010:4444/Style Library/images/innertable_header_bg.jpg") repeat-x top left;
 	height:30px;
 	padding:10px 0 0 10px;
 	font-weight:bold;
@@ -206,7 +206,7 @@ h2, h3, h4, h5, h6 {
 	}
 	
 .button{
-	background:url("http://hydpcnew00123:4444/Style Library/images/button_bg.jpg") repeat-x top left #277cc7;
+	background:url("http://sp2010:4444/Style Library/images/button_bg.jpg") repeat-x top left #277cc7;
 	height:25px;
 	border:#1c6aae solid 1px;
 	color:#FFF;
@@ -214,7 +214,7 @@ h2, h3, h4, h5, h6 {
 	}
 	
 .inner_table_header{
-	background:url("http://hydpcnew00123:4444/Style Library/images/inner_table_header.jpg") repeat-x left bottom #c3c8cd;
+	background:url("http://sp2010:4444/Style Library/images/inner_table_header.jpg") repeat-x left bottom #c3c8cd;
 	font-weight:bold;
 	border-right:#9ea6ac solid 1px;
 		}	

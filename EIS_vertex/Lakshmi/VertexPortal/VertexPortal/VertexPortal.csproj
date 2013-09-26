@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{180C682E-D55C-4E3F-A176-432E85133757}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>VertexPortal</RootNamespace>
+    <AssemblyName>VertexPortal</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{BB1F664B-9266-4fd6-B973-E1E44974B511};{14822709-B5A1-4724-98CA-57A101D1B079};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>key.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="Microsoft.SharePoint" />
+    <Reference Include="Microsoft.SharePoint.Security" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Features\Feature1\Feature1.EventReceiver.cs">
+      <DependentUpon>Feature1.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Features\Feature1\Feature1.feature">
+      <FeatureId>{85a381b1-db9d-4dec-9b9f-2d1d8fb851b7}</FeatureId>
+    </None>
+    <None Include="key.snk" />
+    <None Include="MasterPageGallery\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{2a71d2cf-cfa2-482a-abad-749b6dec7d29}</SharePointProjectItemId>
+    </None>
+    <None Include="MasterPageGallery\vertexPortal.master" />
+    <None Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="Package\Package.package">
+      <PackageId>{d728695f-b5ee-4dd7-8bca-6ddabf2641b4}</PackageId>
+    </None>
+    <None Include="Package\Package.Template.xml">
+      <DependentUpon>Package.package</DependentUpon>
+    </None>
+    <None Include="SiteAssets\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{347de450-5e2c-4759-84ce-1e67c1b98f2b}</SharePointProjectItemId>
+    </None>
+    <None Include="SitePages\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{321fc732-b26a-4afb-92dd-7ec0496a9ae0}</SharePointProjectItemId>
+    </None>
+    <None Include="Style Library\images\Thumbs.db" />
+    <None Include="Style Library\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{df766b8c-a1df-44a0-b65b-4994a99aebc2}</SharePointProjectItemId>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="bin\Debug\" />
+    <Folder Include="obj\Debug\TempPE\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Features\Feature1\Feature1.Template.xml">
+      <DependentUpon>Feature1.feature</DependentUpon>
+    </Content>
+    <Content Include="MasterPageGallery\Elements.xml" />
+    <Content Include="SiteAssets\Administration\Projects.js" />
+    <Content Include="SiteAssets\Configuration.js" />
+    <Content Include="SiteAssets\datepick.js" />
+    <Content Include="SiteAssets\Elements.xml" />
+    <Content Include="SiteAssets\homePage.js" />
+    <Content Include="SiteAssets\JobDescription.js" />
+    <Content Include="SiteAssets\jquery-1.8.1.js" />
+    <Content Include="SiteAssets\jquery.SPServices-0.7.1a.min.js" />
+    <Content Include="SiteAssets\masterPage.js" />
+    <Content Include="SiteAssets\Projects.js" />
+    <Content Include="SitePages\Configuration.aspx" />
+    <Content Include="SitePages\Elements.xml" />
+    <Content Include="SitePages\JobDescription.aspx" />
+    <Content Include="SitePages\Projects.aspx" />
+    <Content Include="SitePages\vhome.aspx" />
+    <Content Include="SitePages\vprojects.aspx" />
+    <Content Include="Style Library\css\jquery.Datepicker.UI.css" />
+    <Content Include="Style Library\css\menu.css" />
+    <Content Include="Style Library\css\style.css" />
+    <Content Include="Style Library\Elements.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Style Library\images\banner.jpg" />
+    <Content Include="Style Library\images\banner_shadow.png" />
+    <Content Include="Style Library\images\body_bg.jpg" />
+    <Content Include="Style Library\images\body_top_shadow.png" />
+    <Content Include="Style Library\images\bread_crump.png" />
+    <Content Include="Style Library\images\button_bg.jpg" />
+    <Content Include="Style Library\images\calender_icon.png" />
+    <Content Include="Style Library\images\delete_icon.png" />
+    <Content Include="Style Library\images\edit.png" />
+    <Content Include="Style Library\images\employee_information_system.png" />
+    <Content Include="Style Library\images\footer_bg.jpg" />
+    <Content Include="Style Library\images\header_bg.jpg" />
+    <Content Include="Style Library\images\innertable_header_bg.jpg" />
+    <Content Include="Style Library\images\inner_table_header.jpg" />
+    <Content Include="Style Library\images\vertex_logo.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\SharePointTools\Microsoft.VisualStudio.SharePoint.targets" />
+</Project>

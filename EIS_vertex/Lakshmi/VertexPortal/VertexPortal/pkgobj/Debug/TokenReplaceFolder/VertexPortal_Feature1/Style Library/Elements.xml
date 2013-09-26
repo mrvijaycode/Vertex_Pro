@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Elements xmlns="http://schemas.microsoft.com/sharepoint/">
+  <Module Name="Style Library">
+    <File Path="Style Library\images\banner.jpg" Url="Style Library/images/banner.jpg" Type="GhostableInLibrary" />
+    <File Path="Style Library\images\banner_shadow.png" Url="Style Library/images/banner_shadow.png" Type="GhostableInLibrary" />
+    <File Path="Style Library\images\body_bg.jpg" Url="Style Library/images/body_bg.jpg" Type="GhostableInLibrary" />
+    <File Path="Style Library\images\body_top_shadow.png" Url="Style Library/images/body_top_shadow.png" Type="GhostableInLibrary" />
+    <File Path="Style Library\images\bread_crump.png" Url="Style Library/images/bread_crump.png" Type="GhostableInLibrary" />
+    <File Path="Style Library\images\button_bg.jpg" Url="Style Library/images/button_bg.jpg" Type="GhostableInLibrary" />
+    <File Path="Style Library\images\calender_icon.png" Url="Style Library/images/calender_icon.png" Type="GhostableInLibrary" />
+    <File Path="Style Library\images\delete_icon.png" Url="Style Library/images/delete_icon.png" Type="GhostableInLibrary" />
+    <File Path="Style Library\images\edit.png" Url="Style Library/images/edit.png" Type="GhostableInLibrary" />
+    <File Path="Style Library\images\employee_information_system.png" Url="Style Library/images/employee_information_system.png" Type="GhostableInLibrary" />
+    <File Path="Style Library\images\footer_bg.jpg" Url="Style Library/images/footer_bg.jpg" Type="GhostableInLibrary" />
+    <File Path="Style Library\images\header_bg.jpg" Url="Style Library/images/header_bg.jpg" Type="GhostableInLibrary" />
+    <File Path="Style Library\images\inner_table_header.jpg" Url="Style Library/images/inner_table_header.jpg" Type="GhostableInLibrary" />
+    <File Path="Style Library\images\innertable_header_bg.jpg" Url="Style Library/images/innertable_header_bg.jpg" Type="GhostableInLibrary" />
+    <File Path="Style Library\images\Thumbs.db" Url="Style Library/images/Thumbs.db" Type="GhostableInLibrary" />
+    <File Path="Style Library\images\vertex_logo.png" Url="Style Library/images/vertex_logo.png" Type="GhostableInLibrary" />
+    <File Path="Style Library\css\style.css" Url="Style Library/css/style.css" Type="GhostableInLibrary" />
+    <File Path="Style Library\css\menu.css" Url="Style Library/css/menu.css" Type="GhostableInLibrary" />
+  <File Path="Style Library\css\jquery.Datepicker.UI.css" Url="Style Library/css/jquery.Datepicker.UI.css"  Type="GhostableInLibrary"/>
+</Module>
+</Elements>

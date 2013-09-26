@@ -34,13 +34,10 @@
       <asp:ContentPlaceHolder id="PlaceHolderTitleAreaClass" runat="server"/>
       <SharePoint:SPPageManager runat="server"/>
       <SharePoint:SPHelpPageComponent Visible="false" runat="server"/>
-
-      <script type="text/javascript" src="http://hydpcnew00123:4444/SiteAssets/jquery-1.8.1.js"></script>
-
-      <link href="http://hydpcnew00123:4444/Style Library/css/style.css" rel="stylesheet" type="text/css" />
-      <link href="http://hydpcnew00123:4444/Style Library/css/menu.css" rel="stylesheet" type="text/css" />
-      
-      <script type="text/javascript" src="http://hydpcnew00123:4444/SiteAssets/masterPage.js"></script>
+      <link href="http://sp2010:4444/Style Library/css/style.css" rel="stylesheet" type="text/css" />
+      <link href="http://sp2010:4444/Style Library/css/menu.css" rel="stylesheet" type="text/css" />
+      <script type="text/javascript" src="http://sp2010:4444/SiteAssets/jquery-1.8.1.js"></script>
+      <script type="text/javascript" src="http://sp2010:4444/SiteAssets/masterPage.js"></script>
    </head>
    <body onload="if (typeof(_spBodyOnLoadWrapper) != 'undefined') _spBodyOnLoadWrapper();"  class="v4master" >
       
@@ -362,7 +359,7 @@
             </script>
             <div id="header">
                <div id="main-container">
-                  <div id="header-left"><img src="http://hydpcnew00123:4444/Style Library/images/vertex_logo.png" width="162" height="50" /></div>
+                  <div id="header-left"><img src="http://sp2010:4444/Style Library/images/vertex_logo.png" width="162" height="50" /></div>
                   <div id="header-right">
                      <div align="right" id="user_status">
                         <div id="s4-searcharea" class="s4-search s4-rp">
@@ -380,7 +377,7 @@
                               <li class="has_child">
                                  <a href="#">Administration</a>
                                  <ul style="display: none;">
-                                    <li><a href="http://hydpcnew00123:4444/SitePages/vprojects.aspx" title="Projects">Projects</a></li>
+                                    <li><a href="http://sp2010:4444/SitePages/vprojects.aspx" title="Projects">Projects</a></li>
                                     <li><a href="#" title="Certification Master">Certification Master</a></li>
                                     <li><a href="#" title="Skill Category" >Skill Category Master</a></li>
                                  </ul>

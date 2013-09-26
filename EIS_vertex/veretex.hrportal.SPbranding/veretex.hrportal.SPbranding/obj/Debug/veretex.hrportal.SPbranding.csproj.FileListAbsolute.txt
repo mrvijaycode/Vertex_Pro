@@ -14,4 +14,3 @@ C:\Users\Administrator\Desktop\veretex.hrportal.SPbranding\veretex.hrportal.SPbr
 C:\Users\Administrator\Desktop\veretex.hrportal.SPbranding\veretex.hrportal.SPbranding\obj\Debug\ResolveAssemblyReference.cache
 C:\Users\Administrator\Desktop\veretex.hrportal.SPbranding\veretex.hrportal.SPbranding\obj\Debug\veretex.hrportal.SPbranding.dll
 C:\Users\Administrator\Desktop\veretex.hrportal.SPbranding\veretex.hrportal.SPbranding\obj\Debug\veretex.hrportal.SPbranding.pdb
-D:\Repository\HR Portal\veretex.hrportal.SPbranding\veretex.hrportal.SPbranding\obj\Debug\veretex.hrportal.SPbranding.csprojResolveAssemblyReference.cache

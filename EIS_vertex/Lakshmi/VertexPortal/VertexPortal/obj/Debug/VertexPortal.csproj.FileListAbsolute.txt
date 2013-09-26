@@ -1,0 +1,6 @@
+C:\Users\lakshmi.k\documents\visual studio 2010\Projects\VertexPortal\VertexPortal\bin\Debug\VertexPortal.dll
+C:\Users\lakshmi.k\documents\visual studio 2010\Projects\VertexPortal\VertexPortal\bin\Debug\VertexPortal.pdb
+C:\Users\lakshmi.k\documents\visual studio 2010\Projects\VertexPortal\VertexPortal\bin\Debug\Microsoft.Sharepoint.Sandbox.dll
+C:\Users\lakshmi.k\documents\visual studio 2010\Projects\VertexPortal\VertexPortal\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\lakshmi.k\documents\visual studio 2010\Projects\VertexPortal\VertexPortal\obj\Debug\VertexPortal.dll
+C:\Users\lakshmi.k\documents\visual studio 2010\Projects\VertexPortal\VertexPortal\obj\Debug\VertexPortal.pdb

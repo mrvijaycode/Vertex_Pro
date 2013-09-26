@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Solution xmlns="http://schemas.microsoft.com/sharepoint/" SolutionId="d728695f-b5ee-4dd7-8bca-6ddabf2641b4" SharePointProductVersion="14.0">
+  <Assemblies>
+    <Assembly Location="VertexPortal.dll" DeploymentTarget="GlobalAssemblyCache" />
+  </Assemblies>
+  <FeatureManifests>
+    <FeatureManifest Location="VertexPortal_Feature1\Feature.xml" />
+  </FeatureManifests>
+</Solution>

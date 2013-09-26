@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Elements xmlns="http://schemas.microsoft.com/sharepoint/">
+  <Module Name="SiteAssets">
+<File Path="SiteAssets\jquery-1.8.1.js" Url="SiteAssets/jquery-1.8.1.js" Type="GhostableInLibrary" />
+<File Path="SiteAssets\masterPage.js" Url="SiteAssets/masterPage.js" Type="GhostableInLibrary" />
+<File Path="SiteAssets\homePage.js" Url="SiteAssets/homePage.js" Type="GhostableInLibrary" />
+<File Path="SiteAssets\Administration\vProjects.js" Url="SiteAssets/Administration/vProjects.js" Type="GhostableInLibrary" />
+    <File Path="SiteAssets\datepick.js" Url="SiteAssets/datepick.js"  Type="GhostableInLibrary"/>
+<File Path="SiteAssets\Projects.js" Url="SiteAssets/Projects.js" Type="GhostableInLibrary"  />
+
+<File Path="SiteAssets\JobDescription.js" Url="SiteAssets/JobDescription.js" Type="GhostableInLibrary"/>
+<File Path="SiteAssets\Configuration.js" Url="SiteAssets/Configuration.js" Type="GhostableInLibrary" />
+<File Path="SiteAssets\jquery.SPServices-0.7.1a.min.js" Url="SiteAssets/jquery.SPServices-0.7.1a.min.js" />
+</Module>
+</Elements>
