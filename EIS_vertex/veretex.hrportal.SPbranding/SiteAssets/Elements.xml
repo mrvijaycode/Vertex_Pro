@@ -10,6 +10,6 @@
 
 <File Path="SiteAssets\JobDescription.js" Url="SiteAssets/JobDescription.js" Type="GhostableInLibrary"/>
 <File Path="SiteAssets\Configuration.js" Url="SiteAssets/Configuration.js" Type="GhostableInLibrary" />
-<File Path="SiteAssets\jquery.SPServices-0.7.1a.min.js" Url="SiteAssets/jquery.SPServices-0.7.1a.min.js" />
+<File Path="SiteAssets\jquery.SPServices-0.7.1a.min.js" Url="SiteAssets/jquery.SPServices-0.7.1a.min.js" Type="GhostableInLibrary" />
 </Module>
 </Elements>

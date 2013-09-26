@@ -57,9 +57,9 @@
             <td align="right" valign="top">&nbsp;</td>
             <td align="left" valign="top">&nbsp;</td>
             <td align="left" valign="top">
-            <input name="button" type="submit" class="button" id="savebutton" value="Submit" onclick="Save()"  />
-            <input name="button" type="submit" class="button" id="updatebutton" value="Update"   />
-            <input name="button2" type="submit" class="button" id="resetbutton" value="Reset"  />
+            <input name="button" type="button" class="button" id="savebutton" value="Submit" onclick="AddlistItems()"  />
+            <input name="button" type="button" class="button" id="updatebutton" value="Update"   />
+            <input name="button2" type="button" class="button" id="resetbutton" value="Reset"  />
             </td>
           </tr>
           </table>

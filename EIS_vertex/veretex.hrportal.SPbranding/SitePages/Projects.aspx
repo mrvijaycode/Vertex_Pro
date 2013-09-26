@@ -87,10 +87,11 @@
           <tr>
             <td align="right" valign="top">&nbsp;</td>
             <td align="left" valign="top">&nbsp;</td>
-            <td align="left" valign="top"><input name="button" type="submit" class="button" id="savebutton" value="Submit" onclick="Save()"  />
-            <input name="button" type="submit" class="button" id="updatebutton" value="Update"   onclick="Update()"/>
+            <td align="left" valign="top">
+            <input name="button" type="button" class="button" id="savebutton" value="Submit" onclick="AddListItems()" />
+            <input name="button" type="button" class="button" id="updatebutton" value="Update"   onclick="Update()"/>
 
-              <input name="button2" type="submit" class="button" id="resetbutton" value="Reset" onclick="Reset()" /></td>
+              <input name="button2" type="button" class="button" id="resetbutton" value="Reset" onclick="Resetform()" /></td>
           </tr>
           </table>
       </div> 

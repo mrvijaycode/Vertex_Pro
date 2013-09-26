@@ -10,10 +10,12 @@ pageSize = 4,
 list,
 camlQuery,
 sortColumn = 'Project_x0020_Name', flag = 1;
+
+
 var eststartdate, estenddate, actstartdate, actenddate, description, projecttype, projectname, statusC, statusO, idval, upidval, projChoiceField;
 
 $(document).ready(function () {
-
+    // debugger
     $("#eststartdate").datepicker();
     $("#estenddate").datepicker();
     $("#actstartdate").datepicker();
@@ -39,13 +41,75 @@ $(document).ready(function () {
         position.set_pagingInfo(previousPagingInfo);
         RetrieveListItems();
     });
+
     $("#updatebutton").click(function () {
         update();
     });
+
 });
 
-function update() {
 
+function RetrieveListItems() {
+
+    context = SP.ClientContext.get_current();
+    list = context.get_web().get_lists().getByTitle(listName);
+    web = context.get_web();
+
+    //camlQuery = new SP.CamlQuery();
+
+    camlQuery = new SP.CamlQuery.createAllItemsQuery();
+
+    camlQuery.set_listItemCollectionPosition(position);
+    /*
+    camlQuery.set_viewXml("<View>" +
+    "<ViewFields>" +
+    "<FieldRef Name='Title'/>" +
+    "<FieldRef Name='Project_x0020_Name'/>" +
+    "<FieldRef Name='Project_x0020_Type'/>" +
+    "<FieldRef Name='Actual_x0020_Start_x0020_Date'/>" +
+    "<FieldRef Name='Actual_x0020_End_x0020_Date'/>" +
+    "<FieldRef Name='Status'/>" +
+    "</ViewFields>" +
+    "<Query>" +
+    "<OrderBy>" +
+    "<FieldRef Name='" + sortColumn + "' Ascending='true' />" +
+    "</OrderBy>" +
+    "</Query>" +
+    "<RowLimit>" + pageSize + "</RowLimit></View>");
+    */
+    spItems = list.getItems(camlQuery);
+    context.load(spItems);
+    context.load(this.web);
+    context.load(this.list);
+
+    context.executeQueryAsync(
+		Function.createDelegate(this, onQuerySucceeded),
+		Function.createDelegate(this, onFail));
+}
+
+
+function onQuerySucceeded() {
+
+    retrieveChoiceFields();
+    managePagerControl();
+
+    //alert("Success");
+
+    context.load(list);
+
+    var itemsCount = list.get_itemCount();
+    //if you are not passing any CAML query then have to use createAllItemsQuery()
+    var camlQuery = new SP.CamlQuery.createAllItemsQuery();
+    //var camlQuery = new SP.CamlQuery();
+    //camlQuery.set_viewXml('<View><Query><Where><Gt><FieldRef Name="Marks" /><Value Type="Number">40</Value></Gt></Where></Query></View>');
+    collListItem = list.getItems(camlQuery);
+
+    context.load(collListItem);
+    context.executeQueryAsync(Function.createDelegate(this, this.viewItems), Function.createDelegate(this, this.onFailure));
+}
+
+
+function update() {
     getInputFormValues();
     this.item = this.list.getItemById(upidval);
     item.set_item('Title', "Test");
@@ -59,10 +123,9 @@ function update() {
     item.set_item('Status', statusO);
     item.update();
     context.load(item);
-    context.executeQueryAsync(Function.createDelegate(this, this.OnSuccess), Function.createDelegate(this, this.onFail));
-}
-function OnSuccess() {
-    alert("Item Updated Successfully....");
+    context.executeQueryAsync(
+	Function.createDelegate(this, this.onQuerySucceeded),
+	Function.createDelegate(this, this.onFail));
 }
 
 function Resetform() {
@@ -73,7 +136,7 @@ function Resetform() {
     $("#description").val("");
     $("#statusO").val("");
     $("#projectname").val("");
-    $("#projecttype").val("");
+    $("#projecttype").val(0);
     $('#savebutton').show();
     $('#updatebutton').hide();
 }
@@ -82,18 +145,10 @@ function Delete(idval) {
     $("#" + idval).css("background-color", "#e2edff");
     this.item = this.list.getItemById(idval);
     item.deleteObject();
-    alert("Item Deleted...");
-    context.executeQueryAsync(Function.createDelegate(this, this.getItemsOnDelete), Function.createDelegate(this, this.onFail));
-}
-
-
-function getItemsOnDelete() {
-    Resetform();
-    RetrieveListItems();
-}
-
-function Save() {
-    ExecuteOrDelayUntilScriptLoaded(AddListItems, "sp.js");
+    //alert("Item Deleted...");
+    context.executeQueryAsync(
+	Function.createDelegate(this, this.onQuerySucceeded),
+	Function.createDelegate(this, this.onFail));
 }
 
 function getInputFormValues() {
@@ -167,7 +222,7 @@ function getInputFormValues() {
 
 
     statusO = $('#statusO').val();
-    debugger;
+    //debugger;
     if (statusO == "" || typeof statusO === 'undefined') {
         statusO = '';
     }
@@ -181,8 +236,8 @@ function getInputFormValues() {
 
 
 function AddListItems() {
-    context = new SP.ClientContext.get_current();
-    list = context.get_web().get_lists().getByTitle('Projects');
+    //context = new SP.ClientContext.get_current();
+    //list = context.get_web().get_lists().getByTitle('Projects');
 
     var listItemCreateInfo = new SP.ListItemCreationInformation();
     this.oListItem = list.addItem(listItemCreateInfo);
@@ -200,9 +255,10 @@ function AddListItems() {
     oListItem.update();
     context.load(oListItem);
 
-    context.executeQueryAsync(Function.createDelegate(this, this.OnSuccesseeded), Function.createDelegate(this, this.onFail));
-
+    context.executeQueryAsync(Function.createDelegate(this, this.onQuerySucceeded), Function.createDelegate(this, this.onFail));
 }
+
+
 function Edit(idval) {
     $("#" + idval).css("background-color", "#e2edff");
     this.item = this.list.getItemById(idval);
@@ -239,62 +295,37 @@ function fillProjectForm() {
     $('#updatebutton').show();
 }
 
-function OnSuccesseeded() {
-    alert("Item added successfully ...");
-}
 
-function RetrieveListItems() {
 
-    context = SP.ClientContext.get_current();
-    list = context.get_web().get_lists().getByTitle(listName);
-    camlQuery = new SP.CamlQuery();
 
-    camlQuery.set_listItemCollectionPosition(position);
+function viewItems() {
 
-    camlQuery.set_viewXml("<View>" +
-		"<ViewFields>" +
-		"<FieldRef Name='Title'/>" +
-		"<FieldRef Name='Project_x0020_Name'/>" +
-		"<FieldRef Name='Project_x0020_Type'/>" +
-		"<FieldRef Name='Actual_x0020_Start_x0020_Date'/>" +
-		"<FieldRef Name='Actual_x0020_End_x0020_Date'/>" +
-		"<FieldRef Name='Status'/>" +
-		"</ViewFields>" +
-		"<Query>" +
-		"<OrderBy>" +
-		"<FieldRef Name='" + sortColumn + "' Ascending='true' />" +
-		"</OrderBy>" +
-		"</Query>" +
-		"<RowLimit>" + pageSize + "</RowLimit></View>");
+    //var listEnumerator = spItems.getEnumerator();
 
-    spItems = list.getItems(camlQuery);
-    context.load(spItems);
-    context.executeQueryAsync(
-		Function.createDelegate(this, onSuccess),
-		Function.createDelegate(this, onFail));
-}
+    var listEnumerator = collListItem.getEnumerator();
 
-function onSuccess() {
-    var listEnumerator = spItems.getEnumerator();
     var items = [];
-    var item;
+    var oListItem;
+
+    context.load(list);
+    var itemsCount = list.get_itemCount();
+
     while (listEnumerator.moveNext()) {
-        item = listEnumerator.get_current();
-        var actdate1 = item.get_item('Actual_x0020_Start_x0020_Date');
+        oListItem = listEnumerator.get_current();
+        var actdate1 = oListItem.get_item('Actual_x0020_Start_x0020_Date');
         var actdate2 = new Date(actdate1);
         actdate2 = (actdate2.getUTCMonth() + 1) + '/' + actdate2.getDate() + '/' + actdate2.getFullYear();
-        var actenddate1 = item.get_item('Actual_x0020_End_x0020_Date');
+        var actenddate1 = oListItem.get_item('Actual_x0020_End_x0020_Date');
         var actenddate2 = new Date(actenddate1);
         actenddate2 = (actenddate2.getMonth() + 1) + '/' + actenddate2.getDate() + '/' + actenddate2.getFullYear();
 
-        items.push('<tr id=' + item.get_id() + '><td class="inner_table_flip" align="left" valign="middle">' + item.get_item('Project_x0020_Name') + '</td>');
-        items.push('<td class="inner_table_flip" align="left" valign="middle">' + item.get_item('Project_x0020_Type') + '</td>');
+        items.push('<tr id=' + oListItem.get_id() + '><td class="inner_table_flip" align="left" valign="middle">' + oListItem.get_item('Project_x0020_Name') + '</td>');
+        items.push('<td class="inner_table_flip" align="left" valign="middle">' + oListItem.get_item('Project_x0020_Type') + '</td>');
         items.push('<td class="inner_table_flip" align="left" valign="middle">' + actdate2 + '</td>');
         items.push('<td class="inner_table_flip" align="left" valign="middle">' + actenddate2 + '</td>');
-        items.push('<td class="inner_table_flip" align="left" valign="middle">' + item.get_item('Status') + '</td>');
-        items.push('<td class="inner_table_flip" align="left" valign="middle"><a onclick="Edit(' + item.get_id() + ')"><img alt="Edit" src="http://hydpcnew00123:7777/Style%20Library/Images/edit.png" width="14" height="16" /></a></td>');
-        items.push('<td class="inner_table_flip" align="left" valign="middle"><a onclick="Delete(' + item.get_id() + ')"><img alt="Delete" src="http://hydpcnew00123:7777/Style%20Library/Images/delete_icon.png" width="14" height="16" /></a></td></tr>');
-
+        items.push('<td class="inner_table_flip" align="left" valign="middle">' + oListItem.get_item('Status') + '</td>');
+        items.push('<td class="inner_table_flip" align="left" valign="middle"><a onclick="Edit(' + oListItem.get_id() + ')"><img alt="Edit" src="http://hydpcnew00123:7777/Style%20Library/Images/edit.png" width="14" height="16" /></a></td>');
+        items.push('<td class="inner_table_flip" align="left" valign="middle"><a onclick="Delete(' + oListItem.get_id() + ')"><img alt="Delete" src="http://hydpcnew00123:7777/Style%20Library/Images/delete_icon.png" width="14" height="16" /></a></td></tr>');
     }
 
     var content = '<table style="border:#d2d7da solid 1px;" width="100%" border="0" id="listitem1" cellspacing="0" cellpadding="10"><thead><tr><th class="inner_table_header" align="left" valign="middle"><a onclick="Sorting()"><u><font style="cursor:hand" size="2">Project Name</font ></u><img id="sortingimage" alt="Edit" src="http://inhydpc151:34981/Style%20Library/Images/Uparrow.jpg" width="16" height="15" /></a></th>'
@@ -305,8 +336,6 @@ function onSuccess() {
 		 + items.join("") + "</tbody></table>";
     $('#inner_table_list1').html(content);
     $("#listitem1 tbody tr:nth-child(even)").css("background-color", "white");
-    retrieveChoiceFields();
-    managePagerControl();
 }
 
 
@@ -316,7 +345,6 @@ function retrieveChoiceFields() {
     context.executeQueryAsync(
 		Function.createDelegate(this, this.fillProjDropDown),
 		Function.createDelegate(this, this.onFail));
-
 }
 
 
