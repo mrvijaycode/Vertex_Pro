@@ -13,13 +13,18 @@ sortColumn = 'Title', flag = 1;
 var certby, certname, certdetails, SkillCategory, Skill, Notes, idval, upidval, conval = 0;
 
 $(document).ready(function () {
-
+    debugger
     $('#updatebutton').hide();
 
     ExecuteOrDelayUntilScriptLoaded(RetrieveListItems, "sp.js");
 
     $("#updatebutton").click(function () {
         update();
+    });
+
+    $("#savebutton").click(function () {
+        AddListItems();
+        Resetform();
     });
 
 });
@@ -58,10 +63,13 @@ function onQuerySucceeded() {
     context.load(collListItem);
     context.executeQueryAsync(Function.createDelegate(this, this.viewItems), Function.createDelegate(this, this.onFail));
 }
+
+var items = [];
+
 function viewItems() {
     var listEnumerator = collListItem.getEnumerator();
 
-    var items = [];
+    items = [];
     var item;
     //context.load(list);
     var itemsCount = list.get_itemCount();
@@ -69,29 +77,86 @@ function viewItems() {
         while (listEnumerator.moveNext()) {
             item = listEnumerator.get_current();
 
-            items.push('<tr id=' + item.get_id() + '><td class="inner_table_flip" align="left" valign="middle">' + item.get_item('Title') + '</td>');
-            items.push('<td class="inner_table_flip" align="left" valign="middle">' + item.get_item('Certified_x0020_By') + '</td>');
-            items.push('<td class="inner_table_flip" align="left" valign="middle">' + item.get_item('Skill_x0020_Category') + '</td>');
-            items.push('<td class="inner_table_flip" align="left" valign="middle">' + item.get_item('Skill') + '</td>');
-            items.push('<td class="inner_table_flip" align="left" valign="middle"><a onclick="Edit(' + item.get_id() + ')"><img alt="Edit" src="http://inhydpc151:34981/Style%20Library/Images/edit.png" width="14" height="16" /></a></td>');
-            items.push('<td class="inner_table_flip" align="left" valign="middle"><a onclick="Delete(' + item.get_id() + ')"><img alt="Delete" src="http://inhydpc151:34981/Style%20Library/Images/delete_icon.png" width="14" height="16" /></a></td></tr>');
-        }
+            var new_obj = {
+                "itmid": item.get_id(),
+                "certTitle": item.get_item('Title'),
+                "certBy": item.get_item('Certified_x0020_By'),
+                "certSkillCat": item.get_item('Skill_x0020_Category'),
+                "certSkill": item.get_item('Skill')
+            };
 
-        var content = '<table style="border:#d2d7da solid 1px;" width="100%" border="0" id="listitem1" cellspacing="0" cellpadding="10"><thead><tr><th class="inner_table_header" align="left" valign="middle"><a onclick="Sorting()"><u><font style="cursor:hand" size="2">Certification Name</font ></u><img id="sortingimage" alt="Edit" src="http://inhydpc151:34981/Style%20Library/Images/Uparrow.jpg" width="16" height="15" /></a></th>'
-			 + '<th class="inner_table_header" align="left" valign="middle"><u><font  size="2">Certified By</font ></u></th>'
-			 + '<th width="120" align="left" valign="middle" class="inner_table_header"><u><font  size="2">Skill Category</font ></u></th>'
-			 + '<th width="30" align="left" valign="middle" class="inner_table_header"><u><font size="2">Skill</font ></u></th>'
-			 + '<th width="30" align="left" valign="middle" class="inner_table_header"><u><font  size="2">Edit</font ></u></th><th width="30" align="left" valign="middle" class="inner_table_header"><u><font  size="2">Delete</font ></u></th></thead></tr><tbody>'
-			 + items.join("") + "</tbody></table>";
-        $('#inner_table_list1').html(content);
-        $("#listitem1 tbody tr:nth-child(even)").css("background-color", "white");
+            items.push(new_obj);
+
+        }
 
     } else {
         alert("No Records Were Found");
     }
-    Resetform();
 
+    context.executeQueryAsync(
+		Function.createDelegate(this, this.getSuccess),
+		Function.createDelegate(this, this.onFail));
 }
+
+var totCount = 0;
+var PageNo = 0;
+
+function getSuccess() {
+    builtContents(PageNo);
+}
+
+//taken from CBD
+function builtContents(pageN) {
+    t = items.length - 1;
+    var start = pageN * 5;
+    var end = start + 5;
+    var str = "";
+    totCount = t / 5;
+
+    var tbl = "";
+    if (items.length > 0) {
+        for (var j = start; j < end; j++) {
+            if (j <= t) {
+
+                tbl += '<tr id=' + items[j].itmid + '><td class="inner_table_flip" align="left" valign="middle">' + items[j].certTitle + '</td>';
+
+                tbl += '<td class="inner_table_flip" align="left" valign="middle">' + items[j].certBy + '</td>';
+
+                tbl += '<td class="inner_table_flip" align="left" valign="middle">' + items[j].certSkillCat + '</td>';
+
+                tbl += '<td class="inner_table_flip" align="left" valign="middle">' + items[j].certSkill + '</td>';
+
+                tbl += '<td class="inner_table_flip" align="left" valign="middle"><a onclick="Edit(' + items[j].itmid + ')"><img alt="Edit" src="http://inhydpc151:34981/Style%20Library/Images/edit.png" width="14" height="16" /></a></td>';
+
+                tbl += '<td class="inner_table_flip" align="left" valign="middle"><a onclick="Delete(' + items[j].itmid + ')"><img alt="Delete" src="http://inhydpc151:34981/Style%20Library/Images/delete_icon.png" width="14" height="16" /></a></td></tr>';
+            }
+        }
+    } else {
+        tbl += "<tr><td>No records found.</td></tr>";
+    }
+
+    var maintble = '<table style="border:#d2d7da solid 1px;" width="100%" border="0" id="listitem1" cellspacing="0" cellpadding="10"><thead><tr><th class="inner_table_header" align="left" valign="middle"><a onclick="Sorting()"><u><font style="cursor:hand" size="2">Certification Name</font ></u><img id="sortingimage" alt="Edit" src="http://inhydpc151:34981/Style%20Library/Images/Uparrow.jpg" width="16" height="15" /></a></th>'
+		 + '<th class="inner_table_header" align="left" valign="middle"><u><font  size="2">Certified By</font ></u></th>'
+		 + '<th width="120" align="left" valign="middle" class="inner_table_header"><u><font  size="2">Skill Category</font ></u></th>'
+		 + '<th width="30" align="left" valign="middle" class="inner_table_header"><u><font size="2">Skill</font ></u></th>'
+		 + '<th width="30" align="left" valign="middle" class="inner_table_header"><u><font  size="2">Edit</font ></u></th><th width="30" align="left" valign="middle" class="inner_table_header"><u><font  size="2">Delete</font ></u></th></thead></tr><tbody>'
+		 + tbl + "</tbody></table>";
+
+    var tot = parseInt(t) + 1;
+    if (end > tot) {
+        end = tot;
+    }
+
+    var headers = "<table width='100%' border='0' cellSpacing='0' align='center' cellPadding='0'><tr><td class='itemTitle' style='14px;color:black'> Results :" + start + " - " + end + " of " + tot + "</td><td align=right class='norTxt' style='padding: 5px;'><a href='javascript:void(0)' id='btnPrev' onclick='prev()'>Previous</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='javascript:void(0)' id='btnNext' onclick='next()'>Next</a></td></tr><tr><td height=3px></td></tr></table>";
+
+    //$("#tdResult").html(headers + maintble);
+
+
+    $('#inner_table_list1').html(headers + maintble);
+    $("#listitem1 tbody tr:nth-child(even)").css("background-color", "white");
+}
+
+
 
 function update() {
     getInputFormValues();
@@ -282,4 +347,29 @@ function fillSkillCategory() {
 
 function onFail(sender, args) {
     alert('Request failed.' + args.get_message() + ' \n' + args.get_stackTrace());
+}
+
+
+function next() {
+    if (PageNo < totCount - 1) {
+        $('#btnPrev').show();
+        $('#btnNext').show();
+        PageNo = PageNo + 1;
+        builtContents(PageNo);
+    } else {
+        $('#btnNext').hide();
+        $('#btnPrev').show();
+    }
+}
+
+function prev() {
+    if (PageNo > 0) {
+        $('#btnPrev').show();
+        $('#btnNext').show();
+        PageNo = PageNo - 1;
+        builtContents(PageNo);
+    } else {
+        $('#btnPrev').hide();
+        $('#btnNext').show();
+    }
 }
