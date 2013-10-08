@@ -1,8 +1,6 @@
-﻿<%@ Page Language="C#" masterpagefile="../_catalogs/masterpage/vertexPortal.master" title="Home" inherits="Microsoft.SharePoint.WebPartPages.WebPartPage, Microsoft.SharePoint, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c" meta:webpartpageexpansion="full" meta:progid="SharePoint.WebPartPage.Document" %>
+<%@ Page Language="C#" masterpagefile="../_catalogs/masterpage/vertexPortal.master" title="Home" inherits="Microsoft.SharePoint.WebPartPages.WebPartPage, Microsoft.SharePoint, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c" meta:progid="SharePoint.WebPartPage.Document" %>
 
 <asp:Content id="Content1" runat="server" contentplaceholderid="PlaceHolderMain">
-
-<script type="text/javascript" src="../SiteAssets/homePage.js"></script>
 
 <div id="content_bg">
 	<div id="banner"><img src="../Style Library/images/banner.jpg" width="990" height="296" /></div>
@@ -95,4 +93,11 @@
       </div>
     </div>
     </div>
+</asp:Content>
+
+
+<asp:Content id="Content2" runat="server" contentplaceholderid="PlaceHolderAdditionalPageHead">
+
+<script type="text/javascript" src="../SiteAssets/homePage.js"></script>
+
 </asp:Content>

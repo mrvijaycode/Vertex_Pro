@@ -25,7 +25,8 @@
             <td align="right">Level</td>
             <td align="center"></td>
             <td><label for="textfield2"></label>
-              <select id="level"  class="inner_dropdown" ><option>select</option><option>1</option></select></td>
+              <select id="level"  class="inner_dropdown" >
+              </select></td>
           </tr>
           <tr>
             <td align="right" valign="top" >
@@ -57,15 +58,16 @@
             <td align="right" valign="top">&nbsp;</td>
             <td align="left" valign="top">&nbsp;</td>
             <td align="left" valign="top">
-            <input name="button" type="button" class="button" id="savebutton" value="Submit" onclick="AddlistItems()"  />
+            <input name="button" type="button" class="button" id="savebutton" value="Submit" />
             <input name="button" type="button" class="button" id="updatebutton" value="Update"   />
             <input name="button2" type="button" class="button" id="resetbutton" value="Reset"  />
             </td>
           </tr>
           </table>
+          <div id="inner_table_list1" style="background-color:#D1D0CE;margin:5px;padding:4px"> </div>
       </div> 
-           <div id="inner_table_list1" style="background-color: gray"> </div>
-        <table width="100%" border="0" cellspacing="0" cellpadding="5" class="inner_table_flop">
+           
+        <table width="100%" border="0" cellspacing="0" cellpadding="5" class="inner_table_flop" style="display:none">
          <tr>
          <td align="right" valign="top">&nbsp;</td>
          <td  align="right" valign="top" align="right">

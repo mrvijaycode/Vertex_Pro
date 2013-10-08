@@ -170,7 +170,7 @@ function planApproval() {
 }
 
 function AllSpensPoolItems() {
-debugger;
+//debugger;
 	
 	var qry='<Query><Where><Eq><FieldRef Name="Title" /><Value Type="Text">'+planId+'</Value></Eq></Where></Query>';
 	chkCount(qry,"Total");

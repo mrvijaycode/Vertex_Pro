@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Elements xmlns="http://schemas.microsoft.com/sharepoint/">
+  <ListInstance Title="Certification Master"
+                OnQuickLaunch="TRUE"
+                TemplateType="100"
+                FeatureId="00bfea71-de22-43b2-a848-c05709900100"
+                Url="Lists/CertificationMaster"
+                Description="Vertex Certifications Master List"
+                CustomSchema="Certification Master\Schema.xml">
+
+
+    <Data>
+      <Rows>
+        <Row>
+          <Field Name='ContentTypeId'>0x01002107E1E2E1D9874A931DCC7D1B7E656B</Field>
+          <Field Name='Title'>Certifcation 1</Field>
+          <Field Name='Certified_x0020_By'>HR</Field>
+          <Field Name='Skill'>Skill2</Field>
+          <Field Name='Notes'>Notes sample</Field>
+          <Field Name='Certification_x0020_Details'>details 123</Field>
+          <Field Name='Skill_x0020_Category'>1;#Skill</Field>
+          <Field Name='ID'>1</Field>
+          <Field Name='ContentType'>Item</Field>
+        </Row>
+      </Rows>
+    </Data>
+
+
+
+  </ListInstance>
+</Elements>

@@ -1,1 +1,0 @@
-bin\Debug\veretex.hrportal.SPbranding.wsp

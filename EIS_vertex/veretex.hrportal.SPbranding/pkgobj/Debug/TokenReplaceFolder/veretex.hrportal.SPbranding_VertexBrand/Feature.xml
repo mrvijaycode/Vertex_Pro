@@ -23,6 +23,8 @@
     <ElementFile Location="Style Library\css\style.css" />
     <ElementFile Location="Style Library\css\menu.css" />
     <ElementFile Location="Style Library\css\jquery.Datepicker.UI.css" />
+    <ElementFile Location="Style Library\images\tab_bg.jpg" />
+    <ElementFile Location="Style Library\images\tab_bg_hover.jpg" />
     <ElementManifest Location="SiteAssets\Elements.xml" />
     <ElementFile Location="SiteAssets\jquery-1.8.1.js" />
     <ElementFile Location="SiteAssets\masterPage.js" />
@@ -33,11 +35,18 @@
     <ElementFile Location="SiteAssets\JobDescription.js" />
     <ElementFile Location="SiteAssets\Configuration.js" />
     <ElementFile Location="SiteAssets\jquery.SPServices-0.7.1a.min.js" />
+    <ElementFile Location="SiteAssets\CertificationMaster.js" />
+    <ElementFile Location="SiteAssets\EmployeePage.js" />
+    <ElementFile Location="SiteAssets\EmployeeProfile.js" />
+    <ElementFile Location="SiteAssets\SeachDb.js" />
     <ElementManifest Location="SitePages\Elements.xml" />
     <ElementFile Location="SitePages\vhome.aspx" />
     <ElementFile Location="SitePages\vprojects.aspx" />
     <ElementFile Location="SitePages\Projects.aspx" />
     <ElementFile Location="SitePages\JobDescription.aspx" />
     <ElementFile Location="SitePages\Configuration.aspx" />
+    <ElementFile Location="SitePages\CertificationMaster.aspx" />
+    <ElementFile Location="SitePages\EmployeePage.aspx" />
+    <ElementFile Location="SitePages\Search.aspx" />
   </ElementManifests>
 </Feature>

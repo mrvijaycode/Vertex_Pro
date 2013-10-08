@@ -89,9 +89,13 @@
       <DependentUpon>VertexBrand.feature</DependentUpon>
     </Content>
     <Content Include="MasterPageGallery\Elements.xml" />
+    <Content Include="SiteAssets\Administration\vProjects.js" />
+    <Content Include="SiteAssets\CertificationMaster.js" />
     <Content Include="SiteAssets\Configuration.js" />
     <Content Include="SiteAssets\datepick.js" />
     <Content Include="SiteAssets\Elements.xml" />
+    <Content Include="SiteAssets\EmployeePage.js" />
+    <Content Include="SiteAssets\EmployeeProfile.js" />
     <Content Include="SiteAssets\homePage.js" />
     <Content Include="SiteAssets\JobDescription.js" />
     <Content Include="SiteAssets\jquery-1.8.1.js" />
@@ -99,14 +103,21 @@
     <Content Include="SiteAssets\masterPage.js" />
     <Content Include="SiteAssets\Administration\Projects.js" />
     <Content Include="SiteAssets\Projects.js" />
+    <Content Include="SiteAssets\SeachDb.js" />
+    <Content Include="SitePages\CertificationMaster.aspx" />
     <Content Include="SitePages\Configuration.aspx" />
-    <Content Include="SitePages\Elements.xml" />
+    <Content Include="SitePages\Elements.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="SitePages\EmployeePage.aspx" />
     <Content Include="SitePages\JobDescription.aspx" />
     <Content Include="SitePages\Projects.aspx" />
+    <Content Include="SitePages\Search.aspx" />
     <Content Include="SitePages\vhome.aspx">
       <SubType>ASPXCodeBehind</SubType>
     </Content>
     <Content Include="SitePages\vprojects.aspx" />
+    <Content Include="Style Library\css\jquery.Datepicker.UI.css" />
     <Content Include="Style Library\css\menu.css" />
     <Content Include="Style Library\css\style.css" />
     <Content Include="Style Library\Elements.xml" />
@@ -124,6 +135,8 @@
     <Content Include="Style Library\images\header_bg.jpg" />
     <Content Include="Style Library\images\innertable_header_bg.jpg" />
     <Content Include="Style Library\images\inner_table_header.jpg" />
+    <Content Include="Style Library\images\tab_bg.jpg" />
+    <Content Include="Style Library\images\tab_bg_hover.jpg" />
     <Content Include="Style Library\images\vertex_logo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

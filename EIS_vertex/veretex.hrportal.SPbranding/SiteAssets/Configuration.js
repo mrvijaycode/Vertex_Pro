@@ -224,7 +224,7 @@ $(document).ready(function(){
 			upval=1;		
 			return false;			
 			}
-			debugger;
+			//debugger;
 			if(upval== "0"){
 			item.set_item('Title', "Employee");
 		    item.set_item('HR_x0020_Primary', hrpid);		    
@@ -304,13 +304,13 @@ function getItemsOnDelete(){
 	 			
         items.push('<tr id='+item.get_id()+'><td class="inner_table_flip" align="left" valign="middle">'+item.get_item('Employee_x0020_Name') + '</td>');
         items.push('<td class="inner_table_flip" align="left" valign="middle">'+item.get_item('HR_x0020_Primary').get_lookupValue()+ '</td>');
-        items.push('<td class="inner_table_flip" align="left" valign="middle">'+item.get_item('HR_x0020_Secondary').get_lookupValue()+ '</td>');       
-		items.push('<td class="inner_table_flip" align="left" valign="middle"><a onclick="Edit('+item.get_id()+')"><img alt="Edit" src="http://inhydpc151:34981/Style%20Library/Images/edit.png" width="14" height="16" /></a></td>');
-		items.push('<td class="inner_table_flip" align="left" valign="middle"><a onclick="Delete('+item.get_id()+')"><img alt="Delete" src="http://inhydpc151:34981/Style%20Library/Images/delete_icon.png" width="14" height="16" /></a></td></tr>');
+        items.push('<td class="inner_table_flip" align="left" valign="middle">'+item.get_item('HR_x0020_Secondary').get_lookupValue()+ '</td>');
+        items.push('<td class="inner_table_flip" align="left" valign="middle"><a onclick="Edit(' + item.get_id() + ')"><img alt="Edit" src="http://hydpcnew00123:7777/Style%20Library/Images/edit.png" width="14" height="16" /></a></td>');
+        items.push('<td class="inner_table_flip" align="left" valign="middle"><a onclick="Delete(' + item.get_id() + ')"><img alt="Delete" src="http://hydpcnew00123:7777/Style%20Library/Images/delete_icon.png" width="14" height="16" /></a></td></tr>');
  
-    } 
+    }
 
-    var content = '<table style="border:#d2d7da solid 1px;" width="100%" border="0" id="listitem1" cellspacing="0" cellpadding="10"><thead><tr><th class="inner_table_header" align="left" valign="middle"><a onclick="Sorting()"><u><font style="cursor:hand" size="2">Employee Name</font ></u><img id="sortingimage" alt="Edit" src="http://inhydpc151:34981/Style%20Library/Images/Uparrow.jpg" width="16" height="15" /></a></th>' 
+    var content = '<table style="border:#d2d7da solid 1px;" width="100%" border="0" id="listitem1" cellspacing="0" cellpadding="10"><thead><tr><th class="inner_table_header" align="left" valign="middle"><a onclick="Sorting()"><u><font style="cursor:hand" size="2">Employee Name</font ></u><img id="sortingimage" alt="Edit" src="http://hydpcnew00123:7777/Style%20Library/Images/Uparrow.jpg" width="16" height="15" /></a></th>' 
     				+'<th class="inner_table_header" align="left" valign="middle"><u><font  size="2">HR Primary</font ></u></th>'
     				+'<th width="120" align="left" valign="middle" class="inner_table_header"><u><font  size="2">HR Secondary</font ></u></th>'    				
     				+'<th width="30" align="left" valign="middle" class="inner_table_header"><u><font  size="2">Edit</font ></u></th><th width="30" align="left" valign="middle" class="inner_table_header"><u><font  size="2">Delete</font ></u></th></thead></tr><tbody>'
@@ -326,7 +326,7 @@ if(flag=="0"){
 
 RetrieveListItems();
 flag=1;
-$('#sortingimage').attr('src',"http://inhydpc151:34981/Style%20Library/Images/Uparrow.jpg");
+$('#sortingimage').attr('src', "http://hydpcnew00123:7777/Style%20Library/Images/Uparrow.jpg");
 }
 else if(flag=="1"){
 
@@ -355,9 +355,9 @@ context = SP.ClientContext.get_current();
     context.load(spItems); 
     context.executeQueryAsync( 
             Function.createDelegate(this, onSuccess), 
-            Function.createDelegate(this, onFail)); 
-           
-            $('#sortingimage').attr('src',"http://inhydpc151:34981/Style%20Library/Images/downarrow.jpg");
+            Function.createDelegate(this, onFail));
+
+    $('#sortingimage').attr('src', "http://hydpcnew00123:7777/Style%20Library/Images/downarrow.jpg");
             }
 }
 

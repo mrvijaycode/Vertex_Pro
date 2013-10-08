@@ -1,0 +1,1 @@
+bin\Debug\vertex.hrportal.SPLists.wsp

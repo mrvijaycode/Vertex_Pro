@@ -138,6 +138,7 @@ function getPools(id) {
 
 
 function getData(loginUser) {
+//debugger;
 	var poolTable = "";
 	var query = "<Query><Where><Eq><FieldRef Name='Buyer_SpendPoolOwner'/><Value Type='User'>" + loginUser + "</Value></Eq></Where></Query>";
 	$().SPServices({
@@ -210,7 +211,7 @@ function getData(loginUser) {
 
 					poolTable += '<td valign="top"><img style="display:none;width:25px;" alt="Update" src="http://teamspace.pg.com/sites/sourcingplanmanager/capitalsrc/images/system-software-update.png" border="0"  id="btnUpdate' + i + '"   onclick="updateItem(&quot;' + curID + '&quot;,' + i + ')" value="Update"><img style="display:none;width:24px;" alt="Cancel" src="http://teamspace.pg.com/sites/sourcingplanmanager/capitalsrc/images/Cancel-icon.png" border="0"  id="btnCancel' + i + '" onclick="goEdit(' + i + ');" value="Cancel"></td>';
 
-					poolTable += '<td class="ms-vb2" valign="top"><a href="http://teamspace.pg.com/sites/sourcingplanmanager/capitalsrc/Lists/SourcingPlanItems/EditSourcingPlanItems.aspx?ID=' + curID + '&Source=http://teamspace.pg.com/sites/sourcingplanmanager/capitalsrc/Site%20Pages/MyTasks.aspx">Edit</a></td></tr>'; // Added 6/18/13 by chinna
+					poolTable += '<td class="ms-vb2" valign="top"><a href="http://teamspace.pg.com/sites/sourcingplanmanager/capitalsrc/Lists/SourcingPlanItems/EditSourcingPlanItems.aspx?ID=' + curID + '&Source=http://teamspace.pg.com/sites/sourcingplanmanager/capitalsrc/Site Pages/UserTasks.aspx">Edit</a></td></tr>'; // Added 1/Aug/13 by chinna
 				});
 			}
 		}
@@ -237,6 +238,7 @@ function getData(loginUser) {
 	filtercols += '<td>&nbsp;</td>';
 	filtercols += '<td>&nbsp;</td>';
 	filtercols += '<td>&nbsp;</td>';
+	filtercols += '<td>&nbsp;</td>';
 	filtercols += '<td><input type="text" id="srcingTimingID" onkeyup="clearSrcingFilter(event)" onchange="filterSrcingTime();" readonly/></td>';
 	filtercols += '<td><select id="filterStatusId" onchange="filterStatus();"><option>All</option><option>Create</option><option>In Process</option><option>Completed</option><option>Awarded<option>Cancelled</option></select></td>';
 	filtercols += '<td>&nbsp;</td>';
@@ -254,7 +256,6 @@ function getData(loginUser) {
 	$("#tblSpendPool").tablesorter();
 	if($("#srcingTimingID"))
 	$("#srcingTimingID").datepicker();
-	 
 }
 
 function buildSelectBox(status, num) {
@@ -449,7 +450,6 @@ function formDate(date) {
 	var dt = date.split("/");
 	var newDate = dt[2] + "-" + dt[0] + "-" + dt[1] + " T00:00:00Z";
 	return newDate;
-
 }
 
 function reformDate(date) {
@@ -468,15 +468,15 @@ function filterSrcingTime()
  var selSrcTime = $("#srcingTimingID").val();
  searchTable("lblSourceTime",selSrcTime)
 }
+
 function filterStatus()
 {
-
  var selStatus = $("#filterStatusId").val();
  if(selStatus == "All")
   //getPools(lstItemsId);
   getData(loginUser);
  else
-  searchTable("lblStatus",selStatus)
+  searchTable("lblStatus",selStatus);
 }
 
 function searchTable(id,inputVal)
@@ -522,20 +522,16 @@ var spName="";
 		CAMLQuery : "<Query><Where><Eq><FieldRef Name='ID' /><Value Type='Counter'>"+planID+"</Value></Eq></Where></Query>",
 		//CAMLRowLimit : 1,
 		completefunc : function (xData, Status) {
-
 			//alert(xData.responseText);
-			debugger;
-
+			//debugger;
 			if (xData.status == 200) {
 				$(xData.responseXML).SPFilterNode("z:row").each(function () {
-					//var keyMeasure = $(this).attr("ows_Key_x0020_Measure");
-					spName =$(this).attr("ows_Key_x0020_Measure");
+					spName =$(this).attr("ows_SourcingPlan");
 				});
 			} else {
 				alert(xData.status);
 			}
 		}
 	});
-	
-	
+	return spName;
 }

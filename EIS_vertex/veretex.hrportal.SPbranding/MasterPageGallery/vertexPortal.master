@@ -10,8 +10,9 @@
 <html lang="<%$Resources:wss,language_value%>" dir="<%$Resources:wss,multipages_direction_dir_value%>" runat="server" xmlns:o="urn:schemas-microsoft-com:office:office" __expr-val-dir="ltr">
    <head runat="server">
    
-        <script type="text/javascript" src="http://hydpcnew00123:7777/SiteAssets/jquery-1.8.1.js"></script>
+      <script type="text/javascript" src="http://hydpcnew00123:7777/SiteAssets/jquery-1.8.1.js"></script>
       <script type="text/javascript" src="http://hydpcnew00123:7777/SiteAssets/masterPage.js"></script>
+
       <meta http-equiv="X-UA-Compatible" content="IE=8"/>
       <meta name="GENERATOR" content="Microsoft SharePoint"/>
       <meta name="progid" content="SharePoint.WebPartPage.Document"/>
@@ -387,18 +388,23 @@
                               <li class="has_child">
                                  <a href="#">Administration</a>
                                  <ul style="display: none;">
-                                    <li><a href="http://hydpcnew00123:7777/SitePages/vprojects.aspx" title="Projects">Projects</a></li>
-                                    <li><a href="#" title="Certification Master">Certification Master</a></li>
-                                    <li><a href="#" title="Skill Category" >Skill Category Master</a></li>
+                                    <li><a href="http://hydpcnew00123:7777/SitePages/projects.aspx" title="Projects">Projects</a></li>
+                                    <li><a href="http://hydpcnew00123:7777/SitePages/CertificationMaster.aspx" title="Certification Master">Certification Master</a></li>
+                                    <li><a href="http://hydpcnew00123:7777/SitePages/JobDescription.aspx" title="Job Description" >Job Description</a></li>
+                                    <li><a href="http://hydpcnew00123:7777/Lists/Vertex%20India%20Calendar" title="India Calendar" >India Calendar</a></li>
+                                    <li><a href="http://hydpcnew00123:7777/Lists/Vertex%20US%20Calendar" title="US Calendar">US Calendar</a></li>
+                                    <li><a href="http://hydpcnew00123:7777/Lists/Vertex%20PG%20Calendar" title="PG Calendar">PG Calendar</a></li>
+                                    <li><a href="http://hydpcnew00123:7777/_layouts/user.aspx" title="Assign Permissions">Role Permissions</a></li>
+                                    <li><a href="http://hydpcnew00123:7777/Lists/Skill%20Category%20Master" title="Assign Permissions">Skill Category Master</a></li>
+
                                  </ul>
                               </li>
                               <li class="has_child">
                                  <a href="#" title="Employee DB">Employee DB</a>
                                  <ul style="display: none;">
-                                    <li class=""><a href="#" title="Employee DB">Employee DB Sub</a></li>
-                                    <li><a href="#">Employee DB</a></li>
-                                    <li><a href="#" title="Employee DB">Employee DB Sub</a></li>
-                                    <li><a href="#" title="Employee DB">Employee DB Sub</a></li>
+                                    <li class=""><a href="http://hydpcnew00123:7777/SitePages/EmployeePage.aspx" title="Employee Profile Page">Employee Details</a></li>
+                                    <li><a href="#">Reports</a></li>
+                                    <li><a href="http://hydpcnew00123:7777/SitePages/Search.aspx">Search</a></li>
                                  </ul>
                               </li>
                               <li class="has_child">

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Solution xmlns="http://schemas.microsoft.com/sharepoint/" SolutionId="0b94618c-fa6a-470d-9cd5-009a2e497da2" SharePointProductVersion="14.0">
+  <Assemblies>
+    <Assembly Location="vertex.hrportal.SPLists.dll" DeploymentTarget="GlobalAssemblyCache" />
+  </Assemblies>
+  <FeatureManifests>
+    <FeatureManifest Location="vertex.hrportal.SPLists_Feature1\Feature.xml" />
+  </FeatureManifests>
+</Solution>

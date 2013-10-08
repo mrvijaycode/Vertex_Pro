@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Elements xmlns="http://schemas.microsoft.com/sharepoint/">
+  <ListInstance Title="Vertex India Calendar"
+                OnQuickLaunch="TRUE"
+                TemplateType="106"
+                FeatureId="00bfea71-ec85-4903-972d-ebe475780106"
+                Url="Lists/VertexIndiaCalendar"
+                Description="Vertex India Calendat List"
+                CustomSchema="VertexIndiaCal\Schema.xml">
+  </ListInstance>
+</Elements>

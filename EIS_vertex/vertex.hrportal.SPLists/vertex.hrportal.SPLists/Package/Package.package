@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="0b94618c-fa6a-470d-9cd5-009a2e497da2" solutionId="0b94618c-fa6a-470d-9cd5-009a2e497da2" resetWebServer="false" name="vertex.hrportal.SPLists" xmlns="http://schemas.microsoft.com/VisualStudio/2008/SharePointTools/PackageModel">
+  <features>
+    <featureReference itemId="03f2720b-3f1e-4871-8f5e-367e79b12adb" />
+  </features>
+</package>

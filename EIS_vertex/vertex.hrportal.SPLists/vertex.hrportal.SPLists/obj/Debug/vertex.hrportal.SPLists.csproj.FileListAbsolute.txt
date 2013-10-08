@@ -1,0 +1,10 @@
+C:\Users\Administrator\Documents\Visual Studio 2010\Projects\vertex.hrportal.SPLists\vertex.hrportal.SPLists\bin\Debug\vertex.hrportal.SPLists.dll
+C:\Users\Administrator\Documents\Visual Studio 2010\Projects\vertex.hrportal.SPLists\vertex.hrportal.SPLists\bin\Debug\vertex.hrportal.SPLists.pdb
+C:\Users\Administrator\Documents\Visual Studio 2010\Projects\vertex.hrportal.SPLists\vertex.hrportal.SPLists\bin\Debug\Microsoft.Sharepoint.Sandbox.dll
+C:\Users\Administrator\Documents\Visual Studio 2010\Projects\vertex.hrportal.SPLists\vertex.hrportal.SPLists\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Administrator\Documents\Visual Studio 2010\Projects\vertex.hrportal.SPLists\vertex.hrportal.SPLists\obj\Debug\vertex.hrportal.SPLists.dll
+C:\Users\Administrator\Documents\Visual Studio 2010\Projects\vertex.hrportal.SPLists\vertex.hrportal.SPLists\obj\Debug\vertex.hrportal.SPLists.pdb
+D:\Repository\SkyDrive\Vertex\Vertex_Pro\EIS_vertex\vertex.hrportal.SPLists\vertex.hrportal.SPLists\bin\Debug\vertex.hrportal.SPLists.dll
+D:\Repository\SkyDrive\Vertex\Vertex_Pro\EIS_vertex\vertex.hrportal.SPLists\vertex.hrportal.SPLists\bin\Debug\vertex.hrportal.SPLists.pdb
+D:\Repository\SkyDrive\Vertex\Vertex_Pro\EIS_vertex\vertex.hrportal.SPLists\vertex.hrportal.SPLists\obj\Debug\vertex.hrportal.SPLists.dll
+D:\Repository\SkyDrive\Vertex\Vertex_Pro\EIS_vertex\vertex.hrportal.SPLists\vertex.hrportal.SPLists\obj\Debug\vertex.hrportal.SPLists.pdb

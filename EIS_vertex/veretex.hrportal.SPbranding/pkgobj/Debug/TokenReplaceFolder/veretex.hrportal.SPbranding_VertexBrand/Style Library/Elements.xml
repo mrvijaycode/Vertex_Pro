@@ -20,5 +20,7 @@
     <File Path="Style Library\css\style.css" Url="Style Library/css/style.css" Type="GhostableInLibrary" />
     <File Path="Style Library\css\menu.css" Url="Style Library/css/menu.css" Type="GhostableInLibrary" />
   <File Path="Style Library\css\jquery.Datepicker.UI.css" Url="Style Library/css/jquery.Datepicker.UI.css"  Type="GhostableInLibrary"/>
+<File Path="Style Library\images\tab_bg.jpg" Url="Style Library/images/tab_bg.jpg" />
+<File Path="Style Library\images\tab_bg_hover.jpg" Url="Style Library/images/tab_bg_hover.jpg" />
 </Module>
 </Elements>

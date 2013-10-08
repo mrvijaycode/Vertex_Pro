@@ -30,3 +30,4 @@ D:\Repository\SkyDrive\Vertex\Vertex_Pro\EIS_vertex\veretex.hrportal.SPbranding\
 D:\Repository\SkyDrive\Vertex\Vertex_Pro\EIS_vertex\veretex.hrportal.SPbranding\bin\Debug\veretex.hrportal.SPbranding.pdb
 D:\Repository\SkyDrive\Vertex\Vertex_Pro\EIS_vertex\veretex.hrportal.SPbranding\obj\Debug\veretex.hrportal.SPbranding.dll
 D:\Repository\SkyDrive\Vertex\Vertex_Pro\EIS_vertex\veretex.hrportal.SPbranding\obj\Debug\veretex.hrportal.SPbranding.pdb
+D:\Repository\SkyDrive\Vertex\Vertex_Pro\EIS_vertex\veretex.hrportal.SPbranding\obj\Debug\veretex.hrportal.SPbranding.csprojResolveAssemblyReference.cache

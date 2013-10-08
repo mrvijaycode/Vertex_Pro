@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Feature xmlns="http://schemas.microsoft.com/sharepoint/" Id="f2a66e17-fe73-47a3-8ef8-24793fbed797" Scope="Web" Title="vertex.hrportal.SPLists Feature1">
+  <ElementManifests>
+    <ElementManifest Location="Certification Master\Elements.xml" />
+    <ElementFile Location="Certification Master\Schema.xml" />
+    <ElementManifest Location="Projects\Elements.xml" />
+    <ElementFile Location="Projects\Schema.xml" />
+    <ElementManifest Location="Skill Category Master\Elements.xml" />
+    <ElementFile Location="Skill Category Master\Schema.xml" />
+    <ElementManifest Location="VertexIndiaCal\Elements.xml" />
+    <ElementFile Location="VertexIndiaCal\Schema.xml" />
+  </ElementManifests>
+</Feature>

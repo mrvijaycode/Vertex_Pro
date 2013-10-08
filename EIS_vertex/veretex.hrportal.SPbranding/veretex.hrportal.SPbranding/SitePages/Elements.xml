@@ -1,7 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Elements xmlns="http://schemas.microsoft.com/sharepoint/">
-  <Module Name="SitePages">
-<File Path="SitePages\vhome.aspx" Url="SitePages/vhome.aspx" Type="GhostableInLibrary" />
-<File Path="SitePages\vprojects.aspx" Url="SitePages/vprojects.aspx" Type="GhostableInLibrary" />
-</Module>
-</Elements>

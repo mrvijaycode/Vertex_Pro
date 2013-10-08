@@ -267,7 +267,7 @@ function GenerateQuery(Position, currID) {
 
 	var Fields = new Array("Categories", "Role", "Subject", "Role", "Role");
 	var ControlNames = new Array("#selCategories", "#selRole", "#selSubject", "#selSubRole", "#selRRole");
-	QueryBeginPart = "<Query><Where>";
+	QueryBeginPart = "<Query><OrderBy><FieldRef Name='Colleges_x0020_Trainings' /></OrderBy><Where>";
 	QueryEndPart = "</Where></Query>";
 	if (!QueryStatus) {
 		QueryMiddlePart = "";
@@ -299,7 +299,7 @@ function GenerateQuery(Position, currID) {
 
 	if (QueryMiddlePart != "") {
 		if (Position == 'Previous')
-			var Query = "<Query><OrderBy><FieldRef Name='Colleges_x0020_Trainings' Ascending='False'  /></OrderBy><Where><And><Lt><FieldRef Name='ID' /><Value Type='Counter'>" + currID + "</Value></Lt>" + QueryMiddlePart + "</And>" + QueryEndPart;
+			var Query = "<Query><OrderBy><FieldRef Name='Colleges_x0020_Trainings' /></OrderBy><Where><And><Lt><FieldRef Name='ID' /><Value Type='Counter'>" + currID + "</Value></Lt>" + QueryMiddlePart + "</And>" + QueryEndPart;
 		else if (Position == 'Next')
 			var Query = QueryBeginPart + "<And><Gt><FieldRef Name='ID' /><Value Type='Counter'>" + currID + "</Value></Gt>" + QueryMiddlePart + "</And>" + QueryEndPart;
 	} else {
@@ -310,9 +310,9 @@ function GenerateQuery(Position, currID) {
 	}
 
 	if (QueryMiddlePart != "")
-		MaxValueQuery = "<Query><OrderBy><FieldRef Name='ID' Ascending='False' /></OrderBy><Where>" + QueryMiddlePart + "</Where></Query>";
+		MaxValueQuery = "<Query><OrderBy><FieldRef Name='Colleges_x0020_Trainings' /></OrderBy><Where>" + QueryMiddlePart + "</Where></Query>";
 	else
-		MaxValueQuery = "<Query><OrderBy><FieldRef Name='ID' Ascending='False' /></OrderBy></Query>";
+		MaxValueQuery = "<Query><OrderBy><FieldRef Name='Colleges_x0020_Trainings' /></OrderBy></Query>";
 	return Query;
 }
 
@@ -333,6 +333,8 @@ var listNextPos;
 var strtID;
 var endID;
 var Fullcount = 0;
+
+
 function searchResults(Position, currID, SeldrpID) {
 	//debugger
 	if (SeldrpID == 'Power') {
@@ -459,168 +461,6 @@ function searchResults(Position, currID, SeldrpID) {
 	});
 
 	mainload();
-
-	// old style program
-/*
-	$().SPServices({
-	operation: "GetListItems",
-	async: false,
-	listName: oTrainingsList,
-	CAMLQuery:searchQuery,
-	CAMLViewFields: "<ViewFields><FieldRef Name='ID' /><FieldRef Name='Title' /><FieldRef Name='LinkTitle' /><FieldRef Name='Colleges' /><FieldRef Name='Format1' /><FieldRef Name='Objective' /><FieldRef Name='LinkForTraining' /><FieldRef Name='Training_x0020_Type' /><FieldRef Name='Categories' /><FieldRef Name='Role' /> </ViewFields>",
-	CAMLRowLimit:5,
-	completefunc: function(xData,Status){
-
-	if($(xData.responseXML).SPFilterNode("rs:data").attr('ListItemCollectionPositionNext')!=null)
-	listNext=$(xData.responseXML).SPFilterNode("rs:data").attr('ListItemCollectionPositionNext');
-
-	Fullcount=$(xData.responseXML).SPFilterNode("z:row").length;
-	var responseArray;
-	if(Position=='Previous')
-	responseArray=sortArray($(xData.responseXML).SPFilterNode("z:row"));
-	else
-	responseArray=$(xData.responseXML).SPFilterNode("z:row");
-
-	var table='';
-
-	if(Fullcount!=0){
-	//Give this code for function if needed btn's..........
-	table ="<table width='100%' bgcolor='#e2e2e2' cellspacing='2px' cellpadding='2px'><tr><td bgcolor=white><table>";
-
-	$.each(responseArray,function(i) {
-	var bgColor="#ffffff";
-	if(i==0)
-	strtID=$(this).attr("ows_ID");
-
-	if(i==Fullcount-1)
-	endID=$(this).attr("ows_ID");
-
-	if(i%2!=0)
-	bgColor="#e5e5e5";
-
-	if(!$(this).attr("ows_LinkTitle"))
-	lnTitle="";
-	else
-	lnTitle=$(this).attr("ows_LinkTitle");
-
-	if(!$(this).attr("ows_Colleges"))
-	colleges="";
-	else
-	colleges=$(this).attr("ows_Colleges");
-	if(!$(this).attr("ows_Objective"))
-	objective="";
-	else
-	objective=$(this).attr("ows_Objective");
-
-	if(!$(this).attr("ows_LinkForTraining"))
-	trainingLink="";
-	else
-	trainingLink=$(this).attr("ows_LinkForTraining");
-
-	table += "<tr><td>";
-
-	innerTbl="<table width='100%' cellspacing='0px' cellpadding='0px'><tr>"
-	if(trainingLink!="")
-	innerTbl+="<td class='itemTitle'><a href='"+trainingLink.split(',')[0]+"' target='_blank'>"+colleges+"</a></td></tr>"
-	else
-	innerTbl+="<td class='itemTitle' >"+colleges+"</td></tr>";
-
-	innerTbl+="<tr><td class='itemTitle' style='padding-top:5px;font-weight:normal;color:black;line-height:120%''>"+objective+"</td></tr>";
-	if(!$(this).attr("ows_Format1"))
-	innerTbl+="<tr><td line-height:200%'><span class='info2'>Power:</span>&nbsp;&nbsp;<span class='info3'>"+$(this).attr("ows_Categories").split("#")[1]+"</span>&nbsp;&nbsp;<span class='info2'>Format:</span>&nbsp;&nbsp;<span class='info3'></span></td>"
-	else if($(this).attr("ows_Format1").indexOf(";#")!=-1)
-{
-	var formats=$(this).attr("ows_Format1").split(';#');
-	var formatCount=formats.length-1;
-	var format='';
-	for(i=0;i<formatCount;i++)
-{
-	if(formats[i]!="")
-	format+=formats[i]+', ';
-	else
-	format+=formats[i];
-	}
-	format=format.substring(0,format.length-2)
-	innerTbl+="<tr><td line-height:200%'><span class='info2'>Power:</span>&nbsp;&nbsp;<span class='info3'>"+$(this).attr("ows_Categories").split("#")[1]+"</span>&nbsp;&nbsp;<span class='info2'>Format:</span>&nbsp;&nbsp;<span class='info3'>"+format+"</span></td>"
-	}
-	else
-	innerTbl+="<tr><td line-height:200%'><span class='info2'>Power:</span>&nbsp;&nbsp;<span class='info3'>"+$(this).attr("ows_Categories").split("#")[1]+"</span>&nbsp;&nbsp;<span class='info2'>Format:</span>&nbsp;&nbsp;<span class='info3'>"+$(this).attr("ows_Format1")+"</span></td>"
-	//alert($(this).attr("ows_Format1"))
-	var roleArray=$(this).attr("ows_Role").split(';#');
-	var roleCount=roleArray.length;
-	var roles="";
-	$.each(roleArray,function(i){
-	if((i+1)%2==0){
-	roles+="<a href='javascript:void(0)' onclick='getSelRole(&quot;"+roleArray[i-1]+"&quot;)'>"+roleArray[i]+"</a>";
-	if((i+1)!=roleCount)
-	roles+=", ";
-	}
-
-	})
-
-	if($(this).attr("ows_Role")=="0;#")
-	innerTbl+="<tr><td line-height:200%'><span class='info2'> Role:</span>&nbsp;&nbsp;<span class='info3'> None</span>&nbsp;&nbsp;   <span class='info2'> Category:</span>&nbsp;&nbsp;<span class='info3'>"+$(this).attr("ows_Training_x0020_Type").split("#")[1]+"</span> </td></tr></table>";
-	else
-	innerTbl+="<tr><td line-height:200%'><span class='info2'> Role:</span>&nbsp;&nbsp;<span class='info3'>"+roles+"</span> &nbsp;&nbsp;  <span class='info2'> Category:</span>&nbsp;&nbsp;<span class='info3'>"+$(this).attr("ows_Training_x0020_Type").split("#")[1]+"</span> </td></tr></table>";
-
-	table +=innerTbl+"</td></tr><tr><td height='5px'></td></tr>";
-	if(i!=Fullcount-1)
-	table +="<tr><td height='1px' bgcolor='#e2e2e2'></td></tr>";
-
-	});
-	//....End of table construction.....
-	}
-
-	else
-	table +="<table width='100%' bgColor='#c4c5c6' border='0' cellSpacing='0' align='center' cellPadding='0'><tr><td align=center class='norTxt' style='padding-left: 5px;' bgColor='#ffffff'>No Learning Resources Found...</td></tr>";
-
-	table += "</table></td></tr></table>";
-
-	var pagetable ="";
-
-	if((actualCount==0 && listNext!=0)||(actualCount==0 && endID<MaxID) )
-	pagetable +="<table width='100%' border='0' cellSpacing='0' align='center' cellPadding='0'><tr><td class='itemTitle' style='14px;color:#70655e'> Results : "+(actualCount+1)+" - "+(actualCount+Fullcount)+" of "+totalItems+"</td><td align=right class='norTxt' style='padding: 5px;'><a href='javascript:void(0)' onclick='QueryStatus=true;searchResults(&quot;Next&quot;,&quot;"+endID+"&quot;);QueryStatus=false;'>Next</a></td></tr><tr><td height=3px></td></tr></table>";
-	else if(actualCount!=0 && listNext==0 )
-	pagetable +="<table width='100%' border='0' cellSpacing='0' align='center' cellPadding='0'><tr><td class='itemTitle' style='14px;color:#70655e'> Results : "+(actualCount+1)+" - "+(actualCount+Fullcount)+" of "+totalItems+"</td><td align=right class='norTxt' style='padding: 5px;'><a href='javascript:void(0)' onclick='QueryStatus=true;searchResults(&quot;Previous&quot;,&quot;"+strtID+"&quot;);QueryStatus=false;'>Previous</a></td></tr><tr><td height=3px></td></tr></table>";
-	else if(actualCount!=0 && listNext!=0 && endID!=MaxID)
-	pagetable +="<table width='100%' border='0' cellSpacing='0' align='center' cellPadding='0'><tr><td class='itemTitle' style='14px;color:#70655e'> Results : "+(actualCount+1)+" - "+(actualCount+Fullcount)+" of "+totalItems+"</td><td align=right class='norTxt' style='padding: 5px;'><a href='javascript:void(0)' onclick='QueryStatus=true;searchResults(&quot;Previous&quot;,&quot;"+strtID+"&quot;);QueryStatus=false;'>Previous</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='javascript:void(0)' onclick='QueryStatus=true;searchResults(&quot;Next&quot;,&quot;"+endID+"&quot;);QueryStatus=false;'>Next</a></td></tr><tr><td height=3px></td></tr></table>";
-
-	if(trainigID==0)
-	trainigID=strtID;
-	if(pagetable=="" && Fullcount!=0)
-	pagetable +="<table width='100%' border='0' cellSpacing='0' align='center' cellPadding='0'><tr><td class='itemTitle' style='14px;color:#70655e'> Results : 1 - "+Fullcount+" of "+totalItems+"</td></tr><tr><td>&nbsp;</td></tr></table>";
-
-	table=pagetable +table+pagetable ;
-
-	$("#tdResult").html(table );
-
-
-	$("#tdSelTitle").text(TrainingTitle);
-	}
-	});
-
-
-
-	actualCount+=Fullcount;
-
-	$('#tdResult').find('a').each(function () {
-	var href = $(this).attr('href');
-	var target = "";
-	if ($(this).attr('target'))
-	var target = $(this).attr('target')
-
-	if (href != null) {
-	if (href.indexOf('#') < 0) {
-	if ((href.indexOf('/sites/cbdglobal/') < 0) && (href.indexOf('/sites/cbdcareers/') < 0)) {
-	if (target == "" && href.indexOf('javascript') < 0)
-	$(this).attr('target', '_blank');
-	}
-	}
-	}
-	});
-
-	//end of the old style Navigation
-	 */
 }
 
 function sortArray(trainingArray) {
@@ -725,13 +565,13 @@ function builtContents(pageN) {
 	{
 		end=tot;
 	}
+	
 	var headers = "<table width='100%' border='0' cellSpacing='0' align='center' cellPadding='0'><tr><td class='itemTitle' style='14px;color:#70655e'> Results :"+start+" - "+end+" of "+tot+"</td><td align=right class='norTxt' style='padding: 5px;'><a href='javascript:void(0)' id='btnPrev' onclick='prev()'>Previous</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='javascript:void(0)' id='btnNext' onclick='next()'>Next</a></td></tr><tr><td height=3px></td></tr></table>";
 
 	$("#tdResult").html(headers + maintble);
 }
 
 function next() {
-	
 	if (PageNo < totCount - 1) {
 		$('#btnPrev').show();
 		$('#btnNext').show();

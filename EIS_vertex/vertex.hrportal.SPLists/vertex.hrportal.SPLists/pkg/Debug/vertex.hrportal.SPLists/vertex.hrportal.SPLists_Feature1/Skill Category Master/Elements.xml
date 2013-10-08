@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Elements xmlns="http://schemas.microsoft.com/sharepoint/">
+  <ListInstance Title="Skill Category Master"
+                OnQuickLaunch="TRUE"
+                TemplateType="100"
+                FeatureId="00bfea71-de22-43b2-a848-c05709900100"
+                Url="Lists/SkillCategoryMaster"
+                Description="Vertex Skill Category Master List"
+                CustomSchema="Skill Category Master\Schema.xml">
+
+    <Data>
+      <Rows>
+        <Row>
+          <Field Name='ContentTypeId'>0x010041FF7954E72E7A4E97AF90DD3E1F1050</Field>
+          <Field Name='Title'>Skill</Field>
+          <Field Name='Notes'>Test skill description</Field>
+
+          <Field Name='ID'>1</Field>
+          <Field Name='ContentType'>Item</Field>
+        </Row>
+        <Row>
+          <Field Name='ContentTypeId'>0x010041FF7954E72E7A4E97AF90DD3E1F1050</Field>
+          <Field Name='Title'>Vertex</Field>
+          <Field Name='Notes'>Sample data</Field>
+
+          <Field Name='ID'>2</Field>
+          <Field Name='ContentType'>Item</Field>
+        </Row>
+      </Rows>
+    </Data>
+
+
+  </ListInstance>
+</Elements>

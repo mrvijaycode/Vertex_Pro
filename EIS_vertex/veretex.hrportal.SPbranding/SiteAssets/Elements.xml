@@ -11,5 +11,9 @@
 <File Path="SiteAssets\JobDescription.js" Url="SiteAssets/JobDescription.js" Type="GhostableInLibrary"/>
 <File Path="SiteAssets\Configuration.js" Url="SiteAssets/Configuration.js" Type="GhostableInLibrary" />
 <File Path="SiteAssets\jquery.SPServices-0.7.1a.min.js" Url="SiteAssets/jquery.SPServices-0.7.1a.min.js" Type="GhostableInLibrary" />
+<File Path="SiteAssets\CertificationMaster.js" Url="SiteAssets/CertificationMaster.js" Type="GhostableInLibrary" />
+<File Path="SiteAssets\EmployeePage.js" Url="SiteAssets/EmployeePage.js" Type="GhostableInLibrary" />
+<File Path="SiteAssets\EmployeeProfile.js" Url="SiteAssets/EmployeeProfile.js" Type="GhostableInLibrary" />
+<File Path="SiteAssets\SeachDb.js" Url="SiteAssets/SeachDb.js" Type="GhostableInLibrary" />
 </Module>
 </Elements>

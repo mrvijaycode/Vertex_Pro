@@ -21,5 +21,7 @@
     <ProjectItemFile Source="css\style.css" Target="Style Library\css\" Type="ElementFile" />
     <ProjectItemFile Source="css\menu.css" Target="Style Library\css\" Type="ElementFile" />
     <ProjectItemFile Source="css\jquery.Datepicker.UI.css" Target="Style Library\css\" Type="ElementFile" />
+    <ProjectItemFile Source="images\tab_bg.jpg" Target="Style Library\images\" Type="ElementFile" />
+    <ProjectItemFile Source="images\tab_bg_hover.jpg" Target="Style Library\images\" Type="ElementFile" />
   </Files>
 </ProjectItem>

@@ -6,5 +6,8 @@
 <File Path="SitePages\Projects.aspx" Url="SitePages/Projects.aspx" Type="GhostableInLibrary"  />
 <File Path="SitePages\JobDescription.aspx" Url="SitePages/JobDescription.aspx" Type="GhostableInLibrary"/>
 <File Path="SitePages\Configuration.aspx" Url="SitePages/Configuration.aspx" Type="GhostableInLibrary"/>
+<File Path="SitePages\CertificationMaster.aspx" Url="SitePages/CertificationMaster.aspx" Type="GhostableInLibrary" />
+<File Path="SitePages\EmployeePage.aspx" Url="SitePages/EmployeePage.aspx" Type="GhostableInLibrary"/>
+<File Path="SitePages\Search.aspx" Url="SitePages/Search.aspx" Type="GhostableInLibrary" />
 </Module>
 </Elements>

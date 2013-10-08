@@ -11,5 +11,9 @@
     <ProjectItemFile Source="JobDescription.js" Target="SiteAssets\" Type="ElementFile" />
     <ProjectItemFile Source="Configuration.js" Target="SiteAssets\" Type="ElementFile" />
     <ProjectItemFile Source="jquery.SPServices-0.7.1a.min.js" Target="SiteAssets\" Type="ElementFile" />
+    <ProjectItemFile Source="CertificationMaster.js" Target="SiteAssets\" Type="ElementFile" />
+    <ProjectItemFile Source="EmployeePage.js" Target="SiteAssets\" Type="ElementFile" />
+    <ProjectItemFile Source="EmployeeProfile.js" Target="SiteAssets\" Type="ElementFile" />
+    <ProjectItemFile Source="SeachDb.js" Target="SiteAssets\" Type="ElementFile" />
   </Files>
 </ProjectItem>
