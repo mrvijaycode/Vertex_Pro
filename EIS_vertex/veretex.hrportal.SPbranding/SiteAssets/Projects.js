@@ -170,9 +170,9 @@ function builtContents(pageN) {
 
                 tbl += '<td class="inner_table_flip" align="left" valign="middle">' + items[j].projStatus + '</td>';
 
-                tbl += '<td class="inner_table_flip" align="left" valign="middle"><a onclick="Edit(' + items[j].itmid + ')"><img alt="Edit" src="http://inhy2ksprnd2010:5555/Style%20Library/Images/edit.png" width="14" height="16" /></a></td>';
+                tbl += '<td class="inner_table_flip" align="left" valign="middle"><a onclick="Edit(' + items[j].itmid + ')"><img alt="Edit" src="http://hydpcnew00123:7777/Style%20Library/Images/edit.png" width="14" height="16" /></a></td>';
 
-                tbl += '<td class="inner_table_flip" align="left" valign="middle"><a onclick="Delete(' + items[j].itmid + ')"><img alt="Delete" src="http://inhy2ksprnd2010:5555/Style%20Library/Images/delete_icon.png" width="14" height="16" /></a></td></tr>';
+                tbl += '<td class="inner_table_flip" align="left" valign="middle"><a onclick="Delete(' + items[j].itmid + ')"><img alt="Delete" src="http://hydpcnew00123:7777/Style%20Library/Images/delete_icon.png" width="14" height="16" /></a></td></tr>';
 
             }
         }
@@ -444,7 +444,7 @@ function Sorting(sortColumn) {
 			Function.createDelegate(this, onQuerySucceeded),
 			Function.createDelegate(this, onFail));
 
-        $('#' + sortColumn).attr('src', "http://inhy2ksprnd2010:5555/Style%20Library/Images/Uparrow.jpg");
+        $('#' + sortColumn).attr('src', "http://hydpcnew00123:7777/Style%20Library/Images/Uparrow.jpg");
     } else if (flag == "1") {
 
 

@@ -2519,7 +2519,7 @@ function allgenomics(gohead,txtM1Date,selM1Reason,selRNA,txtM2aDate,selM2Reason,
 }
 //submit statistics
 function submitStatistics() {
-//	debugger;
+	debugger;
 	var gohead = true;
 	var strBatch = "<Batch OnError='Continue' PreCalc='TRUE'>" +
 		"<Method ID='1' Cmd='Update'>";

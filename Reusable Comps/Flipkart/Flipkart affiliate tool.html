@@ -1,0 +1,156 @@
+<!DOCTYPE HTML>
+<html>
+   <head>
+      <title>Vijay</title>
+      <style>
+         .txt{width:100%}
+		 .focused{background-color:#FFF380}
+      </style>
+      <script type="text/javascript" src="jquery-1.8.3.min.js"></script>
+      <script type="text/javascript">
+	  
+		  $(document).ready(function () {
+		  			  	
+			$("input:text").focusin(function () {
+		  		$(this).addClass('focused');
+		  	});
+			
+		  	$("input:text").focusout(function () {
+		  		$(this).removeClass('focused');
+		  	});
+
+			$("textarea").focusin(function () {
+		  		$(this).addClass('focused');
+		  	});
+
+			
+			$("textarea").focusout(function () {
+		  		$(this).removeClass('focused');
+		  	});
+			
+			
+		  	$('#tArea1').focus();
+		  });
+		  
+	  
+         function build() {
+         	if ($('#tArea1').val() != "") {
+         		var orig = $('#tArea1').val();
+         		var res = orig.split('"')[1];
+
+         		if (buildCont()) {
+         			if (($('#offPrice').val() != "") && ($('#OriPrice').val() != "")) {
+         				$('#tArea2').val(res);
+         				$('#tArea2').focus();
+         			}
+         		}
+
+         	} else {
+         		alert('Enter product link..');
+         		$('#tArea1').focus();
+         	}
+         }
+         
+         function buildCont() {
+			var isReady =true;
+			
+         	if ($('#fname').val() != "")
+         		var pName = $('#fname').val();
+         	else
+         		var pName = "";
+				
+			
+			if ($('#OriPrice').val() != "")
+			{
+         		var oriPrice = $('#OriPrice').val();
+			}
+         	else
+			{
+         		alert('Please enter original price..');
+				var oriPrice="";
+         		$('#OriPrice').focus();
+				isReady=false;
+			}		
+				
+			         
+         	if ($('#offPrice').val() != "")
+			{
+         		var offPrice = $('#offPrice').val();
+			}
+         	else
+			{
+         		alert('Please enter offer price..');
+         		var offPrice="";
+				$('#offPrice').focus();
+				isReady=false;
+			}
+			         	
+			var strText = pName + "\n\nOffer Price:" + offPrice + " (Original Price:" + oriPrice + ")\n";
+			
+			if(isReady)
+         	$('#tArea3').val(strText);
+			
+			return isReady;
+         }
+         
+         function fnClear() {
+         	$('#fname').val('');
+         	$('#offPrice').val('');
+         	$('#OriPrice').val('');
+         	$('#tArea1').val('');
+			$('#tArea2').val('');
+			$('#tArea3').val('');
+         }
+          
+      </script>
+   </head>
+   <body>
+      <form autocomplete="on">
+         <table border="0" style='width:50%;margin-top:100px' align="center">
+            <tr>
+               <td colspan='3'><textarea id="tArea1" style='width:100%;height:100px' ></textarea></td>
+            </tr>
+            <tr>
+               <td></td>
+               <td></td>
+               <td rowspan='6' valign="top" >
+               </td>
+            </tr>
+            <tr>
+               <td>Product Name:</td>
+               <td><input class="txt" type="text" id="fname"></td>
+            </tr>
+            <tr>
+               <td>Offer Price:</td>
+               <td><input class="txt" type="text" id="offPrice"></td>
+            </tr>
+            <tr>
+               <td>Original Price:</td>
+               <td><input class="txt" type="text" id="OriPrice"></td>
+            </tr>
+            <tr>
+               <td>Script:</td>
+               <td></td>
+            </tr>
+            <tr>
+               <td colspan='2'>
+                  <input type="button" value="Submit" onclick="build();" id="btnSubmit" />
+               </td>
+            </tr>
+            <tr>
+               <td colspan='3'><textarea id="tArea2" style='width:100%;height:100px' ></textarea>
+               </td>
+            </tr>
+            <tr>
+               <td colspan='3'>
+                  <textarea id="tArea3" style='width:100%;height:100px'></textarea>
+               </td>
+            </tr>
+            <td colspan='3'>
+               <input type="button" value="Clear" id="btnClear" onclick='fnClear()' />
+            </td>
+            </tr>
+         </table>
+      </form>
+   </body>
+</html>

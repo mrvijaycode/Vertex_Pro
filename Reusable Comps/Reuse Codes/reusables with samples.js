@@ -189,7 +189,7 @@ function updateItem(idOfItem, num) {
 
 	$().SPServices({
 		operation : "UpdateListItems",
-		listName : spendPoolListName,
+		listName : "ListName",
 		ID : idOfItem,
 		valuepairs : [["Notes", comments], ["Status", status], ["Supplier", supplier], ["PurchasingProcess", purProcess], ["SpecificationAvailableDate", SpecAvaDate]],
 		completefunc : function (xData, Status) {

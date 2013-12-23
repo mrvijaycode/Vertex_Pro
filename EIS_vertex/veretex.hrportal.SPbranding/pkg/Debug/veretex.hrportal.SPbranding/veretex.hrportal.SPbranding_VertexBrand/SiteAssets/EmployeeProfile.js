@@ -11,7 +11,7 @@ var listNameskillcat = 'Skill Category Master',
 certListName = 'Certification',
 projectslistName = "Projects";
 
-var ename, empid, Supervisor, fname, mname, lname, username, mstatus, gender, dbirth, etype, estatus, dept, ucal, designation, djoin, emailid, notes, UID, supname;
+var ename, empid, fname, mname, lname, username, mstatus, gender, dbirth, etype, estatus, dept, ucal, designation, djoin, emailid, notes, supname;
 
 var mobile, residence, pmailid, locaddress, loccountry, locstate, loccity, locpcode, percountry, perstate, percity, perpcode, peraddress, emercontact, contactname;
 
@@ -72,6 +72,10 @@ $(document).ready(function () {
             $('#perpcode').val("");
 
         }
+
+        //$("input[name^='ename']").bind("keyup", profileDataFilling);
+
+
     });
 
 
@@ -82,35 +86,17 @@ $(document).ready(function () {
 
         var userName = $('#ctl00_PlaceHolderMain_ename_upLevelDiv').find('span').attr('Title');
         getid(userName);
-
-        var returncount = getItemCount();
-        if (returncount == '0') {
-            $('#username').val(username);
-            $("#emailid").val(emailid);
-            $("#notes").val(notes);
-        }
-        RetrieveProjectListItems(username);
-    });
-    /* ..................Employee Id focus function starts here ........................*/
-    $("#empid").focus(function () {
-        var userName = $('#ctl00_PlaceHolderMain_ename_upLevelDiv').find('span').attr('Title');
-        getid(userName);
-
-        var returncount = getItemCount();
-        if (returncount == '0') {
-            $('#username').val(username);
-            $("#emailid").val(emailid);
-            $("#notes").val(notes);
-        }
-        RetrieveProjectListItems(username);
+        profileDataFilling();
 
     });
+
+
     /* ................Supervisor blur function strats Here ..........*/
 
     $('#ctl00_PlaceHolderMain_supervisor_upLevelDiv').blur(function () {
         supname = $('#ctl00_PlaceHolderMain_supervisor_upLevelDiv').find('span').attr('Title');
         getsupid(supname);
-
+        profileDataFilling()
     });
 
     $('#pmailid').blur(function () {
@@ -139,10 +125,21 @@ $(document).ready(function () {
         }
     });
 
+
 });
 
 /* ...................................End of ready function ...........................................................*/
+function profileDataFilling() {
 
+    var returncount = getItemCount();
+    if (returncount == '0') {
+        $('#username').val(username);
+        $("#emailid").val(emailid);
+        $("#notes").val(notes);
+    }
+
+
+}
 function IsEmail(email) {
     var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
     return regex.test(email);
@@ -237,7 +234,7 @@ function getCondetInputFormValues() {
 
 
 function contactDetailsUpdate() {
-    debugger
+
     context = new SP.ClientContext.get_current();
     list = context.get_web().get_lists().getByTitle(listName);
     this.item = this.list.getItemById(upidval);
@@ -274,8 +271,11 @@ function contactDetitemUpdated() {
 }
 
 function getItemCount() {
+
     var itemCount;
-    var myQuery = "<Query><Where><Eq><FieldRef Name='User_x0020_Name' /><Value Type='Text'>" + username + "</Value></Eq></Where></Query>";
+    //var myQuery = "<Query><Where><Eq><FieldRef Name='User_x0020_Name' /><Value Type='Text'>" + username + "</Value></Eq></Where></Query>";
+    var myQuery = "<Query><Where><Eq><FieldRef Name='Employee_x0020_Name' /><Value Type='User'>" + username + "</Value></Eq></Where></Query>";
+
     $().SPServices({
         operation: "GetListItems",
         async: false,
@@ -316,8 +316,8 @@ function getItemCount() {
 
                         var dbirth1 = $(this).attr('ows_Date_x0020_Of_x0020_Birth');
                         if (dbirth1 != null) {
-                            dbirth1 = dbirth1.split(' ')[0];
-                            dbirth1 = dbirth1.split('-')[1] + "/" + dbirth1.split('-')[2] + "/" + dbirth1.split('-')[0];
+                            dbirth1 = InputDate(dbirth1);
+                            //dbirth1 = dbirth1.split('-')[1] + "/" + dbirth1.split('-')[2] + "/" + dbirth1.split('-')[0];
                         } else {
                             dbirth1 = '';
                         }
@@ -588,6 +588,7 @@ function getItemCount() {
                             date1 = '';
                         }
                         $("#date1").val(date1);
+                        RetrieveProjectListItems(username);
 
                     });
                 } else {
@@ -1204,7 +1205,7 @@ function getEmployeeCertificationinputFormValues() {
 
 
 function EmployeeCertificationUpdate() {
-    debugger
+
     context = new SP.ClientContext.get_current();
     list = context.get_web().get_lists().getByTitle(listName);
 
@@ -1452,7 +1453,7 @@ function getRelExp() {
     var count = $("#AddTable tr").length;
     relEXP = [];
     for (var j = 1; j <= count; j++) {
-        debugger;
+
 
         relexpdomain = $('#relexpdomain' + j).val();
         if (relexpdomain == null || typeof relexpdomain == 'undefined' || relexpdomain == '') {
@@ -1528,9 +1529,9 @@ function AssignProj() {
 
 /* .....................................retreive choice fields of Project Dvi.......................................................*/
 
-function retrieveProjDetChoiceFields() {
-    //context= new SP.ClientContext.get_current();
-    var oList = context.get_web().get_lists().getByTitle('Projects');
+function retrieveProjDetChoiceFields(username) {
+
+    var oList = context.get_web().get_lists().getByTitle(projectslistName);
 
     var camlQuery = SP.CamlQuery.createAllItemsQuery();
     this.collListItems = oList.getItems(camlQuery);
@@ -1544,15 +1545,39 @@ function retrieveProjDetChoiceFields() {
 function ProjectLookupLoaded(sender, args) {
     var listItemInfo = '';
     var projlistItemEnumerator = collListItems.getEnumerator();
+
     while (projlistItemEnumerator.moveNext()) {
         var oListItem = projlistItemEnumerator.get_current();
 
-        var tempItem = {
-            Id: oListItem.get_id(),
-            Value: oListItem.get_item('Title')
-        };
-        ProjItemContainer.ProjItem.push(tempItem);
+
+
+        if (!(oListItem.get_item('Project_x0020_Members'))) {
+            var tempItem = {
+                Id: oListItem.get_id(),
+                Value: oListItem.get_item('Title')
+            };
+            ProjItemContainer.ProjItem.push(tempItem);
+        }
+        else if (oListItem.get_item('Project_x0020_Members').length) {
+            var memlen = oListItem.get_item('Project_x0020_Members').length
+            var projmem = '';
+            for (var i = 0; i < memlen; i++) {
+                projmem += oListItem.get_item('Project_x0020_Members')[i].get_lookupId() + ';';
+            }
+
+            if ((projmem.indexOf(Uid)) == -1) {
+
+                var tempItem = {
+                    Id: oListItem.get_id(),
+                    Value: oListItem.get_item('Title')
+                };
+                ProjItemContainer.ProjItem.push(tempItem);
+
+            }
+        }
+
     }
+
 
     fillProjectnameDropDown();
 }
@@ -1577,7 +1602,7 @@ function fillProjectnameDropDown() {
 /* ............................................Projname choice filed DropDown Filling is complted.............*/
 
 function RetrieveProjectListItems(username) {
-    retrieveProjDetChoiceFields();
+    retrieveProjDetChoiceFields(username);
     context = SP.ClientContext.get_current();
     list = context.get_web().get_lists().getByTitle(projectslistName);
     web = context.get_web();
@@ -1683,8 +1708,6 @@ function builtContents(pageN) {
 
                 tbl += '<td class="inner_table_flip" align="left" valign="middle">' + items[j].projStatus + '</td>';
 
-                tbl += '<td class="inner_table_flip" align="left" valign="middle"><a onclick="Edit(' + items[j].itmid + ')"><img alt="Edit" src="http://inhy2ksprnd2010:5555/Style%20Library/Images/edit.png" width="14" height="16" /></a></td>';
-
                 tbl += '<td class="inner_table_flip" align="left" valign="middle"><a onclick="UnAssign(' + items[j].itmid + ')"><img alt="Delete" src="http://inhy2ksprnd2010:5555/Style%20Library/Images/delete_icon.png" width="14" height="16" /></a></td></tr>';
 
             }
@@ -1697,7 +1720,7 @@ function builtContents(pageN) {
 		 + '<th class="inner_table_header" align="left" valign="middle"><a onclick="Sorting(\'Project_x0020_Type\')"><u><font style="cursor:hand" size="2">ProjectType</font ></u><img id="Project_x0020_Type" alt="Edit" src="http://inhydpc151:34981/Style%20Library/Images/Uparrow.jpg" width="16" height="15" /></a></th>'
 		 + '<th width="120" align="left" valign="middle" class="inner_table_header"><a onclick="Sorting(\'Actual_x0020_Start_x0020_Date\')"><u><font style="cursor:hand" size="2">Actual Start Date</font ></u><img id="Actual_x0020_Start_x0020_Date" alt="Edit" src="http://inhydpc151:34981/Style%20Library/Images/Uparrow.jpg" width="16" height="15" /></a></th><th width="30" align="left" valign="middle" class="inner_table_header"><a onclick="Sorting(\'Actual_x0020_End_x0020_Date\')"><u><font style="cursor:hand" size="2">Actual End Date</font ></u><img id="Actual_x0020_End_x0020_Date" alt="Edit" src="http://inhydpc151:34981/Style%20Library/Images/Uparrow.jpg" width="16" height="15" /></a></th>'
 		 + '<th width="30" align="left" valign="middle" class="inner_table_header"><u><font size="2">Status</font ></u></th>'
-		 + '<th width="30" align="left" valign="middle" class="inner_table_header"><u><font  size="2">Edit</font ></u></th><th width="30" align="left" valign="middle" class="inner_table_header"><u><font  size="2">UnAssign</font ></u></th></thead></tr><tbody>'
+		 + '<th width="30" align="left" valign="middle" class="inner_table_header"><u><font  size="2">UnAssign</font ></u></th></thead></tr><tbody>'
 		 + tbl + "</tbody></table>";
 
     var tot = parseInt(t) + 1;
@@ -1878,6 +1901,7 @@ function getDatePIckerPluginAppend() {
     $('#dateofcert').datepicker();
     $('#validtill').datepicker();
 }
+/*.............................................................. ResetForms Starts here ..........................................................*/
 
 function ResetuserFields() {
     $("#ctl00_PlaceHolderMain_ename_upLevelDiv").text("");
@@ -1940,4 +1964,10 @@ function ProjectresetForm() {
     $('#projtable').find("input[type=text], textarea").val("");
     $('#projname').val(0);
     $('#AssignProjbutton').hide();
+}
+function InputDate(date) {
+    var ndate = date.split(" ")[0];
+    ndate = ndate.split('-')[1] + "/" + ndate.split('-')[2] + "/" + ndate.split('-')[0];
+    //alert(ndate);
+    return ndate;
 }

@@ -1,48 +1,144 @@
-
-<html lang="en-US">
-
+<html>
 <head>
-	<meta charset="UTF-8">
-	<title>Vertex</title>
-	
-	<script type="text/javascript" src="jquery-1.8.3.js"></script>
-	<script type="text/javascript" src="reusable.js"></script>
-	
-	<link rel="stylesheet" type="text/css" href="URL" media="screen" />
-</head>
-
+<title>shopping cart</title>
+<script  src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<style>
+td{padding:30px;margin:5px;}
+#img4{width:30px;height:30px;}
+#div5{position:absolute;right:50px;top:50px;}
+th{color:green;padding:10px;}
+#div_4{background: none repeat scroll 0 0 #FFFFFF;
+box-shadow:0 1px 3px rgba(0,0,0.15);background:none repeat scroll 0 0 #FFFFFF;}
+#div_5{display:none;width:500px;}
+#sp1{position:absolute;right:50px;top:100px;color:red;}
+#div3{color:green;position:absolute;right:50px;}
+.ui-dialog { font-size:82.5%; }	
+#div6{position:absolute;right:250px;top:50px}
+#div3{position:absolute;right:160px;top:50px}
+#div_1{position:absolute;right:80px;}
+#ft{position:absolute;top:50px;right:10px;background:blue;color:white;}
+.ui-dialog-title{color:yellow;text-align:center;}
+.td1{border-bottom:1px solid block;} 
+</style>
 <body>
+<div id="div1"></div>
+<div id="div_4"><div id="div4"></div><div id="div_1"></div><div id= "div3"></div></div>
+<div id="div5"></div>
+<p id="div6"></p><p id="div3" ></p>
+<div id="div7"></div>
+<button id = "ft" > Find Total </button>
+<div id="div_5">There is No Items in the list</div>
+<script>
+		var cart = [];
+		var y, z, x, v, s, p, TP;
+		var totalPrice = 0;
+		var output1 = 0, output2 = 0;
+		$(document).ready(function () {
+			$.getJSON('shopping.json', function (data) {
+				var i,
+				txt,
+				output;
+				output = '<table class="tb1">';
+				for (var i in data.product) {
+					txt = data.product[i];
+					output += '<td><img src= ' + txt.Bimage + ' /><br /><table><tr><td>Product Name :' + txt.productname + '</td></tr><tr><td><a   href = "#" onClick = "abc(\'' + txt.productid + '\',\'' + txt.productprice + '\',\'' + txt.Bimage + '\',\'' + txt.productname + '\');">Add Cart</a></td></tr></td></table>';
+				}
+				output += '</table>';
+				document.getElementById('div1').innerHTML = output;
+			});
+		});
 
-<table>
-<!--
-	<tr>
-		<td><input type="text" name="" id="txtOne" /></td>
-		<td>
-		<select id="selType">
-		  <option>-Select-</option>
-		  <option value="NumVal">NumVal</option>
-		  <option value="strVal">strVal</option>
-		</select>
-		
-		</td>
-		<td><input type="text" name="" id="txtThree" /></td>
-		<td><input type="text" name="" id="txtFour" /></td>
-	</tr>
-	-->
-	
-	<tr>
-		<td><input type="button" name="" onClick="fire()" id="btnGen" value="Click" /></td>
-		<td></td>
-		<td></td>
-		<td></td>
-	</tr>
-	<tr>
-	<td colspan="4">
-		<textarea id="txta" style="height:500px;width:800px">Please click above button to generate code..</textarea>
-	</td>
-	</tr>
-</table>
-		
+		function abc(proId, proPrice, proImage, proName) {
+			
+			alert(proId);
+			if ($.inArray(proId, cart) > -1) {
+				alert('Yes');
+			}else{
+			alert('no');
+			}
+			cart.push({
+				Id : proId,
+				price : proPrice,
+				image : proImage,
+				name : proName
+			});
+
+			$('#ft').show();
+			y = cart.length;
+
+		}
+
+		$('#ft').click(function () {
+			$('#div6').show();
+			$('#div3').show();
+			if (y > 0) {
+				$(function () {
+					$("#div_4").dialog({
+						height : 500,
+						modal : true,
+						maxWidth : 1000,
+						width : 800,
+						title : "Saved Items In The Cart",
+						"buttons" : {
+							Cancel : function () {
+								$(this).dialog("close");
+								$('#div6').hide();
+								$('#div3').hide();
+								$('#ft').hide();
+								totalPrice = 0;
+								return totalPrice;
+							}
+						}
+					});
+				});
+			} else {
+				$("#div_5").dialog({
+					height : 100,
+					modal : true
+				});
+			}
+			var output1;
+			if (y > 0) {
+				var output1 = '<table >';
+				for (var i = 0; i < y; i++) {
+					totalPrice = Number(totalPrice) + Number(cart[i].price);
+				}
+				document.getElementById('div3').innerHTML = "Total :" + totalPrice;
+				output1 = "<table   ><thead><tr><th>product id</th><th>product image</th><th>product price</th><th>No Of Items</th><th>Total Price</th></thead><tbody>";
+				for (z = 0; z < y; z++) {
+					output1 += '<tr class="td1"><td >' + cart[z].Id + '</td><td><img  id="img4" src = "' + cart[z].image + '" /></td><td>' + cart[z].price + '</td>';
+					output1 += '<td> <select  id="" class=".yy"> <option value="1">1</option><option value="2">2</option> <option value="3">3</option><option value="4">4</option></select></td>';
+					output1 += '<td ><div class="xx" id="">' + cart[z].price + '</div></td></tr>';
+				}
+				output1 += '</tbody></table>';
+				document.getElementById('div4').innerHTML = output1;
+				$('#div6').text('');
+				for (x = 0; x < y; x++) {
+					document.getElementById('div6').innerHTML = "Items:(" + y + ")";
+				}
+				$('.xx').each(function (i) {
+					$(this).attr('id', ('p' + i));
+				});
+				$('select').each(function (i) {
+					$(this).attr('id', ('a-' + i));
+				});
+				$.each($('select'), function (i, val) {
+					$('#a-' + i).change(function () {
+						var selectVal = $('#a-' + i + ' :selected').val();
+						var selectVal2 = selectVal - 1;
+						var total = cart[i].price;
+						$('#p' + i).text(selectVal * total);
+						var TP = selectVal2 * total;
+						totalPrice += Number(TP);
+						$('#div_1').text("Total Price:" + totalPrice);
+						document.getElementById('div3').innerHTML = "Total :" + totalPrice;
+					});
+				});
+			}
+			document.getElementById('div_1').innerHTML = "Total :" + totalPrice;
+		});
+</script>
 </body>
-
 </html>

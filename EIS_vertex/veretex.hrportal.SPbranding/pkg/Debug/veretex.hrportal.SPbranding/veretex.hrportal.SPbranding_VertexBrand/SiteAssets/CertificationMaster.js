@@ -149,16 +149,16 @@ function builtContents(pageN) {
 
                 tbl += '<td class="inner_table_flip" align="left" valign="middle">' + certskill + '</td>';
 
-                tbl += '<td class="inner_table_flip" align="left" valign="middle"><a onclick="Edit(' + items[j].itmid + ')"><img alt="Edit" src="http://inhy2ksprnd2010:5555/Style%20Library/Images/edit.png" width="14" height="16" /></a></td>';
+                tbl += '<td class="inner_table_flip" align="left" valign="middle"><a onclick="Edit(' + items[j].itmid + ')"><img alt="Edit" src="http://hydpcnew00123:7777/Style%20Library/Images/edit.png" width="14" height="16" /></a></td>';
 
-                tbl += '<td class="inner_table_flip" align="left" valign="middle"><a onclick="Delete(' + items[j].itmid + ')"><img alt="Delete" src="http://inhy2ksprnd2010:5555/Style%20Library/Images/delete_icon.png" width="14" height="16" /></a></td></tr>';
+                tbl += '<td class="inner_table_flip" align="left" valign="middle"><a onclick="Delete(' + items[j].itmid + ')"><img alt="Delete" src="http://hydpcnew00123:7777/Style%20Library/Images/delete_icon.png" width="14" height="16" /></a></td></tr>';
             }
         }
     } else {
         tbl += "<tr><td>No records found.</td></tr>";
     }
 
-    var maintble = '<table style="border:#d2d7da solid 1px;" width="100%" border="0" id="listitem1" cellspacing="0" cellpadding="10"><thead><tr><th class="inner_table_header" align="left" valign="middle"><a onclick="Sorting()"><u><font style="cursor:hand" size="2">Certification Name</font ></u><img id="sortingimage" alt="Edit" src="http://inhy2ksprnd2010:5555/Style%20Library/Images/Uparrow.jpg" width="16" height="15" /></a></th>'
+    var maintble = '<table style="border:#d2d7da solid 1px;" width="100%" border="0" id="listitem1" cellspacing="0" cellpadding="10"><thead><tr><th class="inner_table_header" align="left" valign="middle"><a onclick="Sorting()"><u><font style="cursor:hand" size="2">Certification Name</font ></u><img id="sortingimage" alt="Edit" src="http://hydpcnew00123:7777/Style%20Library/Images/Uparrow.jpg" width="16" height="15" /></a></th>'
 		 + '<th class="inner_table_header" align="left" valign="middle"><u><font  size="2">Certified By</font ></u></th>'
 		 + '<th width="120" align="left" valign="middle" class="inner_table_header"><u><font  size="2">Skill Category</font ></u></th>'
 		 + '<th width="30" align="left" valign="middle" class="inner_table_header"><u><font size="2">Skill</font ></u></th>'
