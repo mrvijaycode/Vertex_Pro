@@ -1,1 +1,4 @@
-var RefreshingView = Backbone.View.extend();
+var RefreshingView = Backbone.View.extend(
+initialize: function(){
+this.model
+});
