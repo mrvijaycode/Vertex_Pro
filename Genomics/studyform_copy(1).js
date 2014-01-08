@@ -3425,7 +3425,12 @@ function enableSPLGC() {
 				
 		$('#btnBuGc').parent().parent().show();
 		$('#btnBuGc').show();
+		$('#crnAttach').show();
 		
+		$("#crnAttach").click(function () {
+			window.open('http://teamspace.pg.com/sites/genomics/Site Assets/Pages/AttachFile.aspx?SubFolder=BU', "mywindow", "width=700,height=500,top=200")
+		})
+				
 		/* Statistics tab */
 		
 		$('#M3aDate').attr('disabled', false);
@@ -3435,6 +3440,12 @@ function enableSPLGC() {
 		
 		$('#txtComments3b').attr("disabled", false);
 		$('#btnStatistics').show();
+		$('#StatisticsAttach').show();
+		
+		$("#StatisticsAttach").click(function () {
+			window.open('http://teamspace.pg.com/sites/genomics/Site Assets/Pages/AttachFile.aspx?SubFolder=Statistics', "mywindow", "width=700,height=500,top=200")
+		})
+		//getMileStoneDocument();
 		
 		/* Bio-Informatics tab */
 		$('#txtComments4').attr("disabled", false);
@@ -3442,5 +3453,9 @@ function enableSPLGC() {
 		$('#sel4Reason').attr("disabled", false);
 		$('#btnBioInfo').show();
 		$('#BioinformaticsAttach').show();
+		
+		$("#BioinformaticsAttach").click(function () {
+			window.open('http://teamspace.pg.com/sites/genomics/Site Assets/Pages/AttachFile.aspx?SubFolder=Bioinformatics', "mywindow", "width=700,height=500,top=200")
+		})
 	}
 }
