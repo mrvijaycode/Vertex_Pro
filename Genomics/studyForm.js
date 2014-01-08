@@ -3060,11 +3060,21 @@ function today() {
 
 function DateComparison(date1, date2) {
 
+/* // it is not worked when year changed to 2014
 	if (date1 < date2) {
 		return true;
 	} else {
 		return false;
 	}
+*/	
+	
+	var begD = $.datepicker.parseDate('mm/dd/yy', date1);
+	var endD = $.datepicker.parseDate('mm/dd/yy', date2);
+	if (begD < endD) {
+		return true;
+	} else {
+		return false;
+	}	
 }
 
 //This function to save Milestone Documents.
