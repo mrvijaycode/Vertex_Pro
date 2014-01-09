@@ -148,7 +148,7 @@ $(document).ready(function () {
 	$("select[disabled='disabled']").addClass('disabled');
 	$("div[title='People Picker']").addClass('disabled');
 	alert('Super User Change');
-	debugger
+	//debugger
 });
 
 //onload function
@@ -2626,7 +2626,6 @@ function submitStatistics() {
 
 			if (sel3aReason != 0) {
 				strBatch += "<Field Name='Reason_for_Delay_m3a'>" + sel3aReason + "</Field>";
-				
 			}
 
 			if (M3bDate != "")
@@ -2649,10 +2648,55 @@ function submitStatistics() {
 
 			if (sel3bReason != 0) {
 				strBatch += "<Field Name='Reason_for_Delay_m3b'>" + sel3bReason + "</Field>";
-				
 			}
 			break;
-		}
+			
+		case STEPM4:
+			
+			if (M3aDate != "") {
+				strBatch += "<Field Name='M3a_act_Initial_QC_completion_da'>" + M3aDate + "</Field>";
+			} else {
+				alert('Please select date.');
+				$("#M3aDate").focus();
+				gohead = false;
+				break;
+			}
+
+			if (needReason && sel3aReason == 0) {
+				alert('Please select reason');
+				$("#sel3aReason").focus();
+				gohead = false;
+				break;
+			}
+
+			if (sel3aReason != 0) {
+				strBatch += "<Field Name='Reason_for_Delay_m3a'>" + sel3aReason + "</Field>";
+			}
+
+			if (M3bDate != "")
+				strBatch += "<Field Name='M3b_act_Statistics_Report_Date'>" + M3bDate + "</Field>";
+			else {
+				alert('Please select date.');
+				$("#M3bDate").focus();
+				gohead = false;
+				break;
+			}
+
+			strBatch += "<Field Name='Comments_m3b'>" + txtComments3b + "</Field>";
+
+			if (needReason && sel3bReason == 0) {
+				alert('Please select reason');
+				$("#sel3bReason").focus();
+				gohead = false;
+				break;
+			}
+
+			if (sel3bReason != 0) {
+				strBatch += "<Field Name='Reason_for_Delay_m3b'>" + sel3bReason + "</Field>";
+			}
+			
+			break;
+		}// switch end
 	} else {
 		strBatch += "<Field Name='Comments_m3b'>" + txtComments3b + "</Field>";
 	}
@@ -3582,7 +3626,14 @@ function enableSPLGC() {
 		$('#txtOthers').attr('readonly', false);
 
 		$('#studyInfo').parent().parent().show();
-		$('#studyInfo').show();		
+		$('#studyInfo').show();	
+		
+		$('#GCAttach').show();
+		
+		$("#GCAttach").click(function () {
+			window.open('http://teamspace.pg.com/sites/genomics/Site Assets/Pages/AttachFile.aspx?SubFolder=BU', "mywindow", "width=700,height=500,top=200")
+		});
+	
 				
 		/* Genomics tab */
 		$('#txtM1Date').attr('disabled', false);
@@ -3606,6 +3657,13 @@ function enableSPLGC() {
 		$('#btnBuGc').parent().parent().show();
 		$('#btnBuGc').show();
 		
+		$('#StatisticsAttach').show();
+		
+		$("#StatisticsAttach").click(function () {
+			window.open('http://teamspace.pg.com/sites/genomics/Site Assets/Pages/AttachFile.aspx?SubFolder=Statistics', "mywindow", "width=700,height=500,top=200")
+		});
+
+		
 		/* Statistics tab */
 		
 		$('#M3aDate').attr('disabled', false);
@@ -3618,5 +3676,19 @@ function enableSPLGC() {
 		$('#btnStatistics').show();
 		
 		/* Bio-Informatics tab */
+		
+		$('#M4Date').attr("disabled", false);
+		$('#sel4Reason').attr("disabled", false);
+		
+		$('#txtComments4').attr("disabled", false);
+		$('#txtComments4').attr("readonly", false);
+		
+		$('#btnBioInfo').show();		
+
+		$('#BioinformaticsAttach').show();
+		
+		$("#BioinformaticsAttach").click(function () {
+			window.open('http://teamspace.pg.com/sites/genomics/Site Assets/Pages/AttachFile.aspx?SubFolder=Bioinformatics', "mywindow", "width=700,height=500,top=200")
+		});		
 	}
 }

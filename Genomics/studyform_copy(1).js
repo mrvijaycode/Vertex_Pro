@@ -2483,6 +2483,54 @@ function submitStatistics() {
 				
 			}
 			break;
+			
+		case STEPM4:
+			
+			if (M3aDate != "") {
+				strBatch += "<Field Name='M3a_act_Initial_QC_completion_da'>" + M3aDate + "</Field>";
+			} else {
+				alert('Please select date.');
+				$("#M3aDate").focus();
+				gohead = false;
+				break;
+			}
+
+			if (needReason && sel3aReason == 0) {
+				alert('Please select reason');
+				$("#sel3aReason").focus();
+				gohead = false;
+				break;
+			}
+
+			if (sel3aReason != 0) {
+				strBatch += "<Field Name='Reason_for_Delay_m3a'>" + sel3aReason + "</Field>";
+				
+			}
+
+			if (M3bDate != "")
+				strBatch += "<Field Name='M3b_act_Statistics_Report_Date'>" + M3bDate + "</Field>";
+			else {
+				alert('Please select date.');
+				$("#M3bDate").focus();
+				gohead = false;
+				break;
+			}
+
+			strBatch += "<Field Name='Comments_m3b'>" + txtComments3b + "</Field>";
+
+			if (needReason && sel3bReason == 0) {
+				alert('Please select reason');
+				$("#sel3bReason").focus();
+				gohead = false;
+				break;
+			}
+
+			if (sel3bReason != 0) {
+				strBatch += "<Field Name='Reason_for_Delay_m3b'>" + sel3bReason + "</Field>";
+				
+			}
+			
+			break;
 		}
 	} else {
 		strBatch += "<Field Name='Comments_m3b'>" + txtComments3b + "</Field>";
@@ -3425,9 +3473,9 @@ function enableSPLGC() {
 				
 		$('#btnBuGc').parent().parent().show();
 		$('#btnBuGc').show();
-		$('#crnAttach').show();
+		$('#GCAttach').show();
 		
-		$("#crnAttach").click(function () {
+		$("#GCAttach").click(function () {
 			window.open('http://teamspace.pg.com/sites/genomics/Site Assets/Pages/AttachFile.aspx?SubFolder=BU', "mywindow", "width=700,height=500,top=200")
 		})
 				
