@@ -2334,9 +2334,14 @@ function submitstudyDetails() {
 		strBatch += "<Field Name='IsSuperUser'>1</Field>";
 		break;
 
+	case STEPM4:
+		strBatch += "<Field Name='Comments_m2d'>" + CorrectStringAsSPData(txtCommentsM2d) + "</Field>";
+		strBatch += "<Field Name='Comments_M2a'>" + CorrectStringAsSPData(txtCommentsM2a) + "</Field>";
+		strBatch += "<Field Name='IsSuperUser'>1</Field>";
+		break;
 	}
 
-	if (step != STEPM2D && step != STEPM3A && step != STEPM3B && isSplGC == false) {
+	if (step != STEPM4 && step != STEPM2D && step != STEPM3A && step != STEPM3B && isSplGC == false) {
 		strBatch += "<Field Name='enableStage'>" + enableStage + "</Field>" +
 		"<Field Name='EnableWF'>" + eanableWF + "</Field>";
 	}

@@ -2396,8 +2396,7 @@ function submitstudyDetails() {
 }
 
 
-function allgenomics(gohead,txtM1Date,selM1Reason,selRNA,txtM2aDate,selM2Reason,selcRNAprotocol,M2bDate,M2cDate,M2dDate,selM2bReason,selM2cReason,selM2dReason) {
-
+function allgenomics(gohead, txtM1Date, selM1Reason, selRNA, txtM2aDate, selM2Reason, selcRNAprotocol, M2bDate, M2cDate, M2dDate, selM2bReason, selM2cReason, selM2dReason) {
 
 	var strBatch = "";
 
@@ -2489,14 +2488,14 @@ function allgenomics(gohead,txtM1Date,selM1Reason,selRNA,txtM2aDate,selM2Reason,
 	}
 
 	//Step M2C
-	
+
 	if (selcRNAprotocol != 0) {
-			strBatch += "<Field Name='cRNA_Protocol'>" + selcRNAprotocol + "</Field>";
-		} else {
-			alert('Please select cRNA Protocol.');
-			$("#selcRNAprotocol").focus();
-			gohead = false;
-		}
+		strBatch += "<Field Name='cRNA_Protocol'>" + selcRNAprotocol + "</Field>";
+	} else {
+		alert('Please select cRNA Protocol.');
+		$("#selcRNAprotocol").focus();
+		gohead = false;
+	}
 
 	if (M2dDate != "") {
 		strBatch += "<Field Name='M2d_act_Data_Posted_date'>" + M2dDate + "</Field>";
@@ -2517,8 +2516,8 @@ function allgenomics(gohead,txtM1Date,selM1Reason,selRNA,txtM2aDate,selM2Reason,
 	}
 
 	return strBatch;
-	
 }
+
 //submit statistics
 function submitStatistics() {
 	debugger;
