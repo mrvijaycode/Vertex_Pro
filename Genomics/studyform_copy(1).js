@@ -2376,14 +2376,14 @@ function submitstudyDetails() {
 
 //submit statistics
 function submitStatistics() {
-	debugger;
+	//debugger;
 	var gohead = true;
 	var strBatch = "<Batch OnError='Continue' PreCalc='TRUE'>" +
 		"<Method ID='1' Cmd='Update'>";
 
 	var txtComments3b = CorrectStringAsSPData($('#txtComments3b').val());
-	//	debugger
-	if (GenomicUserId != getuserId(curUser) || isSplGC) {
+	
+	//if (GenomicUserId != getuserId(curUser) || isSplGC) {
 
 		if ($('#M3aDate').val() != "")
 			var M3aDate = SPdate($('#M3aDate').val());
@@ -2401,6 +2401,8 @@ function submitStatistics() {
 		var enableStage = "";
 		var eanableWF = "";
 
+		if(!isSplGC)
+	{	
 		switch (step) {
 
 		case STEPM2D:
@@ -2555,27 +2557,96 @@ function submitStatistics() {
 			}
 			
 			break;
-		}
+		}// switch END
+	}//if END
+	
+	
+		if (step != STEPM4 && step != STEPM3B && isSplGC == false) {
+		strBatch += "<Field Name='enableStage'>" + enableStage + "</Field>" +
+		"<Field Name='EnableWF'>" + eanableWF + "</Field>";
 	} else {
-		strBatch += "<Field Name='Comments_m3b'>" + txtComments3b + "</Field>";
-	}
+		if (isSplGC) {
 
+			//START SUPER USER
+
+			if (M3aDate != "") {
+				strBatch += "<Field Name='M3a_act_Initial_QC_completion_da'>" + M3aDate + "</Field>";
+			} else {
+				alert('Please select date.');
+				$("#M3aDate").focus();
+				gohead = false;
+				//break;
+			}
+
+			if (needReason && sel3aReason == 0) {
+				alert('Please select reason');
+				$("#sel3aReason").focus();
+				gohead = false;
+				//break;
+			}
+
+			if (sel3aReason != 0) {
+				strBatch += "<Field Name='Reason_for_Delay_m3a'>" + sel3aReason + "</Field>";
+			}
+
+			if (M3bDate != "")
+				strBatch += "<Field Name='M3b_act_Statistics_Report_Date'>" + M3bDate + "</Field>";
+			else {
+				alert('Please select date.');
+				$("#M3bDate").focus();
+				gohead = false;
+				//break;
+			}
+
+			strBatch += "<Field Name='Comments_m3b'>" + txtComments3b + "</Field>";
+
+			if (needReason && sel3bReason == 0) {
+				alert('Please select reason');
+				$("#sel3bReason").focus();
+				gohead = false;
+				//break;
+			}
+
+			if (sel3bReason != 0) {
+				strBatch += "<Field Name='Reason_for_Delay_m3b'>" + sel3bReason + "</Field>";
+			}
+
+			if (step == STEPM2D || step == STEPM3A) {
+				enableStage = STEPM3B;
+				eanableWF = "10";
+
+				strBatch += "<Field Name='enableStage'>" + enableStage + "</Field>" +
+				"<Field Name='EnableWF'>" + eanableWF + "</Field>";
+
+			}
+		}
+	}
+	
+	
 	if (isSplGC == false) {
 		strBatch += "<Field Name='enableStage'>" + enableStage + "</Field>" +
 		"<Field Name='EnableWF'>" + eanableWF + "</Field>";
 	}
 
-	if (isSplGC)
+	
+	if (isSplGC) {
+
 		strBatch += "<Field Name='IsSuperUser'>1</Field>";
-	strBatch += "<Field Name='ID'>" + itmid + "</Field>" +
-	"</Method>" +
-	"</Batch>";
+		strBatch += "<Field Name='ID'>" + itmid + "</Field>" +
+		"</Method>" +
+		"</Batch>";
+	}
+
 
 	if (gohead) {
 		update(strBatch);
 		saveMileStone("div3");
 	}
 }
+
+
+
+
 function submitBioinfo() {
 	var gohead = true;
 
