@@ -2125,6 +2125,9 @@ function submitstudyDetails() {
 	var enableStage = "";
 	var eanableWF = "";
 
+	if(!isSplGC)
+	{
+	
 	switch (step) {
 	case STEP3:
 		enableStage = STEPM1;
@@ -2340,12 +2343,28 @@ function submitstudyDetails() {
 		strBatch += "<Field Name='IsSuperUser'>1</Field>";
 		break;
 	}
+	}//if END
 
 	if (step != STEPM4 && step != STEPM2D && step != STEPM3A && step != STEPM3B && isSplGC == false) {
 		strBatch += "<Field Name='enableStage'>" + enableStage + "</Field>" +
 		"<Field Name='EnableWF'>" + eanableWF + "</Field>";
-	}
+	}else {
+		if (isSplGC) {
+			enableStage = STEPM2D;
+			eanableWF = 8;
 
+			strBatch += allgenomics(gohead, txtM1Date, selM1Reason, selRNA, txtM2aDate, selM2Reason, selcRNAprotocol, M2bDate, M2cDate, M2dDate, selM2bReason, selM2cReason, selM2dReason);
+			strBatch += "<Field Name='Comments_m2d'>" + CorrectStringAsSPData(txtCommentsM2d) + "</Field>";
+			strBatch += "<Field Name='Comments_M2a'>" + CorrectStringAsSPData(txtCommentsM2a) + "</Field>";
+			strBatch += "<Field Name='IsSuperUser'>1</Field>";
+
+			if (step != STEPM4 && step != STEPM2D && step != STEPM3A && step != STEPM3B) {
+				strBatch += "<Field Name='enableStage'>" + enableStage + "</Field>" +
+				"<Field Name='EnableWF'>" + eanableWF + "</Field>";
+			}
+		}
+	}
+	
 	strBatch += "<Field Name='ID'>" + itmid + "</Field>" +
 	"</Method>" +
 	"</Batch>";
