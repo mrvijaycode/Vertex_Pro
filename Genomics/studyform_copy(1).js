@@ -2079,7 +2079,7 @@ function checkReasonFilled() {
 
 //to submit BU & GC Study details
 function submitstudyDetails() {
-	//debugger
+	debugger
 	var gohead = true;
 	if ($('#txtM1Date').val() != "")
 		var txtM1Date = SPdate($('#txtM1Date').val());

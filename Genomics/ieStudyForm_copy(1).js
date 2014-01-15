@@ -2379,9 +2379,17 @@ function submitstudyDetails() {
 		strBatch += "<Field Name='Comments_M2a'>" + CorrectStringAsSPData(txtCommentsM2a) + "</Field>";
 		strBatch += "<Field Name='IsSuperUser'>1</Field>";
 		break;
+		
+		
+	case STEPM4:
+		strBatch += allgenomics(gohead,txtM1Date,selM1Reason,selRNA,txtM2aDate,selM2Reason,selcRNAprotocol,M2bDate,M2cDate,M2dDate,selM2bReason,selM2cReason,selM2dReason);
+		strBatch += "<Field Name='Comments_m2d'>" + CorrectStringAsSPData(txtCommentsM2d) + "</Field>";
+		strBatch += "<Field Name='Comments_M2a'>" + CorrectStringAsSPData(txtCommentsM2a) + "</Field>";
+		strBatch += "<Field Name='IsSuperUser'>1</Field>";
+		break;	
 	}
 
-	if (step != STEPM2D && step != STEPM3A && step != STEPM3B && isSplGC == false) {
+	if (step != STEPM4 && step != STEPM2D && step != STEPM3A && step != STEPM3B && isSplGC == false) {
 		strBatch += "<Field Name='enableStage'>" + enableStage + "</Field>" +
 		"<Field Name='EnableWF'>" + eanableWF + "</Field>";
 	}
@@ -2396,7 +2404,8 @@ function submitstudyDetails() {
 }
 
 
-function allgenomics(gohead, txtM1Date, selM1Reason, selRNA, txtM2aDate, selM2Reason, selcRNAprotocol, M2bDate, M2cDate, M2dDate, selM2bReason, selM2cReason, selM2dReason) {
+function allgenomics(gohead,txtM1Date,selM1Reason,selRNA,txtM2aDate,selM2Reason,selcRNAprotocol,M2bDate,M2cDate,M2dDate,selM2bReason,selM2cReason,selM2dReason) {
+
 
 	var strBatch = "";
 
@@ -2488,14 +2497,14 @@ function allgenomics(gohead, txtM1Date, selM1Reason, selRNA, txtM2aDate, selM2Re
 	}
 
 	//Step M2C
-
+	
 	if (selcRNAprotocol != 0) {
-		strBatch += "<Field Name='cRNA_Protocol'>" + selcRNAprotocol + "</Field>";
-	} else {
-		alert('Please select cRNA Protocol.');
-		$("#selcRNAprotocol").focus();
-		gohead = false;
-	}
+			strBatch += "<Field Name='cRNA_Protocol'>" + selcRNAprotocol + "</Field>";
+		} else {
+			alert('Please select cRNA Protocol.');
+			$("#selcRNAprotocol").focus();
+			gohead = false;
+		}
 
 	if (M2dDate != "") {
 		strBatch += "<Field Name='M2d_act_Data_Posted_date'>" + M2dDate + "</Field>";
@@ -2516,8 +2525,8 @@ function allgenomics(gohead, txtM1Date, selM1Reason, selRNA, txtM2aDate, selM2Re
 	}
 
 	return strBatch;
+	
 }
-
 //submit statistics
 function submitStatistics() {
 	debugger;
