@@ -2557,6 +2557,7 @@ function submitStatistics() {
 	
 	//if (GenomicUserId != getuserId(curUser) || isSplGC) {
 
+
 		if ($('#M3aDate').val() != "")
 			var M3aDate = SPdate($('#M3aDate').val());
 		else
@@ -2573,93 +2574,247 @@ function submitStatistics() {
 		var enableStage = "";
 		var eanableWF = "";
 
-		if (!isSplGC) {
-			switch (step) {
-			case STEPM2D:
-				enableStage = STEPM3A;
-				eanableWF = "9";
+	if(!isSplGC)
+	{	
+		switch (step) {
 
-				if (M3aDate != "") {
-					strBatch += "<Field Name='M3a_act_Initial_QC_completion_da'>" + M3aDate + "</Field>";
-				} else {
-					alert('Please select date.');
-					$("#M3aDate").focus();
-					gohead = false;
-					break;
-				}
+		case STEPM2D:
+			enableStage = STEPM3A;
+			eanableWF = "9";
 
-				strBatch += "<Field Name='Comments_m3b'>" + txtComments3b + "</Field>";
-
-				if (needReason && sel3aReason == 0) {
-					alert('Please select reason');
-					$("#sel3aReason").focus();
-					gohead = false;
-					break;
-				}
-
-				if (sel3aReason != 0) {
-					strBatch += "<Field Name='Reason_for_Delay_m3a'>" + sel3aReason + "</Field>";
-					strBatch += "<Field Name='ReasonIn'>M3a</Field>";
-					if (isSplGC)
-						strBatch += "<Field Name='IsSuperUser'>1</Field>";
-				}
+			if (M3aDate != "") {
+				strBatch += "<Field Name='M3a_act_Initial_QC_completion_da'>" + M3aDate + "</Field>";
+			} else {
+				alert('Please select date.');
+				$("#M3aDate").focus();
+				gohead = false;
 				break;
+			}
 
-			case STEPM3A:
+			strBatch += "<Field Name='Comments_m3b'>" + txtComments3b + "</Field>";
+
+			if (needReason && sel3aReason == 0) {
+				alert('Please select reason');
+				$("#sel3aReason").focus();
+				gohead = false;
+				break;
+			}
+
+			if (sel3aReason != 0) {
+				strBatch += "<Field Name='Reason_for_Delay_m3a'>" + sel3aReason + "</Field>";
+				strBatch += "<Field Name='ReasonIn'>M3a</Field>";
+				if (isSplGC)
+					strBatch += "<Field Name='IsSuperUser'>1</Field>";
+			}
+			break;
+
+		case STEPM3A:
+			enableStage = STEPM3B;
+			eanableWF = "10";
+
+			if (M3bDate != "")
+				strBatch += "<Field Name='M3b_act_Statistics_Report_Date'>" + M3bDate + "</Field>";
+			else {
+				alert('Please select date.');
+				$("#M3bDate").focus();
+				gohead = false;
+				break;
+			}
+
+			strBatch += "<Field Name='Comments_m3b'>" + txtComments3b + "</Field>";
+
+			if (needReason && sel3bReason == 0) {
+				alert('Please select reason');
+				$("#sel3bReason").focus();
+				gohead = false;
+				break;
+			}
+
+			if (sel3bReason != 0) {
+				strBatch += "<Field Name='Reason_for_Delay_m3b'>" + sel3bReason + "</Field>";
+				strBatch += "<Field Name='ReasonIn'>M3b</Field>";
+			}
+			break;
+
+		case STEPM3B:
+
+			if (M3aDate != "") {
+				strBatch += "<Field Name='M3a_act_Initial_QC_completion_da'>" + M3aDate + "</Field>";
+			} else {
+				alert('Please select date.');
+				$("#M3aDate").focus();
+				gohead = false;
+				break;
+			}
+
+			if (needReason && sel3aReason == 0) {
+				alert('Please select reason');
+				$("#sel3aReason").focus();
+				gohead = false;
+				break;
+			}
+
+			if (sel3aReason != 0) {
+				strBatch += "<Field Name='Reason_for_Delay_m3a'>" + sel3aReason + "</Field>";
+			}
+
+			if (M3bDate != "")
+				strBatch += "<Field Name='M3b_act_Statistics_Report_Date'>" + M3bDate + "</Field>";
+			else {
+				alert('Please select date.');
+				$("#M3bDate").focus();
+				gohead = false;
+				break;
+			}
+
+			strBatch += "<Field Name='Comments_m3b'>" + txtComments3b + "</Field>";
+
+			if (needReason && sel3bReason == 0) {
+				alert('Please select reason');
+				$("#sel3bReason").focus();
+				gohead = false;
+				break;
+			}
+
+			if (sel3bReason != 0) {
+				strBatch += "<Field Name='Reason_for_Delay_m3b'>" + sel3bReason + "</Field>";
+			}
+			break;
+
+		case STEPM4:
+
+			if (M3aDate != "") {
+				strBatch += "<Field Name='M3a_act_Initial_QC_completion_da'>" + M3aDate + "</Field>";
+			} else {
+				alert('Please select date.');
+				$("#M3aDate").focus();
+				gohead = false;
+				break;
+			}
+
+			if (needReason && sel3aReason == 0) {
+				alert('Please select reason');
+				$("#sel3aReason").focus();
+				gohead = false;
+				break;
+			}
+
+			if (sel3aReason != 0) {
+				strBatch += "<Field Name='Reason_for_Delay_m3a'>" + sel3aReason + "</Field>";
+			}
+
+			if (M3bDate != "")
+				strBatch += "<Field Name='M3b_act_Statistics_Report_Date'>" + M3bDate + "</Field>";
+			else {
+				alert('Please select date.');
+				$("#M3bDate").focus();
+				gohead = false;
+				break;
+			}
+
+			strBatch += "<Field Name='Comments_m3b'>" + txtComments3b + "</Field>";
+
+			if (needReason && sel3bReason == 0) {
+				alert('Please select reason');
+				$("#sel3bReason").focus();
+				gohead = false;
+				break;
+			}
+
+			if (sel3bReason != 0) {
+				strBatch += "<Field Name='Reason_for_Delay_m3b'>" + sel3bReason + "</Field>";
+			}
+			break;
+		} // switch end
+		
+	}// if END
+	
+	
+	if (step != STEPM4 && step != STEPM3B && isSplGC == false) {
+		strBatch += "<Field Name='enableStage'>" + enableStage + "</Field>" +
+		"<Field Name='EnableWF'>" + eanableWF + "</Field>";
+	} 
+	
+	else {
+		if (isSplGC) {
+		
+			//START SUPER USER
+		
+			if (M3aDate != "") {
+				strBatch += "<Field Name='M3a_act_Initial_QC_completion_da'>" + M3aDate + "</Field>";
+			} else {
+				alert('Please select date.');
+				$("#M3aDate").focus();
+				gohead = false;
+				//break;
+			}
+
+			if (needReason && sel3aReason == 0) {
+				alert('Please select reason');
+				$("#sel3aReason").focus();
+				gohead = false;
+				//break;
+			}
+
+			if (sel3aReason != 0) {
+				strBatch += "<Field Name='Reason_for_Delay_m3a'>" + sel3aReason + "</Field>";
+			}
+	
+	
+			if (M3bDate != "")
+				strBatch += "<Field Name='M3b_act_Statistics_Report_Date'>" + M3bDate + "</Field>";
+			else {
+				alert('Please select date.');
+				$("#M3bDate").focus();
+				gohead = false;
+				//break;
+			}
+
+			strBatch += "<Field Name='Comments_m3b'>" + txtComments3b + "</Field>";
+
+		
+			if (needReason && sel3bReason == 0) {
+				alert('Please select reason');
+				$("#sel3bReason").focus();
+				gohead = false;
+				//break;
+			}
+
+			if (sel3bReason != 0) {
+				strBatch += "<Field Name='Reason_for_Delay_m3b'>" + sel3bReason + "</Field>";
+			}
+			
+			if (step == STEPM2D || step == STEPM3A){
 				enableStage = STEPM3B;
 				eanableWF = "10";
 
-				if (M3bDate != "")
-					strBatch += "<Field Name='M3b_act_Statistics_Report_Date'>" + M3bDate + "</Field>";
-				else {
-					alert('Please select date.');
-					$("#M3bDate").focus();
-					gohead = false;
-					break;
-				}
+		strBatch += "<Field Name='enableStage'>" + enableStage + "</Field>" +
+		"<Field Name='EnableWF'>" + eanableWF + "</Field>";				
+			
+			}
+		}
+	}
 
-				strBatch += "<Field Name='Comments_m3b'>" + txtComments3b + "</Field>";
-
-				if (needReason && sel3bReason == 0) {
-					alert('Please select reason');
-					$("#sel3bReason").focus();
-					gohead = false;
-					break;
-				}
-
-				if (sel3bReason != 0) {
-					strBatch += "<Field Name='Reason_for_Delay_m3b'>" + sel3bReason + "</Field>";
-					strBatch += "<Field Name='ReasonIn'>M3b</Field>";
-				}
-				break;
-
-			//case STEPM3B:
-			//case STEPM4:
-
-			} // switch end
-		} //if END
-		
-	//} else {
-		strBatch += "<Field Name='Comments_m3b'>" + txtComments3b + "</Field>";
-	//}
-
-		
 	if (isSplGC == false) {
 		strBatch += "<Field Name='enableStage'>" + enableStage + "</Field>" +
 		"<Field Name='EnableWF'>" + eanableWF + "</Field>";
 	}
 
-	if (isSplGC)
-		strBatch += "<Field Name='IsSuperUser'>1</Field>";
-	strBatch += "<Field Name='ID'>" + itmid + "</Field>" +
-	"</Method>" +
-	"</Batch>";
+	if (isSplGC) {
 
+		strBatch += "<Field Name='IsSuperUser'>1</Field>";
+		strBatch += "<Field Name='ID'>" + itmid + "</Field>" +
+		"</Method>" +
+		"</Batch>";
+	}
+	
 	if (gohead) {
 		update(strBatch);
 		saveMileStone("div3");
 	}
 }
+
+
 function submitBioinfo() {
 	var gohead = true;
 
