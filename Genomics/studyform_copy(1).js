@@ -72,7 +72,7 @@ var RemainderIDS = "";
 var EscalationIDs = "";
 
 var addEdit = false;
-var cancelStudy = false
+var cancelStudy = false;
 	var needCommentOnTissueType = false;
 var needTabSetup = true; // tab open when refresh..
 var needAlert = false;
@@ -2135,13 +2135,17 @@ function submitstudyDetails() {
 		if (txtM1Date != "") {
 			strBatch += "<Field Name='M1_Actual_Samples_Received_Date'>" + txtM1Date + "</Field>";
 		} else {
+			
+			if(!isSplGC)
 			alert('Please select date.');
+			
 			$("#txtM1Date").focus();
 			gohead = false;
 			break;
 		}
 
 		if (needReason && selM1Reason == 0) {
+			if(!isSplGC)
 			alert('Please select reason');
 			$("#selM1Reason").focus();
 			gohead = false;
@@ -3582,7 +3586,14 @@ function enableSPLGC() {
 		
 		$("#GCAttach").click(function () {
 			window.open('http://teamspace.pg.com/sites/genomics/Site Assets/Pages/AttachFile.aspx?SubFolder=BU', "mywindow", "width=700,height=500,top=200")
-		})
+		});
+		
+		$('#BUAttach').show();
+		$('#BUAttach').css('cursor','pointer');
+			
+		$("#BUAttach").click(function () {
+			window.open('http://teamspace.pg.com/sites/genomics/Site Assets/Pages/AttachFile.aspx?SubFolder=BU', "mywindow", "width=700,height=500,top=200")
+		});
 				
 		/* Statistics tab */
 		
@@ -3594,6 +3605,7 @@ function enableSPLGC() {
 		$('#txtComments3b').attr("disabled", false);
 		$('#btnStatistics').show();
 		$('#StatisticsAttach').show();
+		$('#StatisticsAttach').css('cursor','pointer');
 		
 		$("#StatisticsAttach").click(function () {
 			window.open('http://teamspace.pg.com/sites/genomics/Site Assets/Pages/AttachFile.aspx?SubFolder=Statistics', "mywindow", "width=700,height=500,top=200")
@@ -3605,7 +3617,9 @@ function enableSPLGC() {
 		$('#M4Date').attr("disabled", false);
 		$('#sel4Reason').attr("disabled", false);
 		$('#btnBioInfo').show();
+		
 		$('#BioinformaticsAttach').show();
+		$('#BioinformaticsAttach').css('cursor','pointer');
 		
 		$("#BioinformaticsAttach").click(function () {
 			window.open('http://teamspace.pg.com/sites/genomics/Site Assets/Pages/AttachFile.aspx?SubFolder=Bioinformatics', "mywindow", "width=700,height=500,top=200")
