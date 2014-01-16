@@ -1071,7 +1071,6 @@ function contentLoad(itmid) {
 								});
 								if (needTabSetup)
 									GeneralDiv(1);
-									
 									enableSPLGC();
 								break;
 
@@ -2645,8 +2644,6 @@ function submitStatistics() {
 }
 
 
-
-
 function submitBioinfo() {
 	var gohead = true;
 
@@ -3538,6 +3535,19 @@ function enableSPLGC() {
 		$('#ctl00_PlaceHolderMain_statistics_upLevelDiv').attr('disabled', false);		
 		$('#ctl00_PlaceHolderMain_bolInfo_upLevelDiv').attr('disabled', false);		
 		$('#ctl00_PlaceHolderMain_teamUsers_upLevelDiv').attr('disabled', false);
+		
+		
+		$('#ctl00_PlaceHolderMain_GCAnalyst_downlevelTextBox').attr('disabled', false);
+		$('#ctl00_PlaceHolderMain_statistics_downlevelTextBox').attr('disabled', false);
+		$('#ctl00_PlaceHolderMain_bolInfo_downlevelTextBox').attr('disabled', false);
+		$('#ctl00_PlaceHolderMain_teamUsers_downlevelTextBox').attr('disabled', false);
+
+		$('#ctl00_PlaceHolderMain_GCAnalyst_downlevelTextBox').removeClass('disabled');
+		$('#ctl00_PlaceHolderMain_statistics_downlevelTextBox').removeClass('disabled');
+		$('#ctl00_PlaceHolderMain_bolInfo_downlevelTextBox').removeClass('disabled');
+		$('#ctl00_PlaceHolderMain_teamUsers_downlevelTextBox').removeClass('disabled');
+				
+		
 		$('#txtStudyName').attr('disabled', false);				
 		$('#txtPurpose').attr('disabled', false);		
 		$('#txtSamples').attr('disabled', false);		
