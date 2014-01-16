@@ -4,7 +4,7 @@
 //* Application name :Genomics Experiments
 //* Dependencies     :
 //* Limitations      :
-//* Created Date     :30 Dec 2012
+//* Created Date     :12 Jan 2014
 //* Author           :Vijay Bhaskar C
 //****************************************************************
 
@@ -2432,12 +2432,14 @@ function allgenomics(gohead,txtM1Date,selM1Reason,selRNA,txtM2aDate,selM2Reason,
 	if (txtM1Date != "") {
 		strBatch += "<Field Name='M1_Actual_Samples_Received_Date'>" + txtM1Date + "</Field>";
 	} else {
+		if(!isSplGC)
 		alert('Please select date.');
 		$("#txtM1Date").focus();
 		gohead = false;
 	}
 
 	if (needReason && selM1Reason == 0) {
+		if(!isSplGC)
 		alert('Please select reason');
 		$("#selM1Reason").focus();
 		gohead = false;
@@ -2452,6 +2454,7 @@ function allgenomics(gohead,txtM1Date,selM1Reason,selRNA,txtM2aDate,selM2Reason,
 	if (selRNA != 0) {
 		strBatch += "<Field Name='RNA_x0020_Procotol'>" + selRNA + "</Field>";
 	} else {
+		if(!isSplGC)
 		alert('Please select Protocol.');
 		$("#selRNA").focus();
 		gohead = false;
@@ -2460,12 +2463,14 @@ function allgenomics(gohead,txtM1Date,selM1Reason,selRNA,txtM2aDate,selM2Reason,
 	if (txtM2aDate != "") {
 		strBatch += "<Field Name='M2a_act_RNA_Isolation_Date'>" + txtM2aDate + "</Field>";
 	} else {
+		if(!isSplGC)
 		alert('Please select date.');
 		$("#txtM2aDate").focus();
 		gohead = false;
 	}
 
 	if (needReason && selM2Reason == 0) {
+		if(!isSplGC)
 		alert('Please select reason');
 		$("#selM2Reason").focus();
 		gohead = false;
@@ -2480,12 +2485,14 @@ function allgenomics(gohead,txtM1Date,selM1Reason,selRNA,txtM2aDate,selM2Reason,
 	if (M2bDate != "") {
 		strBatch += "<Field Name='M2b_cRNA_act_Dates_Label'>" + M2bDate + "</Field>";
 	} else {
+		if(!isSplGC)
 		alert('Please select date');
 		$("#M2bDate").focus();
 		gohead = false;
 	}
 
 	if (needReason && selM2bReason == 0) {
+		if(!isSplGC)
 		alert('Please select reason');
 		$("#selM2bReason").focus();
 		gohead = false;
@@ -2500,12 +2507,14 @@ function allgenomics(gohead,txtM1Date,selM1Reason,selRNA,txtM2aDate,selM2Reason,
 	if (M2cDate != "") {
 		strBatch += "<Field Name='M2c_act_Chips_Run_date'>" + M2cDate + "</Field>";
 	} else {
+		if(!isSplGC)
 		alert('Please select date.');
 		$("#M2cDate").focus();
 		gohead = false;
 	}
 
 	if (needReason && selM2cReason == 0) {
+		if(!isSplGC)
 		alert('Please select reason');
 		$("#selM2cReason").focus();
 		gohead = false;
@@ -2520,6 +2529,7 @@ function allgenomics(gohead,txtM1Date,selM1Reason,selRNA,txtM2aDate,selM2Reason,
 	if (selcRNAprotocol != 0) {
 			strBatch += "<Field Name='cRNA_Protocol'>" + selcRNAprotocol + "</Field>";
 		} else {
+			if(!isSplGC)
 			alert('Please select cRNA Protocol.');
 			$("#selcRNAprotocol").focus();
 			gohead = false;
@@ -2528,12 +2538,14 @@ function allgenomics(gohead,txtM1Date,selM1Reason,selRNA,txtM2aDate,selM2Reason,
 	if (M2dDate != "") {
 		strBatch += "<Field Name='M2d_act_Data_Posted_date'>" + M2dDate + "</Field>";
 	} else {
+		if(!isSplGC)
 		alert('Plese enter date.');
 		$("#M2dDate").focus();
 		gohead = false;
 	}
 
 	if (needReason && selM2dReason == 0) {
+		if(!isSplGC)
 		alert('Please select reason');
 		$("#selM2dReason").focus();
 		gohead = false;
@@ -3734,7 +3746,12 @@ function enableSPLGC() {
 		$("#GCAttach").click(function () {
 			window.open('http://teamspace.pg.com/sites/genomics/Site Assets/Pages/AttachFile.aspx?SubFolder=BU', "mywindow", "width=700,height=500,top=200")
 		});
-	
+		
+		$('#BUAttach').show();
+			
+		$("#BUAttach").click(function () {
+			window.open('http://teamspace.pg.com/sites/genomics/Site Assets/Pages/AttachFile.aspx?SubFolder=BU', "mywindow", "width=700,height=500,top=200")
+		});
 				
 		/* Genomics tab */
 		$('#txtM1Date').attr('disabled', false);
