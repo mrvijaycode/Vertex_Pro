@@ -14,19 +14,24 @@
             <h1>Hello, world!</h1>
             <div id="menu" class="navbar navbar-default navbar-fixed-top">
                <div class="navbar-header">
-                  <button class="btn btn-warning navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="glyphicon glyphicon-chevron-down"></span></button>
+                  <button class="btn btn-warning navbar-toggle" data-toggle="collapse" data-target="navbar-collapse"><span class="glyphicon glyphicon-glass"></span></button>
                </div>
                <div class="navbar-collapse collapse">
                   <ul class="nav navbar-nav navbar-right">
                      <li class="nav active"><a href=".">Home</a></li>
                      <li class="nav"><a href="about.html">About</a></li>
-                     <li class="nav"><a href="contact.html">Contact</a></li>
+                     <li class="nav" data-toggle="dropdown" ><a href="contact.html">Contact</a></li>
+					 <ul class="dropdown-menu">
+						<li><a href="#">Contact1</a></li>
+						<li><a href="#">Contact2</a></li>
+						<li><a href="#">Contact3</a></li>
+					 </ul>
                   </ul>
                </div>
             </div>
          </header>
          <section id="body" class="container">
-            <section id="main" class="col-md-8 col-sm-6">
+            <section id="main" class="col-md-8 col-sm-4">
                <b>This is main content.</b><br/>
                Developing for SharePoint Online with Sandbox Solutions
                Sandboxed Solutions are the development paradigm for SharePoint Online. In this session, you’ll learn about sandboxed solutions including how to develop, debug and deploy solutions. You’ll also learn the breadth of solutions that can be developed in the sandbox and strategies for developing common scenarios that are not enabled in the sandbox.
@@ -44,7 +49,7 @@
                Developing Messaging Solutions for Exchange Online
                In this session, you'll learn how to integrate Exchange Online mailbox data such as mail, calendar and task items as well as Exchange Online services such as the free-busy service into your applications using an easy to discover and easy to use managed API.
             </section>
-            <section id="sidebar" class="col-md-4 col-sm-6">
+            <section id="sidebar" class="col-md-4 col-sm-8">
                <b>This is side bar.</b><br/>
                <img src="sampleImg.jpg" class="img-thumbnail pull-right hidden-xs">
                Developing in the Cloud with Office 365

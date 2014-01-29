@@ -1,0 +1,42 @@
+
+<!DOCTYPE html>
+
+<html lang="en-US" ng-app>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Angular JS Training</title>
+	 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+              <script type="text/javascript" src="jquery-1.8.3.min.js"></script>
+              <!-- Include all compiled plugins (below), or include individual files as needed -->
+      	<script type="text/javascript" src="bootstrap.min.js"></script>
+	<script type="text/javascript" src="angular.min.js"></script>
+	<script type="text/javascript" src="underscore.js"></script>
+	<script type="text/javascript" src="todos.js"></script>
+	<link rel="stylesheet" type="text/css" href="bootstrap.min.css" media="screen" />
+	<link rel="stylesheet" type="text/css" href="todo.css">
+</head>
+
+<body>
+	<div ng-controller="TodoCtrl" class="container">
+		<!--Bind value with angual -->
+	<h2>The number of tasks : {{getTotalTodos()}}</h2>
+		<!--Create dropdown with angular -->
+		<ul class="list-unstyled" > <!-- list-unstyled is the bootstrap class-->
+			<li ng-repeat="todo in todos"> <!-- repeated the loop using angular-->
+				<input type="checkbox" ng-model="todo.done" /> <!-- todo.done is the variable to carry and pass the data. Below span will catch the data from the above checkbox using ng-model attribute -->
+				<span class="done-{{todo.done}}"> {{todo.text}} </span>
+			</li>
+		</ul>
+
+	<form>
+		<input type="text" ng-model="formTodoText" ng-model-instant/>
+		<h1>{{formTodoText}}</h1>
+		<button class="btn" ng-click="addTodo()"><span class="icon-plus"></span>Add</button>	
+	</form>
+	<button class="btn btn-range" ng-click="clearCompleted()">Clear</button>
+	
+	</div>
+</body>
+
+</html>
