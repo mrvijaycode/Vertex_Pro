@@ -1,11 +1,11 @@
 ﻿
 //***************************************************************
 //* Project Name     : GSS
-//* Application name :Genomics Experiments
+//* Application name : Genomics Experiments
 //* Dependencies     :
 //* Limitations      :
-//* Created Date     :30 Dec 2012
-//* Author           :Vijay Bhaskar C
+//* Created Date     : 12 Jan 2014
+//* Author           : Vijay Bhaskar C
 //****************************************************************
 
 var curUser = $().SPServices.SPGetCurrentUser();
@@ -72,7 +72,7 @@ var RemainderIDS = "";
 var EscalationIDs = "";
 
 var addEdit = false;
-var cancelStudy = false
+var cancelStudy = false;
 	var needCommentOnTissueType = false;
 var needTabSetup = true; // tab open when refresh..
 var needAlert = false;
@@ -147,6 +147,8 @@ $(document).ready(function () {
 	$("textarea[disabled='disabled']").addClass('disabled');
 	$("select[disabled='disabled']").addClass('disabled');
 	$("div[title='People Picker']").addClass('disabled');
+	//alert('Super User Change');
+	//debugger
 });
 
 //onload function
@@ -176,7 +178,6 @@ $(document).ready(function () {
 
 	$('#btnMilestones').click(function () {
 		submitMilestoneInfo();
-
 	});
 
 	$('#btnBuGc').click(function () {
@@ -314,7 +315,7 @@ $(document).ready(function () {
 
 	$.ajax({
 		success : function () {
-//			debugger
+
 			isGc();
 			fillSelects();
 			getDatePicker();
@@ -595,42 +596,42 @@ function contentLoad(itmid) {
 						GSSID = $(this).attr("ows_GSSID");
 						studyAuthor = $(this).attr("ows_Author").split(";#")[1];
 
-						escOtherUsers = $(this).attr("ows_OtherTeamUsers")
+						escOtherUsers = $(this).attr("ows_OtherTeamUsers");
 							step = $(this).attr("ows_enableStage");
 
 						if ($(this).attr("ows_Author").split(";#")[0] == getuserId(curUser)) {
-							currGroup = "BU"
+							currGroup = "BU";
 								$("#crnAttach").attr('ID', 'BUAttach');
 
 							$("#BUAttach").click(function () {
-								window.open('http://teamspace.pg.com/sites/genomics/Site Assets/Pages/AttachFile.aspx?SubFolder=BU', "mywindow", "width=700,height=500,top=200")
-							})
+								window.open('http://teamspace.pg.com/sites/genomics/Site Assets/Pages/AttachFile.aspx?SubFolder=BU', "mywindow", "width=700,height=500,top=200");
+							});
 							getMileStoneDocument();
 						}
 						if ($(this).attr("ows_GC_x0020_Analyst") != null && $(this).attr("ows_GC_x0020_Analyst").split(";#")[0] == getuserId(curUser)) {
-							currGroup = "GC"
+							currGroup = "GC";
 								$("#crnAttach").attr('ID', 'GCAttach');
 							$("#GCAttach").click(function () {
-								window.open('http://teamspace.pg.com/sites/genomics/Site Assets/Pages/AttachFile.aspx?SubFolder=GC', "mywindow", "width=700,height=500,top=200")
-							})
+								window.open('http://teamspace.pg.com/sites/genomics/Site Assets/Pages/AttachFile.aspx?SubFolder=GC', "mywindow", "width=700,height=500,top=200");
+							});
 							getMileStoneDocument();
 						}
 						if ($(this).attr("ows_Statistics_x0020_Owner") != null && $(this).attr("ows_Statistics_x0020_Owner").split(";#")[0] == getuserId(curUser)) {
 
-							currGroup = "Stats"
+							currGroup = "Stats";
 								$("#StatisticsAttach").click(function () {
-									window.open('http://teamspace.pg.com/sites/genomics/Site Assets/Pages/AttachFile.aspx?SubFolder=Statistics', "mywindow", "width=700,height=500,top=200")
-								})
+									window.open('http://teamspace.pg.com/sites/genomics/Site Assets/Pages/AttachFile.aspx?SubFolder=Statistics', "mywindow", "width=700,height=500,top=200");
+								});
 								getMileStoneDocument();
 
 						}
 						if ($(this).attr("ows_Bio_x0020_Informatics_x0020_Owne") != null && $(this).attr("ows_Bio_x0020_Informatics_x0020_Owne").split(";#")[0] == getuserId(curUser)) {
 
-							currGroup = "BioInformatics"
+							currGroup = "BioInformatics";
 
 								$("#BioinformaticsAttach").click(function () {
-									window.open('http://teamspace.pg.com/sites/genomics/Site Assets/Pages/AttachFile.aspx?SubFolder=Bioinformatics', "mywindow", "width=700,height=500,top=200")
-								})
+									window.open('http://teamspace.pg.com/sites/genomics/Site Assets/Pages/AttachFile.aspx?SubFolder=Bioinformatics', "mywindow", "width=700,height=500,top=200");
+								});
 								getMileStoneDocument();
 
 						}
@@ -1145,8 +1146,12 @@ function contentLoad(itmid) {
 
 										var applied = false;
 										$("#txtM1Date").focusin(function () {
-											if (!applied) {
+										/*if (!applied) {
 												$("#txtM1Date").datepicker("option", "minDate", PlannedSmplDate);
+												applied = true;
+											}*/
+											if (!applied) {
+												$("#txtM1Date").datepicker( "option", "minDate", "-1" );
 												applied = true;
 											}
 										});
@@ -1388,18 +1393,7 @@ function contentLoad(itmid) {
 										var QC3aDate = $(this).attr("ows_M3a_Initial_QC_completion_date");
 										QC3aDate = conDate(QC3aDate);
 
-										$("#M3aDate").change(function () {
-											ctrlHandle(QC3aDate, $(this).val(), "sel3aReason", "M3aDate");
-										});
-
-										//to give minimum date
-										var applied = false;
-										$("#M3aDate").focusin(function () {
-											if (!applied) {
-												$("#M3aDate").datepicker("option", "minDate", $("#M2dDate").val());
-												applied = true;
-											}
-										});
+										
 									}
 								}
 
@@ -1409,6 +1403,20 @@ function contentLoad(itmid) {
 								if (needTabSetup)
 									GeneralDiv(3);
 								reloadValidations();
+								
+								$("#M3aDate").change(function () {
+									ctrlHandle(QC3aDate, $(this).val(), "sel3aReason", "M3aDate");
+								});
+
+								//to give minimum date
+								var applied = false;
+								$("#M3aDate").focusin(function () {
+									if (!applied) {
+										$("#M3aDate").datepicker("option", "minDate", $("#M2dDate").val());
+										applied = true;
+									}
+								});
+								
 								enableSPLGC();
 								break;
 
@@ -1452,7 +1460,17 @@ function contentLoad(itmid) {
 										var statistics3bDate = $(this).attr("ows_M3b_Statistics_Report_Date");
 										statistics3bDate = conDate(statistics3bDate);
 
-										$("#M3bDate").change(function () {
+
+									}
+								}
+
+								if ($(this).attr("ows_Author").split(";#")[0] == getuserId(curUser)) {
+									divToggle(DIV_REQUEST_STUDY, SHOW);
+								}
+								if (needTabSetup)
+									GeneralDiv(4);
+								reloadValidations();
+									$("#M3bDate").change(function () {
 											ctrlHandle(statistics3bDate, $(this).val(), "sel3bReason", "M3bDate");
 										});
 
@@ -1464,15 +1482,6 @@ function contentLoad(itmid) {
 												applied = true;
 											}
 										});
-									}
-								}
-
-								if ($(this).attr("ows_Author").split(";#")[0] == getuserId(curUser)) {
-									divToggle(DIV_REQUEST_STUDY, SHOW);
-								}
-								if (needTabSetup)
-									GeneralDiv(4);
-								reloadValidations();
 								enableSPLGC();
 								break;
 
@@ -1540,7 +1549,7 @@ function contentLoad(itmid) {
 								})
 								GeneralDiv(5);
 								reloadValidations();
-								//enableSPLGC();
+								enableSPLGC();
 								break;
 							} //Switch closed
 						} else {
@@ -1551,37 +1560,38 @@ function contentLoad(itmid) {
 			});
 
 			$("input[disabled='disabled']").addClass('disabled');
-			//
 			$("textarea[readonly='readonly']").addClass('disabled');
-			
 			$("textarea[disabled='disabled']").addClass('disabled');
 			$("select[disabled='disabled']").addClass('disabled');
 			$("div[title='People Picker']").addClass('disabled');
 
-			if ($("#PlannedSmplDate").val() != "")
-				$("#PlannedSmplDate").attr("disabled", true);
+			if (!isSplGC) {
 
-			if ($("#rna2aDate").val() != "")
-				$("#rna2aDate").attr("disabled", true);
+				if ($("#PlannedSmplDate").val() != "")
+					$("#PlannedSmplDate").attr("disabled", true);
 
-			if ($("#crna2bDate").val() != "")
-				$("#crna2bDate").attr("disabled", true);
+				if ($("#rna2aDate").val() != "")
+					$("#rna2aDate").attr("disabled", true);
 
-			if ($("#chips2cDate").val() != "")
-				$("#chips2cDate").attr("disabled", true);
+				if ($("#crna2bDate").val() != "")
+					$("#crna2bDate").attr("disabled", true);
 
-			if ($("#dataPosted2dDate").val() != "")
-				$("#dataPosted2dDate").attr("disabled", true);
+				if ($("#chips2cDate").val() != "")
+					$("#chips2cDate").attr("disabled", true);
 
-			if ($("#QC3aDate").val() != "")
-				$("#QC3aDate").attr("disabled", true);
+				if ($("#dataPosted2dDate").val() != "")
+					$("#dataPosted2dDate").attr("disabled", true);
 
-			if ($("#statistics3bDate").val() != "")
-				$("#statistics3bDate").attr("disabled", true);
+				if ($("#QC3aDate").val() != "")
+					$("#QC3aDate").attr("disabled", true);
 
-			if ($("#bioInformatics4Date").val() != "")
-				$("#bioInformatics4Date").attr("disabled", true);
+				if ($("#statistics3bDate").val() != "")
+					$("#statistics3bDate").attr("disabled", true);
 
+				if ($("#bioInformatics4Date").val() != "")
+					$("#bioInformatics4Date").attr("disabled", true);
+			}
+			
 			//Design Start
 
 			//Top Study Information
@@ -1659,9 +1669,7 @@ function getMileStoneArray(option) {
 			var plannedAnalysis = ["", $(this).attr("ows_GSSID"), "BioInformatics Analysis", SPdate($('#bioInformatics4Date').val()), getuserId(bioInfoOwner), getuserId(bioInfoOwner), $(this).attr("ows_M1_Actual_Samples_Received_Date"), "N", $(this).attr("ows_Study_x0020_Name"), otherUser2];
 			MileStoneArray = [plannedSamples, plannedRNAIsolation, plannedCRNA, plannedChipsRun, plannedDatePosted, plannedQC, plannedStatsRpt, plannedAnalysis];
 		}
-
 	})
-
 	return MileStoneArray;
 }
 
@@ -1892,11 +1900,18 @@ function submitStudyInfo() {
 
 		escOtherUsers = OtherUsers;
 		strBatch += "<Field Name='OtherTeamUsers'>" + OtherUsers + "</Field>";
-		if (isSplGC == false)
-			strBatch += "<Field Name='EnableWF'>2</Field>";
-		else
-			strBatch += "<Field Name='IsSuperUser'>1</Field>";
-
+		
+					if (isSplGC == false) {
+						strBatch += "<Field Name='EnableWF'>2</Field>";
+					} else {
+						if (step == STEP1) {
+							strBatch += "<Field Name='IsSuperUser'>0</Field>";
+							strBatch += "<Field Name='EnableWF'>2</Field>";
+						} else {
+							strBatch += "<Field Name='IsSuperUser'>1</Field>";
+						}
+					}
+					
 		strBatch += "<Field Name='ID'>" + itmid + "</Field>" +
 		"</Method>" +
 		"</Batch>";
@@ -2046,11 +2061,16 @@ function submitMilestoneInfo() {
 
 			strBatch += "<Field Name='LogMilestones'>" + logMilestones + "</Field>";
 			
-			if (isSplGC == false)
-			strBatch += "<Field Name='EnableWF'>3</Field>";
-		else
-			strBatch += "<Field Name='IsSuperUser'>1</Field>";
-			
+			if (isSplGC == false) {
+				strBatch += "<Field Name='EnableWF'>3</Field>";
+			} else {
+				if (step == STEP2) {
+					strBatch += "<Field Name='IsSuperUser'>0</Field>";
+					strBatch += "<Field Name='EnableWF'>3</Field>";
+				} else {
+					strBatch += "<Field Name='IsSuperUser'>1</Field>";
+				}
+			}
 			strBatch += "<Field Name='ID'>" + itmid + "</Field>" +
 			"</Method>" +
 			"</Batch>";
@@ -2120,7 +2140,7 @@ function checkReasonFilled() {
 
 //to submit BU & GC Study details
 function submitstudyDetails() {
-	debugger
+	//debugger
 	var gohead = true;
 	if ($('#txtM1Date').val() != "")
 		var txtM1Date = SPdate($('#txtM1Date').val());
@@ -2166,6 +2186,8 @@ function submitstudyDetails() {
 	var enableStage = "";
 	var eanableWF = "";
 
+	if(!isSplGC)
+	{
 	switch (step) {
 	case STEP3:
 		enableStage = STEPM1;
@@ -2220,8 +2242,6 @@ function submitstudyDetails() {
 			break;
 		}
 
-		strBatch += "<Field Name='Comments_M2a'>" + CorrectStringAsSPData(txtCommentsM2a) + "</Field>";
-
 		if (needReason && selM2Reason == 0) {
 			alert('Please select reason');
 			$("#selM2Reason").focus();
@@ -2232,9 +2252,14 @@ function submitstudyDetails() {
 		if (selM2Reason != 0) {
 			strBatch += "<Field Name='Reason_for_Delay_M2a'>" + selM2Reason + "</Field>";
 			strBatch += "<Field Name='ReasonIn'>M2a</Field>";
-			if(isSplGC)
-			strBatch += "<Field Name='IsSuperUser'>1</Field>";
+			
 		}
+		
+		strBatch += "<Field Name='Comments_M2a'>" + CorrectStringAsSPData(txtCommentsM2a) + "</Field>";
+		
+		if(isSplGC)
+		strBatch += "<Field Name='IsSuperUser'>1</Field>";
+			
 		break;
 
 	case STEPM2A:
@@ -2273,7 +2298,7 @@ function submitstudyDetails() {
 			strBatch += "<Field Name='Reason_for_Delay_m2b'>" + selM2bReason + "</Field>";
 			strBatch += "<Field Name='ReasonIn'>M2b</Field>";
 			if(isSplGC)
-			strBatch += "<Field Name='IsSuperUser'>1</Field>";
+			strBatch += "<Field Name='IsSuperUser'>0</Field>";
 		}
 		break;
 
@@ -2313,7 +2338,7 @@ function submitstudyDetails() {
 			strBatch += "<Field Name='Reason_for_Delay_m2c'>" + selM2cReason + "</Field>";
 			strBatch += "<Field Name='ReasonIn'>M2c</Field>";
 			if(isSplGC)
-			strBatch += "<Field Name='IsSuperUser'>1</Field>";
+			strBatch += "<Field Name='IsSuperUser'>0</Field>";
 		}
 		break;
 
@@ -2353,14 +2378,17 @@ function submitstudyDetails() {
 			strBatch += "<Field Name='Reason_for_Delay_m2d'>" + selM2dReason + "</Field>";
 			strBatch += "<Field Name='ReasonIn'>M2d</Field>";
 			if(isSplGC)
-			strBatch += "<Field Name='IsSuperUser'>1</Field>";
+			strBatch += "<Field Name='IsSuperUser'>0</Field>";
 		}
 		break;
 
 	case STEPM2D:
 		strBatch += "<Field Name='Comments_m2d'>" + CorrectStringAsSPData(txtCommentsM2d) + "</Field>";
 		strBatch += "<Field Name='Comments_M2a'>" + CorrectStringAsSPData(txtCommentsM2a) + "</Field>";
+		
+		
 		strBatch += allgenomics(gohead,txtM1Date,selM1Reason,selRNA,txtM2aDate,selM2Reason,selcRNAprotocol,M2bDate,M2cDate,M2dDate,selM2bReason,selM2cReason,selM2dReason);
+		
 		strBatch += "<Field Name='IsSuperUser'>1</Field>";
 		break;
 
@@ -2377,11 +2405,55 @@ function submitstudyDetails() {
 		strBatch += "<Field Name='Comments_M2a'>" + CorrectStringAsSPData(txtCommentsM2a) + "</Field>";
 		strBatch += "<Field Name='IsSuperUser'>1</Field>";
 		break;
+		
+		
+	case STEPM4:
+		strBatch += allgenomics(gohead,txtM1Date,selM1Reason,selRNA,txtM2aDate,selM2Reason,selcRNAprotocol,M2bDate,M2cDate,M2dDate,selM2bReason,selM2cReason,selM2dReason);
+		strBatch += "<Field Name='Comments_m2d'>" + CorrectStringAsSPData(txtCommentsM2d) + "</Field>";
+		strBatch += "<Field Name='Comments_M2a'>" + CorrectStringAsSPData(txtCommentsM2a) + "</Field>";
+		strBatch += "<Field Name='IsSuperUser'>1</Field>";
+		break;	
 	}
-
-	if (step != STEPM2D && step != STEPM3A && step != STEPM3B && isSplGC == false) {
+	}//if END
+	
+	if (step != STEPM4 && step != STEPM2D && step != STEPM3A && step != STEPM3B && isSplGC == false) {
 		strBatch += "<Field Name='enableStage'>" + enableStage + "</Field>" +
 		"<Field Name='EnableWF'>" + eanableWF + "</Field>";
+	} else {
+		if (isSplGC) {
+		
+		if (step == STEP3) {
+			enableStage = STEPM1;
+			eanableWF = 4;
+		} else if (step == STEPM1) {
+			enableStage = STEPM2A;
+			eanableWF = 5;
+		} else if (step == STEPM2A) {
+			enableStage = STEPM2B;
+			eanableWF = 6;
+		} else if (step == STEPM2B) {
+			enableStage = STEPM2C;
+			eanableWF = 7;
+		} else if (step == STEPM2C) {
+			enableStage = STEPM2D;
+			eanableWF = 8;
+		}
+		
+		strBatch += allgenomics(gohead, txtM1Date, selM1Reason, selRNA, txtM2aDate, selM2Reason, selcRNAprotocol, M2bDate, M2cDate, M2dDate, selM2bReason, selM2cReason, selM2dReason);
+			
+		strBatch += "<Field Name='Comments_m2d'>" + CorrectStringAsSPData(txtCommentsM2d) + "</Field>";
+		
+		strBatch += "<Field Name='Comments_M2a'>" + CorrectStringAsSPData(txtCommentsM2a) + "</Field>";
+			
+			if (step != STEPM4 && step != STEPM2D && step != STEPM3A && step != STEPM3B) {
+				strBatch += "<Field Name='enableStage'>" + enableStage + "</Field>" +
+				"<Field Name='EnableWF'>" + eanableWF + "</Field>";
+				strBatch += "<Field Name='IsSuperUser'>0</Field>";
+			} else {
+				strBatch += "<Field Name='IsSuperUser'>1</Field>";
+			}
+			
+		}
 	}
 
 	strBatch += "<Field Name='ID'>" + itmid + "</Field>" +
@@ -2394,8 +2466,7 @@ function submitstudyDetails() {
 }
 
 
-function allgenomics(gohead,txtM1Date,selM1Reason,selRNA,txtM2aDate,selM2Reason,selcRNAprotocol,M2bDate,M2cDate,M2dDate,selM2bReason,selM2cReason,selM2dReason) {
-
+function allgenomics(gohead, txtM1Date, selM1Reason, selRNA, txtM2aDate, selM2Reason, selcRNAprotocol, M2bDate, M2cDate, M2dDate, selM2bReason, selM2cReason, selM2dReason) {
 
 	var strBatch = "";
 
@@ -2403,14 +2474,18 @@ function allgenomics(gohead,txtM1Date,selM1Reason,selRNA,txtM2aDate,selM2Reason,
 	if (txtM1Date != "") {
 		strBatch += "<Field Name='M1_Actual_Samples_Received_Date'>" + txtM1Date + "</Field>";
 	} else {
-		alert('Please select date.');
-		$("#txtM1Date").focus();
+		if (!isSplGC) {
+			alert('Please select date.');
+			$("#txtM1Date").focus();
+		}
 		gohead = false;
 	}
 
 	if (needReason && selM1Reason == 0) {
-		alert('Please select reason');
-		$("#selM1Reason").focus();
+		if (!isSplGC) {
+			alert('Please select reason');
+			$("#selM1Reason").focus();
+		}
 		gohead = false;
 	}
 
@@ -2423,22 +2498,28 @@ function allgenomics(gohead,txtM1Date,selM1Reason,selRNA,txtM2aDate,selM2Reason,
 	if (selRNA != 0) {
 		strBatch += "<Field Name='RNA_x0020_Procotol'>" + selRNA + "</Field>";
 	} else {
-		alert('Please select Protocol.');
-		$("#selRNA").focus();
+		if (!isSplGC) {
+			alert('Please select Protocol.');
+			$("#selRNA").focus();
+		}
 		gohead = false;
 	}
 
 	if (txtM2aDate != "") {
 		strBatch += "<Field Name='M2a_act_RNA_Isolation_Date'>" + txtM2aDate + "</Field>";
 	} else {
-		alert('Please select date.');
-		$("#txtM2aDate").focus();
+		if (!isSplGC) {
+			alert('Please select date.');
+			$("#txtM2aDate").focus();
+		}
 		gohead = false;
 	}
 
 	if (needReason && selM2Reason == 0) {
-		alert('Please select reason');
-		$("#selM2Reason").focus();
+		if (!isSplGC) {
+			alert('Please select reason');
+			$("#selM2Reason").focus();
+		}
 		gohead = false;
 	}
 
@@ -2451,14 +2532,18 @@ function allgenomics(gohead,txtM1Date,selM1Reason,selRNA,txtM2aDate,selM2Reason,
 	if (M2bDate != "") {
 		strBatch += "<Field Name='M2b_cRNA_act_Dates_Label'>" + M2bDate + "</Field>";
 	} else {
-		alert('Please select date');
-		$("#M2bDate").focus();
+		if (!isSplGC) {
+			alert('Please select date');
+			$("#M2bDate").focus();
+		}
 		gohead = false;
 	}
 
 	if (needReason && selM2bReason == 0) {
-		alert('Please select reason');
-		$("#selM2bReason").focus();
+		if (!isSplGC) {
+			alert('Please select reason');
+			$("#selM2bReason").focus();
+		}
 		gohead = false;
 	}
 
@@ -2471,14 +2556,18 @@ function allgenomics(gohead,txtM1Date,selM1Reason,selRNA,txtM2aDate,selM2Reason,
 	if (M2cDate != "") {
 		strBatch += "<Field Name='M2c_act_Chips_Run_date'>" + M2cDate + "</Field>";
 	} else {
-		alert('Please select date.');
-		$("#M2cDate").focus();
+		if (!isSplGC) {
+			alert('Please select date.');
+			$("#M2cDate").focus();
+		}
 		gohead = false;
 	}
 
 	if (needReason && selM2cReason == 0) {
-		alert('Please select reason');
-		$("#selM2cReason").focus();
+		if (!isSplGC) {
+			alert('Please select reason');
+			$("#selM2cReason").focus();
+		}
 		gohead = false;
 	}
 
@@ -2487,46 +2576,55 @@ function allgenomics(gohead,txtM1Date,selM1Reason,selRNA,txtM2aDate,selM2Reason,
 	}
 
 	//Step M2C
-	
+
 	if (selcRNAprotocol != 0) {
-			strBatch += "<Field Name='cRNA_Protocol'>" + selcRNAprotocol + "</Field>";
-		} else {
+		strBatch += "<Field Name='cRNA_Protocol'>" + selcRNAprotocol + "</Field>";
+	} else {
+		if (!isSplGC) {
+
 			alert('Please select cRNA Protocol.');
 			$("#selcRNAprotocol").focus();
-			gohead = false;
 		}
+		gohead = false;
+	}
 
 	if (M2dDate != "") {
 		strBatch += "<Field Name='M2d_act_Data_Posted_date'>" + M2dDate + "</Field>";
 	} else {
-		alert('Plese enter date.');
-		$("#M2dDate").focus();
+		if (!isSplGC) {
+			alert('Plese enter date.');
+			$("#M2dDate").focus();
+		}
 		gohead = false;
 	}
 
 	if (needReason && selM2dReason == 0) {
-		alert('Please select reason');
-		$("#selM2dReason").focus();
+		if (!isSplGC) {
+			alert('Please select reason');
+			$("#selM2dReason").focus();
+		}
 		gohead = false;
 	}
 
 	if (selM2dReason != 0) {
 		strBatch += "<Field Name='Reason_for_Delay_m2d'>" + selM2dReason + "</Field>";
 	}
-
 	return strBatch;
-	
 }
+
+
+
+
 //submit statistics
 function submitStatistics() {
-	debugger;
+	
 	var gohead = true;
 	var strBatch = "<Batch OnError='Continue' PreCalc='TRUE'>" +
 		"<Method ID='1' Cmd='Update'>";
 
 	var txtComments3b = CorrectStringAsSPData($('#txtComments3b').val());
-	//	debugger
-	if (GenomicUserId != getuserId(curUser) || isSplGC) {
+	
+	//if (GenomicUserId != getuserId(curUser) || isSplGC) {
 
 		if ($('#M3aDate').val() != "")
 			var M3aDate = SPdate($('#M3aDate').val());
@@ -2544,6 +2642,8 @@ function submitStatistics() {
 		var enableStage = "";
 		var eanableWF = "";
 
+	if(!isSplGC)
+	{	
 		switch (step) {
 
 		case STEPM2D:
@@ -2624,7 +2724,6 @@ function submitStatistics() {
 
 			if (sel3aReason != 0) {
 				strBatch += "<Field Name='Reason_for_Delay_m3a'>" + sel3aReason + "</Field>";
-				
 			}
 
 			if (M3bDate != "")
@@ -2647,31 +2746,147 @@ function submitStatistics() {
 
 			if (sel3bReason != 0) {
 				strBatch += "<Field Name='Reason_for_Delay_m3b'>" + sel3bReason + "</Field>";
-				
 			}
 			break;
-		}
-	} else {
-		strBatch += "<Field Name='Comments_m3b'>" + txtComments3b + "</Field>";
-	}
 
-	if (isSplGC == false) {
+		case STEPM4:
+
+			if (M3aDate != "") {
+				strBatch += "<Field Name='M3a_act_Initial_QC_completion_da'>" + M3aDate + "</Field>";
+			} else {
+				alert('Please select date.');
+				$("#M3aDate").focus();
+				gohead = false;
+				break;
+			}
+
+			if (needReason && sel3aReason == 0) {
+				alert('Please select reason');
+				$("#sel3aReason").focus();
+				gohead = false;
+				break;
+			}
+
+			if (sel3aReason != 0) {
+				strBatch += "<Field Name='Reason_for_Delay_m3a'>" + sel3aReason + "</Field>";
+			}
+
+			if (M3bDate != "")
+				strBatch += "<Field Name='M3b_act_Statistics_Report_Date'>" + M3bDate + "</Field>";
+			else {
+				alert('Please select date.');
+				$("#M3bDate").focus();
+				gohead = false;
+				break;
+			}
+
+			strBatch += "<Field Name='Comments_m3b'>" + txtComments3b + "</Field>";
+
+			if (needReason && sel3bReason == 0) {
+				alert('Please select reason');
+				$("#sel3bReason").focus();
+				gohead = false;
+				break;
+			}
+
+			if (sel3bReason != 0) {
+				strBatch += "<Field Name='Reason_for_Delay_m3b'>" + sel3bReason + "</Field>";
+			}
+			break;
+		} // switch end
+		
+	}// if END
+	
+	
+	if (step != STEPM4 && step != STEPM3B && isSplGC == false) {
 		strBatch += "<Field Name='enableStage'>" + enableStage + "</Field>" +
 		"<Field Name='EnableWF'>" + eanableWF + "</Field>";
+	} 
+	
+	else {
+		if (isSplGC) {
+		
+			//START SUPER USER
+		
+			if (M3aDate != "") {
+				strBatch += "<Field Name='M3a_act_Initial_QC_completion_da'>" + M3aDate + "</Field>";
+			} else {
+				//alert('Please select date.');
+				//$("#M3aDate").focus();
+				gohead = false;
+				//break;
+			}
+
+			if (needReason && sel3aReason == 0) {
+				alert('Please select reason');
+				$("#sel3aReason").focus();
+				gohead = false;
+				//break;
+			}
+
+			if (sel3aReason != 0) {
+				strBatch += "<Field Name='Reason_for_Delay_m3a'>" + sel3aReason + "</Field>";
+			}
+	
+	
+			if (M3bDate != "")
+				strBatch += "<Field Name='M3b_act_Statistics_Report_Date'>" + M3bDate + "</Field>";
+			else {
+				if (step != STEPM2D) {
+					alert('Please select date.');
+					$("#M3bDate").focus();
+					gohead = false;
+				}
+			}
+
+			strBatch += "<Field Name='Comments_m3b'>" + txtComments3b + "</Field>";
+
+		
+			if (needReason && sel3bReason == 0 && step != STEPM2D) {
+				alert('Please select reason');
+				$("#sel3bReason").focus();
+				gohead = false;
+			}
+
+			if (sel3bReason != 0) {
+				strBatch += "<Field Name='Reason_for_Delay_m3b'>" + sel3bReason + "</Field>";
+			}
+			
+			if (step == STEPM2D || step == STEPM3A) {
+				if (step == STEPM2D) {
+					enableStage = STEPM3A;
+					eanableWF = "9";
+				} else if (step == STEPM3A) {
+					enableStage = STEPM3B;
+					eanableWF = "10";
+				}
+
+				strBatch += "<Field Name='enableStage'>" + enableStage + "</Field>" +
+				"<Field Name='EnableWF'>" + eanableWF + "</Field>";
+
+				strBatch += "<Field Name='IsSuperUser'>0</Field>";
+			} else {
+				strBatch += "<Field Name='IsSuperUser'>1</Field>";
+			}
+		}
 	}
 
-	if (isSplGC)
-		strBatch += "<Field Name='IsSuperUser'>1</Field>";
-	strBatch += "<Field Name='ID'>" + itmid + "</Field>" +
-	"</Method>" +
-	"</Batch>";
 
+	//if (isSplGC) {
+		strBatch += "<Field Name='ID'>" + itmid + "</Field>" +
+		"</Method>" +
+		"</Batch>";
+	//}
+	
 	if (gohead) {
 		update(strBatch);
 		saveMileStone("div3");
 	}
 }
+
+
 function submitBioinfo() {
+
 	var gohead = true;
 
 	if ($('#M4Date').val() != "")
@@ -2729,6 +2944,7 @@ function submitBioinfo() {
 			deleteReminders(getIdarray(EscalationIDs), "ActualEscalations");
 	}
 }
+
 
 function getIdarray(ids) {
 	//var ids = "112##113##114##115##116##117##118##119##";
@@ -3228,7 +3444,19 @@ function today() {
 
 function DateComparison(date1, date2) {
 
+
+
+/* // it is shown wrong when year changed..
 	if (date1 < date2) {
+		return true;
+	} else {
+		return false;
+	}
+*/
+	
+	var begD = $.datepicker.parseDate('mm/dd/yy', date1);
+	var endD = $.datepicker.parseDate('mm/dd/yy', date2);
+	if (begD < endD) {
 		return true;
 	} else {
 		return false;
@@ -3539,16 +3767,213 @@ function reloadValidations() {
 function enableSPLGC() {
 
 	if (isSplGC) {
-		
-		/* the below two options from the "Top Study Information" tab. 
+
+		/* the below two options from the "Top Study Information" tab.
 		If we implement the code; it will create another study. Need to add update button spcially.*/
+
+		switch (step) {
+		case STEP1:
+			enableTopline();
+			enableStudyInformation();
+			break;
+
+		case STEP2:
+			enableTopline();
+			enableStudyInformation();
+			enableMileStones();
+			break;
+
+		case STEP3:
+			enableTopline();
+			enableStudyInformation();
+			enableMileStones();
+			
+			$('#txtM1Date').attr('disabled', false);
+			$('#selM1Reason').attr('disabled', false);
+			
+			$('#txtCommentsM2a').attr('disabled', false);
+			$('#txtCommentsM2a').attr('readonly', false);
+			
+			$('#btnBuGc').parent().parent().show();
+			$('#btnBuGc').show();
+					
+			$('#crnAttach').show();
+			$('#crnAttach').css('cursor','pointer');
+
+			$("#crnAttach").click(function () {
+				window.open('http://teamspace.pg.com/sites/genomics/Site Assets/Pages/AttachFile.aspx?SubFolder=BU', "mywindow", "width=700,height=500,top=200")
+			});
+
+			break;
+
+		case STEPM1:
+			enableTopline();
+			enableStudyInformation();
+			enableMileStones();
+			$('#txtM1Date').attr('disabled', false);
+			$('#selM1Reason').attr('disabled', false);
+			
+			$('#selRNA').attr('disabled', false);
+			$('#txtM2aDate').attr('disabled', false);
+			$('#selM2Reason').attr('disabled', false);
+			
+			$('#txtCommentsM2a').attr('disabled', false);
+			$('#txtCommentsM2a').attr('readonly', false);
+			
+			$('#btnBuGc').parent().parent().show();
+			$('#btnBuGc').show();
+					
+			$('#crnAttach').show();
+			$('#crnAttach').css('cursor','pointer');
+
+			$("#crnAttach").click(function () {
+				window.open('http://teamspace.pg.com/sites/genomics/Site Assets/Pages/AttachFile.aspx?SubFolder=BU', "mywindow", "width=700,height=500,top=200")
+			});
 		
+			break;
+
+		case STEPM2A:
+			enableTopline();
+			enableStudyInformation();
+			enableMileStones();
+			$('#txtM1Date').attr('disabled', false);
+			$('#selM1Reason').attr('disabled', false);
+			
+			$('#selRNA').attr('disabled', false);
+			$('#txtM2aDate').attr('disabled', false);
+			$('#selM2Reason').attr('disabled', false);
+			
+			$('#txtCommentsM2a').attr('disabled', false);
+			$('#txtCommentsM2a').attr('readonly', false);
+			
+			$('#selcRNAprotocol').attr('disabled', false);
+			$('#M2bDate').attr('disabled', false);
+			$('#selM2bReason').attr('disabled', false);
+			
+			$('#txtCommentsM2d').attr('disabled', false);
+			$('#txtCommentsM2d').attr('readonly', false);
+			
+			
+			$('#btnBuGc').parent().parent().show();
+			$('#btnBuGc').show();
+					
+			$('#crnAttach').show();
+			$('#crnAttach').css('cursor','pointer');
+
+			$("#crnAttach").click(function () {
+				window.open('http://teamspace.pg.com/sites/genomics/Site Assets/Pages/AttachFile.aspx?SubFolder=BU', "mywindow", "width=700,height=500,top=200")
+			});
+				
+			break;
+
+		case STEPM2B:
+			enableTopline();
+			enableStudyInformation();
+			enableMileStones();
+			$('#txtM1Date').attr('disabled', false);
+			$('#selM1Reason').attr('disabled', false);
+			
+			$('#selRNA').attr('disabled', false);
+			$('#txtM2aDate').attr('disabled', false);
+			$('#selM2Reason').attr('disabled', false);
+			
+			$('#txtCommentsM2a').attr('disabled', false);
+			$('#txtCommentsM2a').attr('readonly', false);
+			
+			$('#selcRNAprotocol').attr('disabled', false);
+			$('#M2bDate').attr('disabled', false);
+			$('#selM2bReason').attr('disabled', false);
+			
+			$('#M2cDate').attr('disabled', false);
+			$('#selM2cReason').attr('disabled', false);
+			
+			$('#txtCommentsM2d').attr('disabled', false);
+			$('#txtCommentsM2d').attr('readonly', false);
+			
+			
+			$('#btnBuGc').parent().parent().show();
+			$('#btnBuGc').show();
+					
+			$('#crnAttach').show();
+			$('#crnAttach').css('cursor','pointer');
+
+			$("#crnAttach").click(function () {
+				window.open('http://teamspace.pg.com/sites/genomics/Site Assets/Pages/AttachFile.aspx?SubFolder=BU', "mywindow", "width=700,height=500,top=200")
+			});
+		
+			break;
+
+		case STEPM2C:
+		
+			enableTopline();
+			enableStudyInformation();
+			enableMileStones();
+			enableGenomics();
+		
+			break;
+
+		case STEPM2D:
+			enableTopline();
+			enableStudyInformation();
+			enableMileStones();
+			enableGenomics();
+			
+			$('#M3aDate').attr('disabled', false);
+			$('#sel3aReason').attr('disabled', false);
+			
+			$('#txtComments3b').attr("disabled", false);
+			$('#txtComments3b').attr("readonly", false);
+			$('#btnStatistics').show();
+			
+			$('#StatisticsAttach').show();
+			$('#StatisticsAttach').css('cursor','pointer');
+			
+			$("#StatisticsAttach").click(function () {
+				window.open('http://teamspace.pg.com/sites/genomics/Site Assets/Pages/AttachFile.aspx?SubFolder=Statistics', "mywindow", "width=700,height=500,top=200")
+			});
+			
+			break;
+
+		case STEPM3A:
+			enableTopline();
+			enableStudyInformation();
+			enableMileStones();
+			enableGenomics();
+			enableStatistics();
+			break;
+
+		case STEPM3B:
+			enableTopline();
+			enableStudyInformation();
+			enableMileStones();
+			enableGenomics();
+			enableStatistics();
+			enableBioinformatics();
+			
+			break;
+
+		case STEPM4:
+			enableTopline();
+			enableStudyInformation();
+			enableMileStones();
+			enableGenomics();
+			enableStatistics();
+			enableBioinformatics();
+			break;
+		}
+	}
+}
+
+
+function enableTopline(){
 		$('#selPurpose').attr('disabled', false);
 		$('#txtQuestion').attr('disabled', false);
 		$('#txtQuestion').attr('readonly', false);
 		$('#reqStudy').show();
-		
-		/* Study Information */
+}
+
+function enableStudyInformation(){
+/* Study Information */
 		$('#ctl00_PlaceHolderMain_GCAnalyst_upLevelDiv').attr('disabled', false);		
 		$('#ctl00_PlaceHolderMain_statistics_upLevelDiv').attr('disabled', false);		
 		$('#ctl00_PlaceHolderMain_bolInfo_upLevelDiv').attr('disabled', false);		
@@ -3568,9 +3993,45 @@ function enableSPLGC() {
 		$('#txtOthers').attr('readonly', false);
 
 		$('#studyInfo').parent().parent().show();
-		$('#studyInfo').show();		
-				
-		/* Genomics tab */
+		$('#studyInfo').show();	
+		
+		$('#GCAttach').show();
+		
+		$("#GCAttach").click(function () {
+			window.open('http://teamspace.pg.com/sites/genomics/Site Assets/Pages/AttachFile.aspx?SubFolder=BU', "mywindow", "width=700,height=500,top=200")
+		});
+		
+		$('#BUAttach').show();
+		$('#BUAttach').css('cursor','pointer');
+			
+		$("#BUAttach").click(function () {
+			window.open('http://teamspace.pg.com/sites/genomics/Site Assets/Pages/AttachFile.aspx?SubFolder=BU', "mywindow", "width=700,height=500,top=200")
+		});
+}
+
+function enableMileStones(){
+
+		/* Milestones tab */
+		
+		$('#PlannedSmplDate').attr('disabled', false);
+		$('#rna2aDate').attr('disabled', false);
+		$('#crna2bDate').attr('disabled', false);
+		$('#chips2cDate').attr('disabled', false);
+		$('#dataPosted2dDate').attr('disabled', false);
+		$('#QC3aDate').attr('disabled', false);
+		$('#statistics3bDate').attr('disabled', false);
+		$('#bioInformatics4Date').attr('disabled', false);
+		$('#selOverStatus').attr('disabled', false);
+		
+		$('#chkDelay').attr('disabled', false);
+		$('#chkCancel').attr('disabled', false);
+		$('#btnMilestones').show();
+		
+		$('#selCancelReason').attr('disabled', false);
+}
+
+function enableGenomics(){
+/* Genomics tab */
 		$('#txtM1Date').attr('disabled', false);
 		$('#selRNA').attr('disabled', false);
 		$('#txtM2aDate').attr('disabled', false);
@@ -3588,11 +4049,21 @@ function enableSPLGC() {
 		$('#selM2dReason').attr('disabled', false);
 		$('#txtCommentsM2d').attr('disabled', false);
 		$('#txtCommentsM2d').attr('readonly', false);
-				
+		
 		$('#btnBuGc').parent().parent().show();
 		$('#btnBuGc').show();
-		
-		/* Statistics tab */
+					
+
+			$('#crnAttach').show();
+			$('#crnAttach').css('cursor','pointer');
+
+			$("#crnAttach").click(function () {
+				window.open('http://teamspace.pg.com/sites/genomics/Site Assets/Pages/AttachFile.aspx?SubFolder=BU', "mywindow", "width=700,height=500,top=200")
+			});
+}
+
+function enableStatistics(){
+/* Statistics tab */
 		
 		$('#M3aDate').attr('disabled', false);
 		$('#sel3aReason').attr('disabled', false);
@@ -3603,6 +4074,29 @@ function enableSPLGC() {
 		$('#txtComments3b').attr("readonly", false);
 		$('#btnStatistics').show();
 		
+		$('#StatisticsAttach').show();
+		$('#StatisticsAttach').css('cursor','pointer');
+		
+		$("#StatisticsAttach").click(function () {
+			window.open('http://teamspace.pg.com/sites/genomics/Site Assets/Pages/AttachFile.aspx?SubFolder=Statistics', "mywindow", "width=700,height=500,top=200")
+		});
+}
+
+function enableBioinformatics(){
 		/* Bio-Informatics tab */
-	}
+		
+		$('#M4Date').attr("disabled", false);
+		$('#sel4Reason').attr("disabled", false);
+		
+		$('#txtComments4').attr("disabled", false);
+		$('#txtComments4').attr("readonly", false);
+		
+		$('#btnBioInfo').show();		
+
+		$('#BioinformaticsAttach').show();
+		$('#BioinformaticsAttach').css('cursor','pointer');
+		
+		$("#BioinformaticsAttach").click(function () {
+			window.open('http://teamspace.pg.com/sites/genomics/Site Assets/Pages/AttachFile.aspx?SubFolder=Bioinformatics', "mywindow", "width=700,height=500,top=200")
+		});
 }
