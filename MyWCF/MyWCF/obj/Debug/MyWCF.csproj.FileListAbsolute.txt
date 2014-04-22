@@ -1,0 +1,5 @@
+c:\users\vijaybhaskar.c\documents\visual studio 2012\Projects\WCF\MyWCF\MyWCF\obj\Debug\MyWCF.csprojResolveAssemblyReference.cache
+c:\users\vijaybhaskar.c\documents\visual studio 2012\Projects\WCF\MyWCF\MyWCF\bin\MyWCF.dll
+c:\users\vijaybhaskar.c\documents\visual studio 2012\Projects\WCF\MyWCF\MyWCF\bin\MyWCF.pdb
+c:\users\vijaybhaskar.c\documents\visual studio 2012\Projects\WCF\MyWCF\MyWCF\obj\Debug\MyWCF.dll
+c:\users\vijaybhaskar.c\documents\visual studio 2012\Projects\WCF\MyWCF\MyWCF\obj\Debug\MyWCF.pdb

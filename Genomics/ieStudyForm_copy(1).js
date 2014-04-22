@@ -2613,7 +2613,7 @@ function allgenomics(gohead, txtM1Date, selM1Reason, selRNA, txtM2aDate, selM2Re
 
 //submit statistics
 function submitStatistics() {
-	debugger;
+	
 	var gohead = true;
 	var strBatch = "<Batch OnError='Continue' PreCalc='TRUE'>" +
 		"<Method ID='1' Cmd='Update'>";
@@ -2883,7 +2883,6 @@ function submitStatistics() {
 
 function submitBioinfo() {
 
-	debugger
 	var gohead = true;
 
 	if ($('#M4Date').val() != "")

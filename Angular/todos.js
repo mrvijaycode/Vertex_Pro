@@ -1,3 +1,5 @@
+
+// Angular custom JS file
 function TodoCtrl($scope) {
     $scope.totalTodos = 4;
     $scope.todos = [

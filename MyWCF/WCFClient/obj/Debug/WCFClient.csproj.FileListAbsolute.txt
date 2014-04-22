@@ -1,0 +1,9 @@
+c:\Users\vijaybhaskar.c\documents\visual studio 2012\Projects\WCF\MyWCF\WCFClient\obj\Debug\WCFClient.csprojResolveAssemblyReference.cache
+c:\Users\vijaybhaskar.c\documents\visual studio 2012\Projects\WCF\MyWCF\WCFClient\obj\Debug\WCFClient.Form1.resources
+c:\Users\vijaybhaskar.c\documents\visual studio 2012\Projects\WCF\MyWCF\WCFClient\obj\Debug\WCFClient.Properties.Resources.resources
+c:\Users\vijaybhaskar.c\documents\visual studio 2012\Projects\WCF\MyWCF\WCFClient\obj\Debug\WCFClient.csproj.GenerateResource.Cache
+c:\Users\vijaybhaskar.c\documents\visual studio 2012\Projects\WCF\MyWCF\WCFClient\bin\Debug\WCFClient.exe.config
+c:\Users\vijaybhaskar.c\documents\visual studio 2012\Projects\WCF\MyWCF\WCFClient\bin\Debug\WCFClient.exe
+c:\Users\vijaybhaskar.c\documents\visual studio 2012\Projects\WCF\MyWCF\WCFClient\bin\Debug\WCFClient.pdb
+c:\Users\vijaybhaskar.c\documents\visual studio 2012\Projects\WCF\MyWCF\WCFClient\obj\Debug\WCFClient.exe
+c:\Users\vijaybhaskar.c\documents\visual studio 2012\Projects\WCF\MyWCF\WCFClient\obj\Debug\WCFClient.pdb
