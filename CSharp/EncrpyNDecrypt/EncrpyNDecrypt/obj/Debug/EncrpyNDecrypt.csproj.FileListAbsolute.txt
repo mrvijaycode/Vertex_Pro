@@ -1,0 +1,9 @@
+D:\Repository\SkyDrive\Vertex\Vertex_Pro\CSharp\EncrpyNDecrypt\EncrpyNDecrypt\bin\Debug\EncrpyNDecrypt.exe.config
+D:\Repository\SkyDrive\Vertex\Vertex_Pro\CSharp\EncrpyNDecrypt\EncrpyNDecrypt\bin\Debug\EncrpyNDecrypt.exe
+D:\Repository\SkyDrive\Vertex\Vertex_Pro\CSharp\EncrpyNDecrypt\EncrpyNDecrypt\bin\Debug\EncrpyNDecrypt.pdb
+D:\Repository\SkyDrive\Vertex\Vertex_Pro\CSharp\EncrpyNDecrypt\EncrpyNDecrypt\obj\Debug\EncrpyNDecrypt.csprojResolveAssemblyReference.cache
+D:\Repository\SkyDrive\Vertex\Vertex_Pro\CSharp\EncrpyNDecrypt\EncrpyNDecrypt\obj\Debug\EncrpyNDecrypt.Form1.resources
+D:\Repository\SkyDrive\Vertex\Vertex_Pro\CSharp\EncrpyNDecrypt\EncrpyNDecrypt\obj\Debug\EncrpyNDecrypt.Properties.Resources.resources
+D:\Repository\SkyDrive\Vertex\Vertex_Pro\CSharp\EncrpyNDecrypt\EncrpyNDecrypt\obj\Debug\EncrpyNDecrypt.csproj.GenerateResource.Cache
+D:\Repository\SkyDrive\Vertex\Vertex_Pro\CSharp\EncrpyNDecrypt\EncrpyNDecrypt\obj\Debug\EncrpyNDecrypt.exe
+D:\Repository\SkyDrive\Vertex\Vertex_Pro\CSharp\EncrpyNDecrypt\EncrpyNDecrypt\obj\Debug\EncrpyNDecrypt.pdb
