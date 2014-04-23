@@ -1,0 +1,6 @@
+D:\Repository\SkyDrive\Vertex\Vertex_Pro\CSharp\EncryptConsole\EncryptConsole\bin\Debug\EncryptConsole.exe.config
+D:\Repository\SkyDrive\Vertex\Vertex_Pro\CSharp\EncryptConsole\EncryptConsole\bin\Debug\EncryptConsole.exe
+D:\Repository\SkyDrive\Vertex\Vertex_Pro\CSharp\EncryptConsole\EncryptConsole\bin\Debug\EncryptConsole.pdb
+D:\Repository\SkyDrive\Vertex\Vertex_Pro\CSharp\EncryptConsole\EncryptConsole\obj\Debug\EncryptConsole.csprojResolveAssemblyReference.cache
+D:\Repository\SkyDrive\Vertex\Vertex_Pro\CSharp\EncryptConsole\EncryptConsole\obj\Debug\EncryptConsole.exe
+D:\Repository\SkyDrive\Vertex\Vertex_Pro\CSharp\EncryptConsole\EncryptConsole\obj\Debug\EncryptConsole.pdb

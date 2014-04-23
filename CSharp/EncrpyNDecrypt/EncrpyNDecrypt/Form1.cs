@@ -18,6 +18,7 @@ namespace EncrpyNDecrypt
             InitializeComponent();
         }
 
+        //RSA Algorithm With C#
         //Encription method
         static public byte[] Encryption(byte[] Data, RSAParameters RSAKey, bool DoOAEPPadding)
         {
@@ -62,7 +63,7 @@ namespace EncrpyNDecrypt
         private void btnEcnrypt_Click(object sender, EventArgs e)
         {
             plaintext = ByteConverter.GetBytes(txtPlain.Text);
-            encryptedtext = Encryption(plaintext, RSA.ExportParameters(false), false);
+            encryptedtext = Encryption(plaintext, RSA.ExportParameters(true), false);
             txtEncrypt.Text = ByteConverter.GetString(encryptedtext);
         }
 
